@@ -1,6 +1,6 @@
 CARLA Simulator
 ===============
-
+这个是CARLA中文翻译版本，能力有限，所以翻译缓慢，欢迎大家假如我，跟我一起翻译
 [![Build Status](https://travis-ci.org/carla-simulator/carla.svg?branch=master)](https://travis-ci.org/carla-simulator/carla)
 [![Documentation](https://readthedocs.org/projects/carla/badge/?version=latest)](http://carla.readthedocs.io)
 
