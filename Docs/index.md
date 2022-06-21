@@ -1,15 +1,16 @@
 # CARLA文档
 
 欢迎浏览CARLA文档.
-这个是文档的翻译版本，欢迎大家跟我一起翻译这个文档
+
+这个是[CARLA文档](https://carla.readthedocs.io/)的中文翻译版本，欢迎大家跟我一起翻译这个文档
 
 这个主页包含一个索引，其中包含文档中不同部分的简要描述。你可以随意按照自己喜欢的顺序阅读。但是无论如何，这里有一些对新人的建议.
 
-* __Install CARLA.__ 要么遵循[快速启动安装](start_quickstart.md)来获得CARLA发布，要么遵循[构建](build_linux.md)来获得所需平台.
-* __Start using CARLA.__ The section titled [First steps](core_concepts.md) is an introduction to the most important concepts.
-* __Check the API.__ there is a handy [Python API reference](python_api.md) to look up the classes and methods available.
+* __安装 CARLA.__ 要么遵循[快速启动安装](start_quickstart.md)来获得CARLA发布，要么遵循[构建](build_linux.md)来获得所需平台.
+* __使用 CARLA.__ 标题为[第一步](core_concepts.md)的章节介绍了最重要的概念.
+* __查看 API.__ 有一个方便的[Python API参考](python_api.md)来查找可用的类和方法.
 
-The CARLA forum is available to post any doubts or suggestions that may arise during the reading.
+在阅读过程中，您可以在CARLA论坛上提出任何疑问或建议.
 <div class="build-buttons">
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the latest CARLA release">
 CARLA forum</a>
@@ -17,8 +18,8 @@ CARLA forum</a>
 
 <br>
 
-!!! Warning
-    __Change the docs version to fit the CARLA version you are using__. Use the panel in the bottom-right side of this window to change to previous versions. __The _Latest_ version points to documentation in the `dev` branch__ which may refer to features currently in development and __not available__ in any packaged version of CARLA, as well general documentation improvements. ![docs_version_panel](img/docs_version_panel.jpg)
+!!! 警告
+    __更改文档版本以适应您正在使用的CARLA版本__. 使用此窗口右下方的面板可以更改为以前的版本. _最新版本_指向`dev`分支中的文档，可能涉及当前正在开发且在任何 CARLA 打包版本中_不可用_的功能，以及一般文档改进 ![docs_version_panel](img/docs_version_panel.jpg)
 
 ---
 
