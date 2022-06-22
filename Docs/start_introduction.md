@@ -6,37 +6,43 @@
     This document refers to the latest version of CARLA. For documentation of previous versions, select the required version in the bottom right hand corner where you see this button: ![docs_version_panel](img/docs_version_panel.jpg)
 
 
-CARLA is an open-source autonomous driving simulator. It was built from scratch to serve as a modular and flexible API to address a range of tasks involved in the problem of autonomous driving. One of the main goals of CARLA is to help democratize autonomous driving R&D, serving as a tool that can be easily accessed and customized by users. To do so, the simulator has to meet the requirements of different use cases within the general problem of driving (e.g. learning driving policies, training perception algorithms, etc.). CARLA is grounded on Unreal Engine to run the simulation and uses the OpenDRIVE standard (1.4 as today) to define roads and urban settings. Control over the simulation is granted through an API handled in Python and C++ that is constantly growing as the project does.    
-  
-In order to smooth the process of developing, training and validating driving systems, CARLA evolved to become an ecosystem of projects, built around the main platform by the community. In this context, it is important to understand some things about how does CARLA work, so as to fully comprehend its capabilities.
 
----
-## The simulator
+CARLA
+=====
 
-The CARLA simulator consists of a scalable client-server architecture.  
-The server is responsible for everything related with the simulation itself: sensor rendering, computation of physics, updates on the world-state and its actors and much more. As it aims for realistic results, the best fit would be running the server with a dedicated GPU, especially when dealing with machine learning.  
-The client side consists of a sum of client modules controlling the logic of actors on scene and setting world conditions. This is achieved by leveraging the CARLA API (in Python or C++), a layer that mediates between server and client that is constantly evolving to provide new functionalities.
+![Welcome to CARLA](/img/welcome.png)
 
-![CARLA Modules](img/carla_modules.png)
+CARLA 是一个开源的自动驾驶模拟器。 它是从底层开始构建的，用作模块化和灵活的 API，以解决涉及自动驾驶问题的一系列任务。 CARLA 的主要目标之一是帮助实现自动驾驶研发的简易化，成为用户可以轻松访问和定制的工具。 为此，模拟器必须满足一般驾驶问题中不同用例的要求（例如学习驾驶策略、训练感知算法等）。 CARLA 基于虚幻引擎运行模拟，并使用 OpenDRIVE 标准（目前为 1.4）来定义道路和城市环境。 通过使用 Python 和 C++ 处理的 API 授予对模拟的控制权，该 API 会随着项目的不断发展而不断增长。
 
-That summarizes the basic structure of the simulator. Understanding CARLA though is much more than that, as many different features and elements coexist within it. Some of these are listed hereunder, as to gain perspective on the capabilities of what CARLA can achieve. 
+为了使开发、培训和验证驾驶系统的过程顺利进行，CARLA 发展成为一个由开源社区围绕主平台构建的项目生态系统（就如同Carla中文站一样成为开源交流的平台）。 在这种情况下，了解CARLA是如何工作的一些事情是很重要的，这样才能充分理解它的能力。
 
-* __Traffic manager.__ A built-in system that takes control of the vehicles besides the one used for learning. It acts as a conductor provided by CARLA to recreate urban-like environments with realistic behaviours.  
-* __Sensors.__ Vehicles rely on them to dispense information of their surroundings. In CARLA they are a specific kind of actor attached the vehicle and the data they receive can be retrieved and stored to ease the process. Currently the project supports different types of these, from cameras to radars, lidar and many more.  
-* __Recorder.__ This feature is used to reenact a simulation step by step for every actor in the world. It grants access to any moment in the timeline anywhere in the world, making for a great tracing tool.  
-* __ROS bridge and Autoware implementation.__ As a matter of universalization, the CARLA project ties knots and works for the integration of the simulator within other learning environments.  
-* __Open assets.__ CARLA facilitates different maps for urban settings with control over weather conditions and a blueprint library with a wide set of actors to be used. However, these elements can be customized and new can be generated following simple guidelines.  
-* __Scenario runner.__ In order to ease the learning process for vehicles, CARLA provides a series of routes describing different situations to iterate on. These also set the basis for the [CARLA challenge](https://carlachallenge.org/), open for everybody to test their solutions and make it to the leaderboard.  
+The simulator
+-------------
 
----
-## The project
+CARLA 模拟器由一个可扩展的客户端-服务器架构组成。 服务器负责与模拟本身相关的所有事情：传感器渲染、物理计算、世界状态及其参与者的更新等等。 由于它旨在获得真实的结果，因此最适合使用专用 GPU 运行服务器，尤其是在处理机器学习时。 客户端由一组客户端模块组成，这些模块控制场景中演员的逻辑并设置世界条件。 这是通过利用 CARLA API（在 Python 或 C++ 中）实现的，这是一个在服务器和客户端之间进行调解的层，它不断发展以提供新的功能。
 
-CARLA grows fast and steady, widening the range of solutions provided and opening the way for the different approaches to autonomous driving. It does so while never forgetting its open-source nature. The project is transparent, acting as a white box where anybody is granted access to the tools and the development community. In that democratization is where CARLA finds its value.  
-Talking about how CARLA grows means talking about a community of developers who dive together into the thorough question of autonomous driving. Everybody is free to explore with CARLA, find their own solutions and then share their achievements with the rest of the community.  
-  
-This documentation will be a companion along the way. The next page contains __[Quick start](start_quickstart.md)__ instructions for those eager to install a CARLA release. There is also a build guide for Linux and Windows. This will make CARLA from repository and allow to dive full-length into its features.  
+![CARLA Modules](/img/carla_modules.png)
 
-Welcome to CARLA.  
+这总结了模拟器的基本结构。 了解 CARLA 远不止于此，因为其中存在许多不同的功能和元素。 下面列出了其中一些，以便于大家了解 CARLA 可以实现的功能。
+
+**Traffic manager** 一种内置系统，除了用于学习的车辆外，还可以控制车辆。它充当 CARLA 提供的指挥器，以逼真的行为再现类似城市的环境。
+
+**Sensors** 车辆依靠它们来分发周围环境的信息。在 CARLA 中，它们是附加在车辆上的特定类型的参与者，可以检索和存储它们接收到的数据以简化流程。目前，该项目支持不同类型的这些，从摄像头到雷达、激光雷达等等。
+
+**Recorder** 此功能用于为虚拟世界中的每个要素逐步重演模拟。它允许访问世界任何地方的时间轴中的任何时刻，是一个很棒的追踪工具。
+
+**ROS bridge and Autoware implementation** CARLA 项目打结并致力于将模拟器集成到其他学习环境中。
+
+**Open Assets** CARLA 通过对天气条件的控制和一个包含大量参与者的蓝图库，为城市环境提供了不同的地图。但是，这些元素可以定制，并且可以按照简单的指南生成新元素。
+
+**Scenario runner**为了简化车辆的学习过程，CARLA 提供了一系列描述不同情况的路线进行迭代。这些也为 CARLA 挑战赛奠定了基础，每个人都可以测试他们的解决方案并进入排行榜。
+
+The project
+-----------
+
+CARLA 快速而稳定地发展，扩大了提供的解决方案范围，并为自动驾驶的不同方法开辟了道路。 它这样做的同时永远不会忘记其开源性质。 该项目是透明的，就像一个白盒子，任何人都可以访问工具和开发社区。 在简易化中，CARLA 发现了它的价值。 谈论 CARLA 如何成长意味着谈论一个开发者社区，他们一起深入研究自动驾驶的彻底问题。 每个人都可以自由地与 CARLA 一起探索，找到自己的解决方案，然后与社区的其他人分享他们的成就。 这份文档将是一路走来的伴侣。 下一页包含为渴望安装 CARLA 版本的用户提供的快速入门说明。 还有适用于 Linux 和 Windows 的构建指南。 这将使 CARLA 从存储库中生成，并允许深入了解其功能。
+
+欢迎来到CARLA.  
 
 <div class="build-buttons">
 <p>
