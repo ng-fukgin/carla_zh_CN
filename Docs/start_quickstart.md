@@ -1,9 +1,9 @@
 # Quick start package installation
 
-This guide shows how to download and install the packaged version of CARLA. The package includes the CARLA server and two options for the client library. There are additional assets that can be downloaded and imported into the package. Advanced customization and development options that require use of the Unreal Engine editor are not available but these can be accessed by using the build version of CARLA for either [Windows](build_windows.md) or [Linux](build_linux.md).
+本指南介绍如何下载和安装 CARLA 的打包版本。 该软件包包括 CARLA 服务器和两个用于客户端library的选项。 还有其他可以下载并导入到package中的assets。 需要禁用虚幻引擎编辑器的高级自定义和开发选项，但可以通过使用 [Windows](build_windows.md) 或 [Linux](build_linux.md) 的 CARLA 构建版本来访问这些选项。
 
-* __[Before you begin](#before-you-begin)__  
-* __[CARLA installation](#carla-installation)__  
+* __[开始安装前的准备](#开始安装前的准备)__  
+* __[CARLA 安装](#carla-installation)__  
 	* [A. Debian CARLA installation](#a-debian-carla-installation)  
 	* [B. Package installation](#b-package-installation)  
 * __[Import additional assets](#import-additional-assets)__  
