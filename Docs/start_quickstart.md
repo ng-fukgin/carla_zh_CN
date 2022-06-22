@@ -4,8 +4,8 @@
 
 * __[开始安装前的准备](#开始安装前的准备)__  
 * __[CARLA 安装](#CARLA 安装)__  
-	* [A. Debian CARLA 安装](#Debian CARLA 安装)  
-	* [B. Package 安装](#Package 安装)  
+	* [A. Debian CARLA 安装](#a-debian-carla-安装)  
+	* [B. Package 安装](#a-package-安装)  
 * __[导入其他资源素材](#导入其他资源素材])__  
 * __[安装客户端库](#安装客户端库)__
     * [0.9.12 之前的 CARLA 版本](#0912-之前的-carla-版本)
