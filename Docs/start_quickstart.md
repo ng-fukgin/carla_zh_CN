@@ -15,7 +15,7 @@
 * __[Updating CARLA](#updating-carla)__    
 * __[Follow-up](#follow-up)__ 
 ---
-## Before you begin
+## 开始安装前的准备
 
 The following requirements should be fulfilled before installing CARLA:
 
