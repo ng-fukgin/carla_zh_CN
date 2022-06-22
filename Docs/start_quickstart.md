@@ -108,7 +108,7 @@ __2.__ 安装 CARLA 并检查 在`/opt/` 文件夹中的安装:
 每个发布的版本都有它额外的资源和地图包。这些额外的资源包包含 __Town06__, __Town07__ 和__Town10__的地图。这些单独存储以减少构建的大小，因此只能在安装主包后导入。
 
 
-__1.__ [[下载](https://github.com/carla-simulator/carla/blob/master/Docs/download.md) 合适您版本的Carla版本
+__1.__ [下载](https://github.com/carla-simulator/carla/blob/master/Docs/download.md) 合适您版本的Carla版本
 
 __2.__ 解压包 :
 
