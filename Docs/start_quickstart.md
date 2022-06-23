@@ -248,7 +248,7 @@ __2.__ 解压包 :
 
 脚本[`PythonAPI/util/config.py`](https://github.com/carla-simulator/carla/blob/master/PythonAPI/util/config.py) 提供了更多配置选项，应该在服务器启动时运行：
 
-[config]: https://github.com/carla-simulator/carla/blob/master/PythonAPI/util/config.py
+[config]: https://github.com/ng-fukgin/carla_zh_CN/blob/master/PythonAPI/util/config.py
 
 ```sh
     ./config.py --no-rendering      # Disable rendering
