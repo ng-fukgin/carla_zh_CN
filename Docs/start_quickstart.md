@@ -5,7 +5,7 @@
 * __[开始安装前的准备](#开始安装前的准备)__  
 * __[CARLA 安装](#carla-安装)__  
 	* [A. Debian CARLA 安装](#a-debian-carla-安装)  
-	* [B. Package 安装](#a-package-安装)  
+	* [B. Package 安装](#b-package-安装)  
 * __[导入其他资源素材](#导入其他资源素材])__  
 * __[安装客户端库](#安装客户端库)__
     * [0.9.12 之前的 CARLA 版本](#0912-之前的-carla-版本)
@@ -60,9 +60,9 @@ pip3 install --user pygame numpy
 
 有两种方法可以将 CARLA 作为package下载和安装 :
 
-__A)__ [Debian CARLA 安装.](#A. Debian CARLA 安装)
+__A)__ [Debian CARLA 安装.](#a-debian-carla-安装)
 
-__B)__ [ 从 GitHub 下载.](#B. Package 安装) 
+__B)__ [ 从 GitHub 下载.](#b-package-安装) 
 
 ### A. Debian CARLA 安装
 
