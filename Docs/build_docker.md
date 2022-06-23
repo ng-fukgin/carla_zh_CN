@@ -8,12 +8,12 @@
 
 本教程解释了运行 CARLA 图像的要求以及如何使用 OpenGL 和 Vulkan 图形 APIs 运行图像.
 
-- [__在你开始之前__](#before-you-begin)
-- [__在容器中运行CARLA__](#running-carla-in-a-container)
-- [__离屏模式__](#off-screen-mode)
+- [__在你开始之前__](#_1)
+- [__在容器中运行CARLA__](#carla)
+- [__离屏模式__](#_2)
 
 ---
-## Before you begin
+## 在你开始之前
 
 你需要安装以下环境:
 
