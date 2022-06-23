@@ -98,7 +98,7 @@ __2.__ 安装 CARLA 并检查 在`/opt/` 文件夹中的安装:
 <span class="icon icon-github"></span> CARLA repository</a>
 </p>
 </div>
-此存储库包含不同版本的 CARLA。 您将找到选项来下载包含所有最新修复和功能的__当前版本__、__以前的版本__以及包含所有开发修复和功能的__夜间__构建（夜间构建是 CARLA 最不稳定的版本）。 该包是一个名为 CARLA\_version.number 的压缩文件。 下载并解压发布文件。 它包含模拟器的预编译版本、Python API 模块和一些用作示例的脚本。
+此存储库包含不同版本的 CARLA。 您将找到选项来下载包含所有最新修复和功能的 __当前版本__ 、 __以前的版本__ 以及包含所有开发修复和功能的 __夜间__ 构建（夜间构建是 CARLA 最不稳定的版本）。 该包是一个名为 CARLA\_version.number 的压缩文件。 下载并解压发布文件。 它包含模拟器的预编译版本、Python API 模块和一些用作示例的脚本。
 
 该包是一个名为__CARLA_version.number__的压缩文件。下载并解压发布文件。它包含模拟器的预编译版本、Python API 模块和一些用作示例的脚本。
 
@@ -159,7 +159,7 @@ Read more below about the requirements and limitations of each method before dec
 
 >>__建议在虚拟环境中安装 CARLA 客户端库，以避免在使用多个版本时发生冲突.__
 
->>从 PyPi 安装客户端库，请运行以下命令,选择适合您所需 Python 版本的文件。您将需要__pip/pip3__20.3版本 或更高版本。有关如何检查版本和升级__pip/pip3__的信息，请参阅[开始安装前的准备](#开始安装前的准备)部分 :
+>>从 PyPi 安装客户端库，请运行以下命令,选择适合您所需 Python 版本的文件。您将需要 __pip/pip3__ 20.3版本 或更高版本。有关如何检查版本和升级 __pip/pip3__ 的信息，请参阅[开始安装前的准备](#开始安装前的准备)部分 :
 
 >>      # Python 3
 >>      pip3 install <wheel-file-name>.whl 
@@ -183,7 +183,7 @@ Read more below about the requirements and limitations of each method before dec
 >>      # Python 2
 >>      pip install carla
 
->>PyPi 下载仅适用于 CARLA 包（即，不适用于从源代码构建的版本）。 由于 PyPi 下载__仅包含客户端库__，因此它在您将与远程 CARLA 服务器通信且不需要下载完整 CARLA 包的情况下最有用.
+>>PyPi 下载仅适用于 CARLA 包（即，不适用于从源代码构建的版本）。 由于 PyPi 下载 __仅包含客户端库__ ，因此它在您将与远程 CARLA 服务器通信且不需要下载完整 CARLA 包的情况下最有用.
 
 ---
 ## 运行CARLA
