@@ -1,5 +1,4 @@
 # Quick start package installation
-test 
 
 本指南介绍如何下载和安装 CARLA 的打包版本。 该软件包包括 CARLA 服务器和两个用于客户端库的选项。 还有其他可以下载并导入到package中的资源素材。 需要禁用虚幻引擎编辑器的高级自定义和开发选项，但可以通过使用 [Windows](build_windows.md) 或 [Linux](build_linux.md) 的 CARLA 构建版本来访问这些选项。
 
