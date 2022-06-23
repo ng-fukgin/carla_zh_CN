@@ -1,5 +1,5 @@
 site_name: CARLA Simulator
-repo_url: https://github.com/ng-fukgin/carla
+repo_url: https://github.com/ng-fukgin/carla_zh_CN
 docs_dir: Docs
 edit_uri: 'edit/master/Docs/'
 theme: readthedocs
