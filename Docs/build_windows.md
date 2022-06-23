@@ -7,27 +7,27 @@
 
 如果您遇到错误或困难，请查看 **[常见问题](build_faq.md)** 解答页面，该页面为最常见的问题提供解决方案。或者，使用[CARLA forum](https://github.com/carla-simulator/carla/discussions)发布您可能有的任何疑问. 
 
-- [__Part One: 构建之前的准备__](#part-one-prerequisites)
-    - [系统要求](#system-requirements)
-    - [软件要求](#software-requirements)
-        - [次要安装](#minor-installations)
-        - [Python 依赖项](#python-dependencies)
+- [__Part One: 构建之前的准备__](#part-one)
+    - [系统要求](#_1)
+    - [软件要求](#_2)
+        - [次要安装](#_3)
+        - [Python 依赖项](#python)
         - [主要安装](#major-installations)
             - [Visual Studio 2019](#visual-studio-2019)
-            - [Unreal Engine](#unreal-engine)
-- [__Part Two: 构建CARLA__](#part-two-build-carla)
-    - [克隆 CARLA 存储库](#clone-the-carla-repository)
-    - [ 获得资产](#get-assets)
-    - [设置虚幻引擎环境变量](#set-unreal-engine-environment-variable)
-    - [构建CARLA](#build-carla)
-    - [ 其他 make 命令](#other-make-commands)
+            - [Unreal Engine](#_4)
+- [__Part Two: 构建CARLA__](#part-two)
+    - [克隆 CARLA 存储库](#carla)
+    - [ 获得资产](#_5)
+    - [设置虚幻引擎环境变量](#_6)
+    - [构建CARLA](#carla_1)
+    - [ 其他 make 命令](#make)
 
 
 ---
 ## Part One: 构建之前的准备
 
 在本节中，您将找到开始构建 CARLA 之前所需的系统要求、次要和主要软件安装以及 Python 依赖项的详细信息。. 
-### 系统要求s
+### 系统要求
 
 * __x64 系统.__ Carla模拟器可以在任何 64 位 Windows 系统中运行.  
 * __165 GB 磁盘空间.__ CARLA 本身大约需要 32 GB，相关的主要软件安装（包括虚幻引擎）大约需要 133 GB.
