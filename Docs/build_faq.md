@@ -1,6 +1,7 @@
 # F.A.Q.
 
-Some of the most common issues regarding CARLA installation and builds are listed here. Some more can be found in the [GitHub issues](https://github.com/carla-simulator/carla/issues?utf8=%E2%9C%93&q=label%3Aquestion+) for the project. In case you don't find your doubt listed here, have a look in the forum and feel free to ask there.
+此处列出了有关 CARLA 安装和构建的一些最常见问题。更多内容可以在项目的[GitHub issues](https://github.com/carla-simulator/carla/issues?utf8=%E2%9C%93&q=label%3Aquestion+) 中找到。如果您没有在找到您的疑问，请查看论坛并随时在那里提问
+
 
 <div class="build-buttons">
 <p>
@@ -11,54 +12,54 @@ CARLA forum</a>
 
 ---
 
-## System requirements
+## 系统要求
 
-* [Expected disk space to build CARLA.](#expected-disk-space-to-build-carla)
-* [Recommended hardware to run CARLA.](#recommended-hardware-to-run-carla)
-
----
-
-## Linux build
-
-* ["CarlaUE4.sh" script does not appear when downloading from GitHub.](#carlaue4sh-script-does-not-appear-when-downloading-from-github)
-* ["make launch" is not working on Linux.](#make-launch-is-not-working-on-linux)
-* [Cloning the Unreal Engine repository shows an error.](#cloning-the-unreal-engine-repository-shows-an-error)
-* [AttributeError: module 'carla' has no attribute 'Client' when running a script.](#attributeerror-module-carla-has-no-attribute-client-when-running-a-script)
-* [Cannot run example scripts or "RuntimeError: rpc::rpc_error during call in function version".](#cannot-run-example-scripts-or-runtimeerror-rpcrpc_error-during-call-in-function-version)
+* [构建 CARLA 的预期磁盘空间.](#_1)
+* [运行 CARLA 的推荐硬件.](#_2)
 
 ---
 
-## Windows build
+## Linux 构建
 
-* ["CarlaUE4.exe" does not appear when downloading from GitHub.](#carlaue4exe-does-not-appear-when-downloading-from-github)
-* [CarlaUE4 could not be compiled. Try rebuilding it from source manually.](#carlaue4-could-not-be-compiled-try-rebuilding-it-from-source-manually)
-* [CMake error shows even though CMake is properly installed.](#cmake-error-shows-even-though-cmake-is-properly-installed)
+* [从 GitHub 下载时没有出现"CarlaUE4.sh"脚本.](#carlaue4sh-script-does-not-appear-when-downloading-from-github)
+* ["make launch"在 Linux 上不起作用.](#make-launch-is-not-working-on-linux)
+* [克隆虚幻引擎存储库显示错误.](#cloning-the-unreal-engine-repository-shows-an-error)
+* [运行脚本时:AttributeError: module 'carla' has no attribute 'Client' ](#attributeerror-module-carla-has-no-attribute-client-when-running-a-script)
+* [无法运行示例脚本或“RuntimeError: rpc::rpc_error during call in function version”。](#cannot-run-example-scripts-or-runtimeerror-rpcrpc_error-during-call-in-function-version)
+
+---
+
+## Windows 构建
+
+* [从 GitHub 下载时没有出现"CarlaUE4.exe".](#carlaue4exe-does-not-appear-when-downloading-from-github)
+* [CarlaUE4 无法编译,尝试手动从源代码重建它。](#carlaue4-could-not-be-compiled-try-rebuilding-it-from-source-manually)
+* [即使正确安装了 CMake，也会显示 CMake 错误.](#cmake-error-shows-even-though-cmake-is-properly-installed)
 * [Error C2440, C2672: compiler version.](#error-c2440-c2672-compiler-version)
-* ["make launch" is not working on Windows.](#make-launch-is-not-working-on-windows)
-* [Make is missing libintl3.dll or/and libiconv2.dll.](#make-is-missing-libintl3dll-orand-libiconv2dll)
-* [Modules are missing or built with a different engine version.](#modules-are-missing-or-built-with-a-different-engine-version)
-* [There is no `dist` folder in `PythonAPI/carla` despite a successful output message.](#there-is-no-dist-folder-in-pythonapicarla-despite-a-successful-output-message)
+* ["make launch" 在 Windows 上不起作用.](#make-launch-is-not-working-on-windows)
+* [Make 缺少 libintl3.dll 或/和 libiconv2.dll.](#make-is-missing-libintl3dll-orand-libiconv2dll)
+* [模块丢失或使用不同的引擎版本构建.](#modules-are-missing-or-built-with-a-different-engine-version)
+* [尽管输出消息成功，`PythonAPI/carla`中没有`dist`文件夹](#there-is-no-dist-folder-in-pythonapicarla-despite-a-successful-output-message)
 
 ---
 
-## Running Carla
+## 运行 Carla
 
-* [Low FPS rate when running the server in Unreal Editor.](#low-fps-rate-when-running-the-server-in-unreal-editor)
-* [Can't run a script.](#cant-run-a-script)
-* [Connect to the simulator while running within Unreal Editor.](#connect-to-the-simulator-while-running-within-unreal-editor)
-* [Can't run CARLA neither binary nor source build.](#cant-run-carla-neither-binary-nor-source-build)
+* [在虚幻编辑器中运行服务器时 FPS 速率低.](#low-fps-rate-when-running-the-server-in-unreal-editor)
+* [无法运行脚本.](#cant-run-a-script)
+* [在虚幻编辑器中运行时连接到模拟器.](#connect-to-the-simulator-while-running-within-unreal-editor)
+* [无法运行 CARLA 二进制文件和源代码构建.](#cant-run-carla-neither-binary-nor-source-build)
 * [ImportError: DLL load failed: The specified module could not be found.](#importerror-dll-load-failed-the-specified-module-could-not-be-found)
 * [ImportError: DLL load failed while importing libcarla: %1 is not a valid Win32 app.](#importerror-dll-load-failed-while-importing-libcarla-1-is-not-a-valid-win32-app)
 * [ImportError: No module named 'carla'](#importerror-no-module-named-carla)
 
 ---
 
-## Other
+## 其他
 
 * [Fatal error: 'version.h' has been modified since the precompiled header.](#fatal-error-versionh-has-been-modified-since-the-precompiled-header)
-* [Create a binary version of CARLA.](#create-a-binary-version-of-carla)
-* [Can I package CARLA for Windows on a Linux machine and vice versa?](#can-i-package-carla-for-windows-on-a-linux-machine-and-vice-versa)
-* [How do I uninstall the CARLA client library?](#how-do-i-uninstall-the-carla-client-library)
+* [创建 CARLA 的二进制版本.](#create-a-binary-version-of-carla)
+* [我可以在 Linux 机器上打包 CARLA for Windows 吗？反之亦然？](#can-i-package-carla-for-windows-on-a-linux-machine-and-vice-versa)
+* [如何卸载 CARLA 客户端库？](#how-do-i-uninstall-the-carla-client-library)
 
 ---
 
