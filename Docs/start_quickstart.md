@@ -142,7 +142,7 @@ __2.__ 解压包 :
 - __.egg__ file
 - __.whl__ file
 - __下载Python安装包__
-在决定使用哪种方法之前，请阅读以下有关每种方法的要求和限制的更多信息。 请注意，混合使用不同的方法可能会导致不兼容，因此请尽可能使用虚拟环境，或者在使用新的库之前[载以前安装的库](build_faq.md#how-do-i-uninstall-the-carla-client-library)
+在决定使用哪种方法之前，请阅读以下有关每种方法的要求和限制的更多信息。 请注意，混合使用不同的方法可能会导致不兼容，因此请尽可能使用虚拟环境，或者在使用新的库之前[卸载以前安装的库](build_faq.md#carla_6)
 
 
 >__A. .egg files__
@@ -150,7 +150,7 @@ __2.__ 解压包 :
 
 >>CARLA 提供 `.egg` 文件在 `PythonAPI/carla/dist/` 用于不同的Python 版本。 `PythonAPI/examples` 中的每个示例脚本都包含一个自动查找此文件的[代码片段](build_system.md#versions-prior-to-0912)。 在 Linux 中，您可能需要将此文件添加到您的 PYTHONPATH. 在[此处](build_faq.md#importerror-no-module-named-carla).阅读有关CARLA `.egg`文件的更多信息.
 
->>__如果您之前使用 pip 安装了客户端库，则这将优先于 .`.egg` 文件__. 您需要先[卸载](build_faq.md#how-do-i-uninstall-the-carla-client-library)以前的库 .
+>>__如果您之前使用 pip 安装了客户端库，则这将优先于 `.egg` 文件__. 您需要先[卸载](build_faq.md#carla_6)以前的库 .
 
 >__B. .whl files__
 
