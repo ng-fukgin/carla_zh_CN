@@ -278,8 +278,8 @@ pip uninstall carla
 
 至此，您应该已经启动并运行了 CARLA 的打包版本。 如果您在安装过程中遇到任何困难，请随时在 [CARLA forum](https://github.com/carla-simulator/carla/discussions/) 或[Discord](https://discord.gg/8kqACuC) Discord频道发帖.
 
-下一步是更多地了解 CARLA 的核心概念。阅读__第一步__部分开始学习。您还可以在Python API 参考中找到有关 Python API 类和方法的所有信息。
-The next step is to learn more about the core concepts in CARLA. Read the __First steps__ section to start learning. You can also find all the information about the Python API classes and methods in the [Python API reference](python_api.md).
+下一步是更多地了解 CARLA 的核心概念。阅读__第一步__部分开始学习。您还可以在Python API 参考中找到有关 [Python API](python_api.md) 类和方法的所有信息。
+
 
 <div class="build-buttons">
 <p>
