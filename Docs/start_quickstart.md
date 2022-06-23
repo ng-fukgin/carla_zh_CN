@@ -2,17 +2,17 @@
 
 本指南介绍如何下载和安装 CARLA 的打包版本。 该软件包包括 CARLA 服务器和两个用于客户端库的选项。 还有其他可以下载并导入到package中的资源素材。 需要禁用虚幻引擎编辑器的高级自定义和开发选项，但可以通过使用 [Windows](build_windows.md) 或 [Linux](build_linux.md) 的 CARLA 构建版本来访问这些选项。
 
-* __[开始安装前的准备](#开始安装前的准备)__  
-* __[CARLA 安装](#carla-安装)__  
-	* [A. Debian CARLA 安装](#a-debian-carla-安装)  
-	* [B. Package 安装](#b-package-安装)  
-* __[导入其他资源素材](#导入其他资源素材])__  
-* __[安装客户端库](#安装客户端库)__
-    * [0.9.12 之前的 CARLA 版本](#0912-之前的-carla-版本)
+* __[开始安装前的准备](#_1)__  
+* __[CARLA 安装](#carla)__  
+	* [A. Debian CARLA 安装](#a-debian-carla)  
+	* [B. Package 安装](#b-package)  
+* __[导入其他资源素材](#_2)__  
+* __[安装客户端库](#_3)__
+    * [0.9.12 之前的 CARLA 版本](#0912-carla)
     * [CARLA 0.9.12+](#carla-0912)
-* __[运行CARLA](#运行CARLA)__  
-	* [命令行选项](#命令行选项)  
-* __[更新CARLA](#更新CARLA)__    
+* __[运行CARLA](#carla_1)__  
+	* [命令行选项](#_4)  
+* __[更新CARLA](#carla_2)__    
 * __[Follow-up](#follow-up)__ 
 ---
 ## 开始安装前的准备
@@ -60,9 +60,9 @@ pip3 install --user pygame numpy
 
 有两种方法可以将 CARLA 作为package下载和安装 :
 
-__A)__ [Debian CARLA 安装.](#a-debian-carla-安装)
+__A)__ [Debian CARLA 安装.](#a-debian-carla)
 
-__B)__ [ 从 GitHub 下载.](#b-package-安装) 
+__B)__ [ 从 GitHub 下载.](#b-package) 
 
 ### A. Debian CARLA 安装
 
@@ -108,7 +108,7 @@ __2.__ 安装 CARLA 并检查 在`/opt/` 文件夹中的安装:
 每个发布的版本都有它额外的资源和地图包。这些额外的资源包包含 __Town06__, __Town07__ 和 __Town10__ 的地图。这些单独存储以减少构建的大小，因此只能在安装主包后导入。
 
 
-__1.__ [下载](https://github.com/carla-simulator/carla/blob/master/Docs/download.md) 合适您版本的Carla版本
+__1.__ [下载](https://github.com/ng-fukgin/carla_zh_CN/blob/master/Docs/download.md) 合适您版本的Carla版本
 
 __2.__ 解压包 :
 
@@ -134,7 +134,6 @@ __2.__ 解压包 :
 
 以前版本的 CARLA 不需要安装 Python 库,它们自带一个开箱即用的 `.egg` 文件。__CARLA 版本 0.9.12+ 显着改变了这种行为； 有几个选项可用于安装客户端库。__ 如果您使用的是 0.9.12 之前的 CARLA 版本，请选择该版本以查看相关文档。 否则，请阅读下文，了解 CARLA 0.9.12+ 中的可用选项。
 
-Previous versions of CARLA did not require the Python library to be installed, they came with an `.egg` file that was ready to use out of the box. __CARLA versions 0.9.12+ change this behavior significantly; there are several options available to install the client library.__ If you are using a version of CARLA prior to 0.9.12, please select that version in the bottom right corner of the screen to see the relevant documentation. Otherwise, read on below about the available options in CARLA 0.9.12+.
 
 ### CARLA 0.9.12+
 
@@ -143,8 +142,8 @@ Previous versions of CARLA did not require the Python library to be installed, t
 - __.egg__ file
 - __.whl__ file
 - __下载Python安装包__
+在决定使用哪种方法之前，请阅读以下有关每种方法的要求和限制的更多信息。 请注意，混合使用不同的方法可能会导致不兼容，因此请尽可能使用虚拟环境，或者在使用新的库之前[载以前安装的库](build_faq.md#how-do-i-uninstall-the-carla-client-library)
 
-Read more below about the requirements and limitations of each method before deciding which one to use. Please note that mixing the different methods can lead to incompatibilities, so use virtual environments when possible or [uninstall](build_faq.md#how-do-i-uninstall-the-carla-client-library) a previously installed library before using a new one.
 
 >__A. .egg files__
 
@@ -159,7 +158,7 @@ Read more below about the requirements and limitations of each method before dec
 
 >>__建议在虚拟环境中安装 CARLA 客户端库，以避免在使用多个版本时发生冲突.__
 
->>从 PyPi 安装客户端库，请运行以下命令,选择适合您所需 Python 版本的文件。您将需要 __pip/pip3__ 20.3版本 或更高版本。有关如何检查版本和升级 __pip/pip3__ 的信息，请参阅[开始安装前的准备](#开始安装前的准备)部分 :
+>>从 PyPi 安装客户端库，请运行以下命令,选择适合您所需 Python 版本的文件。您将需要 __pip/pip3__ 20.3版本 或更高版本。有关如何检查版本和升级 __pip/pip3__ 的信息，请参阅[开始安装前的准备](#_1)部分 :
 
 >>      # Python 3
 >>      pip3 install <wheel-file-name>.whl 
@@ -171,7 +170,7 @@ Read more below about the requirements and limitations of each method before dec
 
 >__C. 下载Python安装包__
 
->>TCARLA客户端可以从 [PyPi](https://pypi.org/project/carla/)下载. 该库与 Python 版本 2.7、3.6、3.7 和 3.8 兼容。 要安装它，您需要 __pip/pip3__ 版本 20.3 或更高版本。有关如何检查版本和升级__pip/pip3__的信息，请参阅[开始安装前的准备](#开始安装前的准备)部分 . 
+>>TCARLA客户端可以从 [PyPi](https://pypi.org/project/carla/)下载. 该库与 Python 版本 2.7、3.6、3.7 和 3.8 兼容。 要安装它，您需要 __pip/pip3__ 版本 20.3 或更高版本。有关如何检查版本和升级__pip/pip3__的信息，请参阅[开始安装前的准备](#_1)部分 . 
 
 >>__ 建议在虚拟环境中安装 CARLA 客户端库，以避免在使用多个版本时发生冲突.__
 
