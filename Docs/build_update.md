@@ -85,7 +85,7 @@ git clone https://bitbucket.org/carla-simulator/carla-content Unreal/CarlaUE4/Co
 git checkout master
 ```
 
-### Clean the build
+### 清理构建
 
 转到主 CARLA 文件夹并删除先前构建生成的二进制文件和临时文件.
 ```sh 
