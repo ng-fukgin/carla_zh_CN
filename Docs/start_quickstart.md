@@ -23,7 +23,7 @@
 * __足够的 GPU.__ CARLA 旨在进行逼真的模拟，因此服务器至少需要 6 GB GPU，尽管我们建议使用 8 GB。 强烈建议使用专用 GPU 进行机器学习. 
 * __磁盘空间.__ CARLA 将使用大约 20 GB 的空间e.
 * __Python.__ [Python]((https://www.python.org/downloads/)) 是 CARLA 中的主要脚本语言。 CARLA 在 Linux 上支持 Python 2.7 和 Python 3，在 Windows 上支持 Python 3；.
-* __Pip.__ CARLA 客户端库的某些安装方法需要 pip 或 pip3（取决于您的 Python 版本）20.3 或更高版本. 检查您的__pip__版本：
+* __Pip.__ CARLA 客户端库的某些安装方法需要 pip 或 pip3（取决于您的 Python 版本）20.3 或更高版本. 检查您的 __pip__ 版本：
 
 >>      # For Python 3
 >>      pip3 -V
@@ -105,7 +105,7 @@ __2.__ 安装 CARLA 并检查 在`/opt/` 文件夹中的安装:
 ---
 ## 导入其他资源素材
 
-每个发布的版本都有它额外的资源和地图包。这些额外的资源包包含 __Town06__, __Town07__ 和__Town10__的地图。这些单独存储以减少构建的大小，因此只能在安装主包后导入。
+每个发布的版本都有它额外的资源和地图包。这些额外的资源包包含 __Town06__, __Town07__ 和 __Town10__ 的地图。这些单独存储以减少构建的大小，因此只能在安装主包后导入。
 
 
 __1.__ [下载](https://github.com/carla-simulator/carla/blob/master/Docs/download.md) 合适您版本的Carla版本
