@@ -7,16 +7,16 @@
 如果您遇到错误或困难，请查看 **[常见问题解答](build_faq.md)** 页面，该页面为最常见的并发症提供解决方案。或者，使用[CARLA 论坛](https://github.com/carla-simulator/carla/discussions) 发布您可能有的任何疑问。
 
 
-- [__Part One: 构建CARLA的准备条件](#part-one-prerequisites)
-    - [系统要求](#system-requirements)
-    - [软件要求](#software-requirements)
+- [__Part One: 构建CARLA的准备条件__](#part-one-carla)
+    - [系统要求](#_1)
+    - [软件要求](#_2)
         - [Unreal Engine](#unreal-engine)
-- [__Part Two: 构建 CARLA_](#part-two-build-carla)
-    - [克隆 CARLA 存储库](#clone-the-carla-repository)
-    - [获取资产](#get-assets)
-    - [设置虚幻引擎环境变量](#set-unreal-engine-environment-variable)
-    - [构建 CARLA](#build-carla)
-    - [其他 make 命令](#other-make-commands)
+- [__Part Two: 构建 CARLA__](#part-two-carla)
+    - [克隆 CARLA 存储库](#carla)
+    - [获取资产](#_3)
+    - [设置虚幻引擎环境变量](#_4)
+    - [构建 CARLA](#carla_1)
+    - [其他 make 命令](#make)
 
 ---
 ## Part One: 构建CARLA的准备条件
