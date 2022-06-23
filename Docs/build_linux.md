@@ -257,7 +257,7 @@ pip install <path/to/wheel>.whl
 >此 `.whl` 文件无法分发，因为它是专门为您的操作系统构建的
 
 !!! Warning
-    使用不同方法安装 CARLA 客户端库并在系统上使用不同版本的 CARLA 可能会出现问题。 建议在安装 .whl 时使用虚拟环境，并在安装新的客户端库之前[卸载](build_faq.md#how-do-i-uninstall-the-carla-client-library)任何以前安装的客户端库。
+    使用不同方法安装 CARLA 客户端库并在系统上使用不同版本的 CARLA 可能会出现问题。 建议在安装 .whl 时使用虚拟环境，并在安装新的客户端库之前[卸载](build_faq.md#carla_6)任何以前安装的客户端库。
    
 
 __2.__ __编译服务器__:
