@@ -1,24 +1,24 @@
-# Build system
+# 系统构建
 
-* [__Setup__](#setup)  
+* [__设置__](#_1)  
 * [__LibCarla__](#libcarla)  
-* [__CarlaUE4 and Carla plugin__](#carlaue4-and-carla-plugin)  
+* [__CarlaUE4 和 Carla 插件__](#carlaue4-carla)  
 * [__PythonAPI__](#pythonapi)
     - [Versions 0.9.12+](#versions-0912)
     - [Versions prior to 0.9.12](#versions-prior-to-0912)
 
-> _This document is a work in progress, only the Linux build system is taken into account here._
+> _本文档正在进行中，此处仅考虑 Linux 构建系统._
 
-The most challenging part of the setup is to compile all the dependencies and modules to be compatible with a) Unreal Engine in the server-side, and b) Python in the client-side.
+设置中最具挑战性的部分是编译所有依赖项和模块以兼容 a) 服务器端的虚幻引擎和 b) 客户端的 Python.
 
-The goal is to be able to call Unreal Engine's functions from a separate Python process.
+目标是能够从单独的 Python 进程调用虚幻引擎的函数.
 
 ![modules](img/build_modules.jpg)
 
-In Linux, we compile CARLA and all the dependencies with clang-8.0 and C++14 standard. We however link against different runtime C++ libraries depending on where the code going to be used, since all the code that is going to be linked with Unreal Engine needs to be compiled using `libc++`.
+在 Linux 中，我们使用 clang-8.0 和 C++14 标准编译 CARLA 和所有依赖项。 然而，我们根据代码的使用位置来链接不同的运行时 C++ 库，因为所有要与虚幻引擎链接的代码都需要使用 `libc++`进行编译.
 
 ---
-## Setup
+## 设置
 
 Command
 
@@ -26,17 +26,18 @@ Command
 make setup
 ```
 
-Get and compile dependencies
+获取和编译依赖项
 
-  * llvm-8 (libc++ and libc++abi)
-  * rpclib-2.2.1 (twice, with libstdc++ and libc++)
-  * boost-1.72.0 (headers and boost_python for libstdc++)
-  * googletest-1.8.1 (with libc++)
+  * llvm-8（libc++ 和 libc++abi）  
+  * rpclib-2.2.1（两次，使用 libstdc++ 和 libc++）  
+  * boost-1.72.0（libstdc++ 的头文件和 boost\_python）  
+  * googletest-1.8.1（带有 libc++）
 
 ---
 ## LibCarla
 
-Compiled with CMake (minimum version required CMake 3.9).
+
+使用 CMake 编译（最低版本需要 CMake 3.9）.
 
 Command
 
@@ -44,23 +45,23 @@ Command
 make LibCarla
 ```
 
-Two configurations:
+两种配置:
 
 
-|  | Server | Client |
+|  | 服务器 | 客户端 |
 | ---------- | ---------- | ---------- |
-| **Unit tests**        | Yes                   | No                    |
-| **Requirements**      | rpclib, gtest, boost  | rpclib, boost         |
+| **单元测试**        | Yes                   | No                    |
+| **需要条件**      | rpclib, gtest, boost  | rpclib, boost         |
 | **std runtime**       | LLVM's `libc++`       | Default `libstdc++`   |
-| **Output**            | headers and test exes | `ibcarla_client.a`    |
+| **输出**            | headers and test exes | `ibcarla_client.a`    |
 | **Required by**       | Carla plugin          | PythonAPI             |
 
 
 
 ---
-## CarlaUE4 and Carla plugin
+## CarlaUE4 和 Carla 插件
 
-Both compiled at the same step with Unreal Engine build tool. They require the `UE4_ROOT` environment variable set.
+两者都使用虚幻引擎构建工具在同一步骤编译。 它们需要 UE4\_ROOT 环境变量集.
 
 Command
 
@@ -68,7 +69,7 @@ Command
 make CarlaUE4Editor
 ```
 
-To launch Unreal Engine's Editor run
+启动虚幻引擎的编辑器运行
 
 ```sh
 make launch
@@ -78,8 +79,7 @@ make launch
 ## PythonAPI
 ### Versions 0.9.12+
 
-Compiled using Python's `setuptools` ("setup.py"). Currently requires the following to be installed in the machine: Python, libpython-dev, and
-libboost-python-dev, pip>=20.3, wheel, and auditwheel.
+使用 Python 的 `setuptools`（“setup.py”）编译。 目前需要在机器中安装以下内容：Python、libpython-dev 和 libboost-python-dev、pip>=20.3、wheel 和 auditwheel
 
 Command:
 
@@ -87,25 +87,24 @@ Command:
 make PythonAPI
 ```
 
-Creates two files that each contain the client library and correspond to the supported Python version on the system. One file is a `.whl` file and the other is an `.egg` file. This allows for the option of two different, mutually exclusive ways to use the client library. 
+创建两个文件，每个文件都包含客户端库并对应于系统上支持的 Python 版本。 一个文件是 `.whl `文件，另一个是 `.egg `文件。 这允许选择两种不同的、相互排斥的方式来使用客户端库. 
 
 >__A. .whl file__
 
->>The `.whl` is installed using the command:
+>>`.whl` 使用此命令安装:
 
 >>      pip install <wheel_file>.whl
 
->>There is no need to import the library path directly in scripts as is required in previous versions or `.egg` files (see section [__Versions prior to 0.9.12__](#versions-prior-to-0912)); `import carla` is sufficient.
+>>无需像以前的版本或 `.egg` 文件那样直接在脚本中导入库路径（参见 [__Versions before 0.9.12__](#versions-prior-to-0912) 部分）； `import carla` 就足够了.
 
 >__B. .egg file__
 
->>See the section [__Versions prior to 0.9.12__](#versions-prior-to-0912) for more information.
+>>有关详细信息，请参阅 [__Versions before 0.9.12__](#versions-prior-to-0912) 部分.
 
 
 ### Versions prior to 0.9.12
 
-Compiled using Python's `setuptools` ("setup.py"). Currently requires the following to be installed in the machine: Python, libpython-dev, and
-libboost-python-dev.
+使用 Python 的 `setuptools`（“setup.py”）编译。 目前需要在机器中安装以下内容：Python、libpython-dev 和 libboost-python-dev.
 
 Command
 
@@ -113,12 +112,12 @@ Command
 make PythonAPI
 ```
 
-It creates two "egg" packages
+会创建两个 "egg" 文件包
 
   * `PythonAPI/dist/carla-X.X.X-py2.7-linux-x86_64.egg`
   * `PythonAPI/dist/carla-X.X.X-py3.7-linux-x86_64.egg`
 
-This package can be directly imported into a Python script by adding it to the system path.
+这个包可以通过添加到系统路径直接导入到 Python 脚本中.
 
 ```python
 #!/usr/bin/env python
@@ -134,7 +133,7 @@ import carla
 # ...
 ```
 
-Alternatively, it can be installed with `easy_install`
+也可以被 `easy_install`命令安装
 
 ```sh
 easy_install2 --user --no-deps PythonAPI/dist/carla-X.X.X-py2.7-linux-x86_64.egg
