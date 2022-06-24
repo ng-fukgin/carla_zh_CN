@@ -68,7 +68,7 @@ CARLA 提供了一系列超出模拟器介绍范围的功能。 这里列出了�
 *   [__PTV-Vissim co-simulation__](adv_ptv.md). 在 CARLA 和 PTV-Vissim 交通模拟器之间运行同步模拟.  
 *   [__Recorder__](adv_recorder.md). 保存模拟状态的快照，以精确地重新制定模拟.   
 *   [__Rendering options__](adv_rendering_options.md). 保存模拟状态的快照，以精确地重新制定模拟.  
-*   [__RSS__](adv_rss.md). [集成责任敏感安全 C++ 库](https://github.com/intel/ad-rss-lib)，以使用安全检查修改车辆的轨迹.
+*   [__RSS__](adv_rss.md). 集成[责任敏感安全 C++ 库](https://github.com/intel/ad-rss-lib)，以使用安全检查修改车辆的轨迹.
 *   [__Simulation time and synchrony__](adv_synchrony_timestep.md). 关于模拟时间和服务器-客户端通信的一切.  
 *   [__SUMO co-simulation__](adv_sumo.md). 在 CARLA 和 SUMO 交通模拟器之间运行同步模拟.  
 *   [__Traffic manager__](adv_traffic_manager.md). 该模块负责每辆设置为自动驾驶模式的车辆。 它模拟城市中的交通，使模拟看起来像真实的城市环境.  
