@@ -1,6 +1,9 @@
 CARLA Simulator
 ===============
 这个是CARLA中文翻译版本，能力有限，所以翻译缓慢，欢迎大家加入我，跟我一起翻译
+- [x] #739
+- [ ] https://github.com/octo-org/octo-repo/issues/740
+- [ ] Add delight to the experience when all tasks are complete :tada:
 
 [![Build Status](https://travis-ci.org/carla-simulator/carla.svg?branch=master)](https://travis-ci.org/carla-simulator/carla)
 [![Documentation](https://readthedocs.org/projects/carla/badge/?version=latest)](https://carla-docs.readthedocs.io/zh_CN/latest/)
