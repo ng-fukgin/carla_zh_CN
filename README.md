@@ -18,6 +18,7 @@ CARLA Simulator
 [![discord](Docs/img/btn/chat.png)](https://discord.gg/8kqACuC)
 
 感谢@lancelot-Yagami的提醒，我做了一个todo list 
+
 如果想要加入我，请大家在下面认领任务，然后fork我的仓库，翻译完成后发起pull request，我会在粗校没问题后同意合并。 :tada:
 
 - [x] Home: 'index.md'：@ng-fukgin
