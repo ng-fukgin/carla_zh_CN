@@ -107,7 +107,7 @@ CARLA forum</a>
 
 ###### 克隆虚幻引擎存储库显示错误.
 
-> __1. 虚幻引擎账号是否激活？__ UE 存储库是私有的。为了克隆它，创建 [UE](https://www.unrealengine.com/en-US/)帐户，激活它（检查验证邮件），并[链接您的 GitHub帐户](https://www.unrealengine.com/en-US/blog/updated-authentication-process-for-connecting-epic-github-accounts) .  
+> __1. 虚幻引擎账号是否激活？__ UE 存储库是私有的。为了克隆它，创建 [UE](https://www.unrealengine.com/zh-CN/?lang=zh-CN)帐户，激活它（检查验证邮件），并[链接您的 GitHub帐户](https://www.unrealengine.com/en-US/blog/updated-authentication-process-for-connecting-epic-github-accounts) .  
 > 
 > __2. git 是否正确安装？__ 有时错误会显示与https协议不兼容。可以通过卸载并重新安装 git 轻松解决。打开终端并运行以下命令:
 >
