@@ -1,82 +1,82 @@
-# Core concepts
+# 核心概念
 
-This page introduces the main features and modules in CARLA. Detailed explanations of the different subjects can be found in their corresponding page.  
+本页介绍了 CARLA 的主要功能和模块。 不同主题的详细说明可在其相应页面中找到.  
 
-In order to learn about the different classes and methods in the API, take a look at the [Python API reference](python_api.md).
+要了解 API 中的不同类和方法，请查看 [Python API 参考](python_api.md).
 
-*   [__First steps__](#first-steps)  
-	*   [1st- World and client](#1st-world-and-client)  
-	*   [2nd- Actors and blueprints](#2nd-actors-and-blueprints)  
-	*   [3rd- Maps and navigation](#3rd-maps-and-navigation)  
-	*   [4th- Sensors and data](#4th-sensors-and-data)  
-  *   [__Advanced steps__](#advanced-steps)  
+*   [__第一步__](#first-steps)  
+	*   [1st- 世界和客户端](#1st)  
+	*   [2nd- 元素和蓝图](#2nd)  
+	*   [3rd- 地图与导航](#3rd)  
+	*   [4th- 传感器与数据](#4th)  
+  *   [__更进一步__](#advanced-steps)  
 
 !!! Important
-    **This documentation refers to CARLA 0.9.X**. <br>
-    The API changed significantly from previous versions (0.8.X). There is another documentation regarding those versions that can be found [here](https://carla.readthedocs.io/en/stable/getting_started/). 
+    **本文档参考 CARLA 0.9.X**。 <br>
+    API 与以前的版本 (0.8.X) 相比发生了显着变化。关于这些版本的另一个文档可以在 [这里](https://carla.readthedocs.io/en/stable/getting_started/) 找到. 
 
 ---
-## First steps
+## 第一步
 
-### 1st- World and client
+### 1st- 世界和客户端
 
-__The client__ is the module the user runs to ask for information or changes in the simulation. A client runs with an IP and a specific port. It communicates with the server via terminal. There can be many clients running at the same time. Advanced multiclient managing requires thorough understanding of CARLA and [synchrony](adv_synchrony_timestep.md).  
+__客户端__ 是用户运行以在模拟中询问信息或更改的模块。 客户端使用 IP 和特定端口运行。 它通过终端与服务器通信。 可以有多个客户端同时运行。 高级多客户端管理需要彻底了解 CARLA 和[同步](adv_synchrony_timestep.md).  
 
-__The world__ is an object representing the simulation. It acts as an abstract layer containing the main methods to spawn actors, change the weather, get the current state of the world, etc. There is only one world per simulation. It will be destroyed and substituted for a new one when the map is changed.  
+__世界__ 是代表模拟的对象。 它作为一个抽象层，包含生成actors、改变天气、获取世界当前状态等的主要方法。每个模拟只有一个世界。 当地图改变时，它将被销毁并替换为新的.  
 
-### 2nd- Actors and blueprints
-An actor is anything that plays a role in the simulation.  
+### ### 2nd- 元素(Actors)和蓝图
+演员是在模拟中扮演角色的任何东西.  
 
-*   Vehicles.
-*   Walkers.
-*   Sensors.
-*   The spectator.
-*   Traffic signs and traffic lights.
+*   车辆 Vehicles
+*   行人 Walkers
+*   传感器 Sensors
+*   旁观者 The spectator
+*   交通标识与交通信号灯 Traffic signs and traffic lights
 
-__Blueprints__ are already-made actor layouts necessary to spawn an actor. Basically, models with animations and a set of attributes. Some of these attributes can be customized by the user, others don't. There is a [__Blueprint library__](bp_library.md) containing all the blueprints available as well as information on them.  
+__蓝图__ 是生成元素所必需的已经制作好的布局。 基本上是具有动画和属性的一组模型。 其中一些属性可以由用户自定义，而另一些则不能。 CARLA在[Blueprints Library蓝图库](bp_library.md)中包含所有可用的蓝图及其相关信息。.  
 
-### 3rd- Maps and navigation
+### 3rd- 3rd- 地图与导航
 
-__The map__ is the object representing the simulated world, the town mostly. There are eight maps available. All of them use OpenDRIVE 1.4 standard to describe the roads.  
+__地图__ 是代表模拟世界的对象，主要是城镇。 有八张地图可用。 它们都使用 OpenDRIVE 1.4 标准来描述道路.
 
-__Roads, lanes and junctions__ are managed by the [Python API](python_api.md) to be accessed from the client. These are used along with the __waypoint__ class to provide vehicles with a navigation path.  
+__道路、车道和路口__ 由 [Python API](python_api.md) 管理，可从客户端访问。 这些与**Waypoint**一起使用，为车辆提供导航路径.  
 
-__Traffic signs__ and __traffic lights__ are accessible as [__carla.Landmark__](#python_api.md#carla.landmark) objects that contain information about their OpenDRIVE definition. Additionally, the simulator automatically generates stops, yields and traffic light objects when running using the information on the OpenDRIVE file. These have bounding boxes placed on the road. Vehicles become aware of them once inside their bounding box.
+__交通标志__ 和 __交通信号灯__ a可作为 [carla.Landmark](#python_api.md#carla.landmark) 对象访问，其中包含有关其 OpenDRIVE 定义的信息。 此外，模拟器在使用 OpenDRIVE 文件中的信息运行时会自动生成停止、让路和交通灯对象。 这些在道路上放置了边界框。 一旦进入边界框，车辆就会意识到它们
 
-### 4th- Sensors and data
+### 4th- 传感器与数据
 
-__Sensors__ wait for some event to happen, and then gather data from the simulation. They call for a function defining how to manage the data. Depending on which, sensors retrieve different types of __sensor data__. 
+__传感器__ 等待某个事件发生，然后从模拟中收集数据。 它们需要一个函数来定义如何管理数据。 根据具体情况，传感器会检索不同类型的 __传感器数据__. 
 
-A sensor is an actor attached to a parent vehicle. It follows the vehicle around, gathering information of the surroundings. The sensors available are defined by their blueprints in the [Blueprint library](bp_library.md).  
+传感器是连接到父车辆的参与者。 它跟随车辆四处走动，收集周围的信息。 可用的传感器由它们在[Blueprint library蓝图库](bp_library.md)中的蓝图定义.  
 
-*   Cameras (RGB, depth and semantic segmentation).  
-*   Collision detector.  
-*   Gnss sensor.  
-*   IMU sensor.  
-*   Lidar raycast.  
-*   Lane invasion detector.  
-*   Obstacle detector.  
-*   Radar.  
-*   RSS.  
+*   摄像头 (RGB摄像头、深度摄像头、语义分割摄像头)；
+*   碰撞检测器；
+*   GNSS导航；
+*   IMU传感器；
+*   激光雷达；
+*   车道入侵检测器；
+*   障碍物检测器；
+*   雷达；
+*   RSS
+---
+## 更进一步
+
+
+CARLA 提供了一系列超出模拟器介绍范围的功能。 这里列出了一些最引人注目的。 但是，我们强烈建议您在开始高级步骤之前阅读整个“第一步”部分.  
+
+*   [__OpenDRIVE standalone mode__](adv_opendrive.md). 仅使用 OpenDRIVE 文件生成道路网格。 允许将任何 OpenDRIVE 地图加载到 CARLA 中，而无需创建资产.  
+*   [__PTV-Vissim co-simulation__](adv_ptv.md). 在 CARLA 和 PTV-Vissim 交通模拟器之间运行同步模拟.  
+*   [__Recorder__](adv_recorder.md). 保存模拟状态的快照，以精确地重新制定模拟.   
+*   [__Rendering options__](adv_rendering_options.md). 保存模拟状态的快照，以精确地重新制定模拟.  
+*   [__RSS__](adv_rss.md). [集成责任敏感安全 C++ 库](https://github.com/intel/ad-rss-lib)，以使用安全检查修改车辆的轨迹.
+*   [__Simulation time and synchrony__](adv_synchrony_timestep.md). 关于模拟时间和服务器-客户端通信的一切.  
+*   [__SUMO co-simulation__](adv_sumo.md). 在 CARLA 和 SUMO 交通模拟器之间运行同步模拟.  
+*   [__Traffic manager__](adv_traffic_manager.md). 该模块负责每辆设置为自动驾驶模式的车辆。 它模拟城市中的交通，使模拟看起来像真实的城市环境.  
 
 ---
-## Advanced steps  
+这是对 CARLA 基础知识的总结。 下一步将更仔细地了解这个世界以及连接到它的客户.  
 
-CARLA offers a wide range of features that go beyond the scope of this introduction to the simulator. Here are listed some of the most remarkable ones. However, it is highly encouraged to read the whole __First steps__ section before starting with the advanced steps.  
-
-*   [__OpenDRIVE standalone mode__](adv_opendrive.md). Generates a road mesh using only an OpenDRIVE file. Allows to load any OpenDRIVE map into CARLA without the need of creating assets.  
-*   [__PTV-Vissim co-simulation__](adv_ptv.md). Run a synchronous simulation between CARLA and PTV-Vissim traffic simulator.  
-*   [__Recorder__](adv_recorder.md). Saves snapshots of the simulation state to reenact a simulation with exact precision.   
-*   [__Rendering options__](adv_rendering_options.md). Graphics quality settings, off-screen rendering and a no-rendering mode.  
-*   [__RSS__](adv_rss.md). Integration of the [C++ Library for Responsibility Sensitive Safety](https://github.com/intel/ad-rss-lib) to modify a vehicle's trajectory using safety checks.
-*   [__Simulation time and synchrony__](adv_synchrony_timestep.md). Everything regarding the simulation time and server-client communication.  
-*   [__SUMO co-simulation__](adv_sumo.md). Run a synchronous simulation between CARLA and SUMO traffic simulator.  
-*   [__Traffic manager__](adv_traffic_manager.md). This module is in charge of every vehicle set to autopilot mode. It simulates traffic in the city for the simulation to look like a real urban environment.  
-
----
-That is a wrap on the CARLA basics. The next step takes a closer look to the world and the clients connecting to it.  
-
-Keep reading to learn more. Visit the forum to post any doubts or suggestions that have come to mind during this reading.  
+继续阅读以了解更多信息。访问论坛发布在阅读过程中想到的任何疑问或建议.  
 
 <div text-align: center>
 <div class="build-buttons">
