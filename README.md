@@ -34,23 +34,23 @@ CARLA Simulator
   - [x] 'F.A.Q.': 'build_faq.md'：@ng-fukgin
 - [x] First steps:
   - [x] 'Core concepts': 'core_concepts.md'：@ng-fukgin
-  - [ ] '1st- [ ] World and client': 'core_world.md'：@ng-fukgin
-  - [ ] '2nd- [ ] Actors and blueprints': 'core_actors.md'：@ng-fukgin
-  - [ ] '3rd- [ ] Maps and navigation': 'core_map.md'：@ng-fukgin
-  - [ ] '4th- [ ] Sensors and data': 'core_sensors.md'：@ng-fukgin
+  - [ ] '1st-   World and client': 'core_world.md'：@ng-fukgin
+  - [ ] '2nd-  Actors and blueprints': 'core_actors.md'：@ng-fukgin
+  - [ ] '3rd-  Maps and navigation': 'core_map.md'：@ng-fukgin
+  - [ ] '4th-  Sensors and data': 'core_sensors.md'：@ng-fukgin
 - [ ] Advanced concepts:
   - [ ] 'OpenDRIVE standalone mode': 'adv_opendrive.md'：名字
-  - [ ] 'PTV- [ ]Vissim co- [ ]simulation': 'adv_ptv.md'：名字
+  - [ ] 'PTV-Vissim co-simulation': 'adv_ptv.md'：名字
   - [ ] 'Recorder': 'adv_recorder.md'：名字
   - [ ] 'Rendering options': 'adv_rendering_options.md'：名字
   - [ ] 'RSS': 'adv_rss.md'：名字
-  - [ ] 'Synchrony and time- [ ]step': 'adv_synchrony_timestep.md'：名字
+  - [ ] 'Synchrony and time-step': 'adv_synchrony_timestep.md'：名字
   - [ ] 'Benchmarking Performance': 'adv_benchmarking.md'：名字
   - [ ] 'CARLA Agents': 'adv_agents.md'：名字
 - [ ] Traffic Simulation:
   - [ ] 'Traffic Simulation Overview': 'ts_traffic_simulation_overview.md'：名字
   - [ ] 'Traffic Manager': 'adv_traffic_manager.md'：名字
-  - [ ] 'SUMO co- [ ]simulation': 'adv_sumo.md'：名字
+  - [ ] 'SUMO co-simulation': 'adv_sumo.md'：名字
   - [ ] 'Scenic': 'tuto_G_scenic.md'：名字
 - [ ] References:
   - [ ] 'Python API reference': 'python_api.md'：名字
