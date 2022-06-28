@@ -34,7 +34,7 @@ CARLA Simulator
   - [x] 'F.A.Q.': 'build_faq.md'：@ng-fukgin
 - [x] First steps:
   - [x] 'Core concepts': 'core_concepts.md'：@ng-fukgin
-  - [ ] '1st-   World and client': 'core_world.md'：@ng-fukgin
+  - [x] '1st-   World and client': 'core_world.md'：@ng-fukgin
   - [ ] '2nd-  Actors and blueprints': 'core_actors.md'：@ng-fukgin
   - [ ] '3rd-  Maps and navigation': 'core_map.md'：@ng-fukgin
   - [ ] '4th-  Sensors and data': 'core_sensors.md'：@ng-fukgin
