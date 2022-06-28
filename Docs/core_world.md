@@ -4,11 +4,11 @@
 
 本教程从定义这些元素的基础和创建，到描述它们的可能性。 如果在阅读过程中出现任何疑问或问题，[CARLA forum](https://github.com/carla-simulator/carla/discussions/) 随时为您解决。 
 
-*   [__客户端__](#_1)  
-	*   [客户端创建](#_2)  
-	*   [虚拟世界连接](#_3)  
-	*   [其他客户端实用程序](#_5)  
-*   [__The world__](#_6)  
+*   [__The client__](#the-client)  
+	*   [Client creation](#client-creation)  
+	*   [World connection](#world-connection)  
+	*   [Other client utilities](#other-client-utilities)  
+*   [__The world__](#the-world)  
 	*   [Actors](#actors)  
 	*   [Weather](#weather)  
 	*   [Lights](#lights)  
@@ -17,7 +17,7 @@
 	*   [World settings](#world-settings)  
 
 ---
-## 客户端
+## The client
 
 客户端是 CARLA 架构中的主要元素之一。 它们连接到服务器、检索信息和命令更改。 这是通过脚本完成的。 客户端识别自己，并连接到世界，然后使用模拟进行操作。
 
@@ -26,7 +26,7 @@
 查看 Python API 参考中的 [__carla.Client__](python_api.md#carla.Client) 以了解该类的特定方法和变量. 
 
 
-### 客户端创建
+### Client creation
 
 需要两件事。 标识它的 __IP__ 地址，以及用于与服务器通信的 __两个 TCP 端口__ .可选的第三个参数设置工作线程的数量。 默认情况下，这设置为全部 (`0`). Python API 参考中的 [carla.Client](python_api.md#carla.Client.__init__) 包含一个片段，显示了在运行脚本时如何将这些解析为参数. 
 
@@ -46,7 +46,7 @@ client.set_timeout(10.0) # seconds
 !!! Note
     客户端和服务器具有不同的 `libcarla `模块。 如果版本不同，可能会出现问题。 这可以使用`get_client_version()` 和 `get_server_version()` 方法进行检查. 
 
-### 虚拟世界连接
+### World connection
 
 客户端可以相当轻松地连接和检索当前世界. 
 
@@ -64,7 +64,7 @@ world = client.load_world('Town01')
 
 每个世界对象都有一个 `ID` 或情节。 每次客户端调用 `load_world()` 或 `reload_world()` 时，前一个都会被销毁。 新剧集是从头开始创建的。 在此过程中未重新启动虚幻引擎. 
 
-### 运行 commands
+### Using commands
 
 __Commands__ 是对一些最常见的 CARLA 方法的改编，可以批量应用. 例如,  [command.SetAutopilot](python_api.md#command.SetAutopilot) 等价于 [Vehicle.set_autopilot()](python_api.md#carla.Vehicle.set_autopilot), 为车辆启用自动驾驶仪. 但是, 使用 [Client.apply_batch](python_api.md#carla.Client.apply_batch) 或 [Client.apply_batch_sync()](python_api.md#carla.Client.apply_batch_sync), 方法，可以在一个模拟步骤中应用一系列命令。 这对于通常应用于甚至数百个元素的方法变得非常有用。.  
 
@@ -77,7 +77,7 @@ client.apply_batch([carla.command.DestroyActor(x) for x in vehicles_list])
 
 所有可用的命令都列在 Python API 参考的 [最新部分](python_api.md#command.ApplyAngularVelocity) 中.  
 
-### 其他客户端实用程序
+### Other client utilities
 
 客户端对象的主要目的是获取或改变世界，并应用命令。 但是，它还提供对一些附加功能的访问.  
 
@@ -85,7 +85,7 @@ client.apply_batch([carla.command.DestroyActor(x) for x in vehicles_list])
 *   __[Recorder](adv_recorder.md).__ 允许重新制定以前的模拟. 使用 [snapshots](core_world.md#world-snapshots) 总结每帧的模拟状态.  
 
 ---
-## 虚拟世界
+## The world
 
 模拟测试的主要部分。 它的实例应该由客户端检索。 它不包含世界本身的模型，它是[Map](core_map.md) 类的一部分. 相反，可以从此类访问大部分信息和常规设置.
 
