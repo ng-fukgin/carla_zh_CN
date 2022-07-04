@@ -1,6 +1,6 @@
 # 2nd. Actors and blueprints
 
-参与者不仅包括车辆和行人，还包括传感器、交通标志、交通灯和旁观者。 充分了解如何对它们进行操作至关重要。
+Actors不仅包括车辆和行人，还包括传感器、交通标志、交通灯和旁观者。 充分了解如何对它们进行操作至关重要。
 
 本节将介绍生成、销毁、打印以及如何管理它们. However, the possibilities are almost endless(这句话鬼知道什么意思). 实验一下，看看本文档中的 __教程__ ，在CARLA[论坛](https://github.com/carla-simulator/carla/discussions/)分享疑惑和想法.  
 
