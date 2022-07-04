@@ -46,7 +46,7 @@ if(is_bike)
     vehicle.set_attribute('color', '255,0,0')
 ```
 !!! Note
-    S某些属性无法修改. 在 [蓝图库](bp_library.md)中查看.
+    某些属性无法修改. 在 [蓝图库](bp_library.md)中查看.
 
 属性有一个 [carla.ActorAttributeType](python_api.md#carla.ActorAttributeType) 变量。 它从枚举列表中声明其类型。 此外，可修改的属性带有一个 __推荐值列表__
 
@@ -81,32 +81,32 @@ actor = world.spawn_actor(blueprint, transform)
 !!! Important
     CARLA 使用的是[虚幻引擎坐标系](https://carla.readthedocs.io/en/latest/python_api/#carlarotation). 请记住，[`carla.Rotation`](https://carla.readthedocs.io/en/latest/python_api/#carlarotation) 构造函数定义为 `(pitch, yaw, roll)`, 与 Unreal Engine Editor  `(roll, pitch, yaw)`不同. 
 
-The actor will not be spawned in case of collision at the specified location. No matter if this happens with a static object or another actor. It is possible to try avoiding these undesired spawning collisions.  
+如果在指定位置发生碰撞，则不会生成actor。 不管这是发生在静态对象还是其他actor身上。 可以尝试避免这些不希望的Spawning碰撞.  
 
-* `map.get_spawn_points()` __for vehicles__. Returns a list of recommended spawning points. 
+* `map.get_spawn_points()` __ 对于车辆__. 返回推荐的生成点列表. 
 
 ```py
 spawn_points = world.get_map().get_spawn_points()
 ```
 
-* `world.get_random_location()` __for walkers__. Returns a random point on a sidewalk. This same method is used to set a goal location for walkers.  
+* `world.get_random_location()` __对于行人__. 返回人行道上的随机点。同样的方法用于为行人设置目标位置.  
 
 ```py
 spawn_point = carla.Transform()
 spawn_point.location = world.get_random_location_from_navigation()
 ```
 
-An actor can be attached to another one when spawned. Actors follow the parent they are attached to. This is specially useful for sensors. The attachment can be rigid (proper to retrieve precise data) or with an eased movement according to its parent. It is defined by the helper class [carla.AttachmentType](python_api.md#carla.AttachmentType).  
+一个actor在生成时可以附加到另一个actor上。 Actor 跟随它们所依附的父类。 这对于传感器来说特别有用。 附件可以是刚性的（适合检索精确数据）或根据其父项具有轻松的移动。 它由帮助类 [carla.AttachmentType](python_api.md#carla.AttachmentType) 定义.  
 
-The next example attaches a camera rigidly to a vehicle, so their relative position remains fixed. 
+下一个示例将摄像头固定在车辆上，因此它们的相对位置保持固定. 
 
 ```py
 camera = world.spawn_actor(camera_bp, relative_transform, attach_to=my_vehicle, carla.AttachmentType.Rigid)
 ```
 !!! Important
-    When spawning attached actors, the transform provided must be relative to the parent actor. 
+    当产生附加的actors时，提供的变换必须是相对于父actors的. 
 
-Once spawned, the world object adds the actors to a list. This can be easily searched or iterated on. 
+一旦生成，世界对象就会将actors添加到列表中。 这可以轻松搜索或迭代. 
 ```py
 actor_list = world.get_actors()
 # Find an actor by id.
@@ -118,7 +118,7 @@ for speed_sign in actor_list.filter('traffic.speed_limit.*'):
 
 ### Handling
 
-[carla.Actor](python_api.md#carla.Actor) mostly consists of _get()_ and _set()_ methods to manage the actors around the map. 
+[carla.Actor](python_api.md#carla.Actor) 主要包含 _get()_ 和 _set()_ 方法来管理地图周围的actors. 
 
 ```py
 print(actor.get_acceleration())
@@ -129,27 +129,27 @@ location.z += 10.0
 actor.set_location(location)
 ```
 
-The actor's physics can be disabled to freeze it in place. 
+可以禁用演员的物理特性以将其冻结在适当的位置. 
 
 ```py
 actor.set_simulate_physics(False)
 ```
-Besides that, actors also have tags provided by their blueprints. These are mostly useful for semantic segmentation sensors. 
+除此之外，演员也有他们的蓝图提供的标签。 这些对语义分割传感器最有用. 
 
 !!! Warning
-    Most of the methods send requests to the simulator asynchronously. The simulator has a limited amount of time each update to parse them. Flooding the simulator with _set()_ methods will accumulate a significant lag.
+    大多数方法异步发送请求到模拟器。 模拟器每次更新解析它们的时间都是有限的。 使用 _set()_ 方法充斥模拟器会累积很大的延迟.
 
 
 ### Destruction
 
-Actors are not destroyed when a Python script finishes. They have to explicitly destroy themselves.  
+当 Python 脚本完成时，Actor 不会被销毁。他们必须明确地摧毁自己.  
 
 ```py
 destroyed_sucessfully = actor.destroy() # Returns True if successful
 ```
 
 !!! Important
-    Destroying an actor blocks the simulator until the process finishes. 
+    销毁一个actor会阻塞模拟器，直到进程完成. 
 
 ---
 ## Types of actors  
