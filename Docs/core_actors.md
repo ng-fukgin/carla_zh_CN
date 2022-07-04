@@ -1,8 +1,8 @@
 # 2nd. Actors and blueprints
 
-Actors not only include vehicles and walkers, but also sensors, traffic signs, traffic lights, and the spectator. It is crucial to have full understanding on how to operate on them.  
+参与者不仅包括车辆和行人，还包括传感器、交通标志、交通灯和旁观者。 充分了解如何对它们进行操作至关重要。
 
-This section will cover spawning, destruction, types, and how to manage them. However, the possibilities are almost endless. Experiment, take a look at the __tutorials__ in this documentation and share doubts and ideas in the [CARLA forum](https://github.com/carla-simulator/carla/discussions/).  
+本节将介绍生成、销毁、打印以及如何管理它们. However, the possibilities are almost endless(这句话鬼知道什么意思). 实验一下，看看本文档中的 __教程__ ，在CARLA[论坛](https://github.com/carla-simulator/carla/discussions/)分享疑惑和想法.  
 
 - [__Blueprints__](#blueprints)  
 	- [Managing the blueprint library](#managing-the-blueprint-library)  
@@ -20,17 +20,17 @@ This section will cover spawning, destruction, types, and how to manage them. Ho
 ---
 ## Blueprints
 
-These layouts allow the user to smoothly incorporate new actors into the simulation. They are already-made models with animations and a series of attributes. Some of these are modifiable and others are not. These attributes include, among others, vehicle color, amount of channels in a lidar sensor, a walker's speed, and much more.
+这些布局允许用户将新Actor顺利融入模拟器中。它们是带有动画和一系列属性的已经制作好的模型。其中一些是可修改的，而另一些则不是。这些属性包括车辆颜色、激光雷达传感器中的通道数量、行人的速度等等.
 
-Available blueprints are listed in the [blueprint library](bp_library.md), along with their attributes. Vehicle and walker blueprints have a generation attribute that indicates if they are a new (gen 2) or old (gen 1) asset.
+[蓝图库](bp_library.md) 中列出了可用的蓝图及其属性。 车辆和行人蓝图有一个生成属性，指示它们是新的（第 2 代）还是旧的（第 1 代）资产.
 
 ### Managing the blueprint library
 
-The [carla.BlueprintLibrary](python_api.md#carla.BlueprintLibrary) class contains a list of [carla.ActorBlueprint](python_api.md#carla.ActorBlueprint) elements. It is the world object who can provide access to it.
+[carla.BlueprintLibrary](python_api.md#carla.BlueprintLibrary) 类包含 [carla.ActorBlueprint](python_api.md#carla.ActorBlueprint) 元素的列表。 世界对象可以提供对它的访问。
 ```py
 blueprint_library = world.get_blueprint_library()
 ```
-Blueprints have an ID to identify them and the actors spawned with it. The library can be read to find a certain ID, choose a blueprint at random, or filter results using a [wildcard pattern](https://tldp.org/LDP/GNU-Linux-Tools-Summary/html/x11655.htm).
+蓝图有一个 ID 来识别它们和生成的演员。 可以读取该库以找到某个 ID，随机选择一个蓝图，或者使用 [通配符模式](https://tldp.org/LDP/GNU-Linux-Tools-Summary/html/x11655.htm) 过滤结果.
 
 ```py
 # Find a specific blueprint.
@@ -39,16 +39,16 @@ collision_sensor_bp = blueprint_library.find('sensor.other.collision')
 vehicle_bp = random.choice(blueprint_library.filter('vehicle.*.*'))
 ```
 
-Besides that, each [carla.ActorBlueprint](python_api.md#carla.ActorBlueprint) has a series of [carla.ActorAttribute](python_api.md#carla.ActorAttribute) that can be _get_ and _set_.
+除此之外，每个 [carla.ActorBlueprint](python_api.md#carla.ActorBlueprint) 都有一系列 [carla.ActorAttribute](python_api.md#carla.ActorAttribute) 可以 _get_ 和 _set_.
 ```py
 is_bike = [vehicle.get_attribute('number_of_wheels') == 2]
 if(is_bike)
     vehicle.set_attribute('color', '255,0,0')
 ```
 !!! Note
-    Some of the attributes cannot be modified. Check it out in the [blueprint library](bp_library.md).
+    S某些属性无法修改. 在 [蓝图库](bp_library.md)中查看.
 
-Attributes have an [carla.ActorAttributeType](python_api.md#carla.ActorAttributeType) variable. It states its type from a list of enums. Also, modifiable attributes come with a __list of recommended values__. 
+属性有一个 [carla.ActorAttributeType](python_api.md#carla.ActorAttributeType) 变量。 它从枚举列表中声明其类型。 此外，可修改的属性带有一个 __推荐值列表__
 
 ```py
 for attr in blueprint:
@@ -56,22 +56,22 @@ for attr in blueprint:
         blueprint.set_attribute(attr.id, random.choice(attr.recommended_values))
 ```
 !!! Note
-    Users can create their own vehicles. Check the __Tutorials (assets)__ to learn on that. Contributors can [add their new content to CARLA](tuto_D_contribute_assets.md). 
+    用户可以创建自己的交通工具。 查看 __教程（资产）__ 以了解相关信息。 贡献者可以[将新内容添加到 CARLA](tuto_D_contribute_assets.md). 
 
 ---
 ## Actor life cycle  
 
 !!! Important
-    This section mentions different methods regarding actors. The Python API provides for __[commands](python_api.md#command.SpawnActor)__ to apply batches of the most common ones, in just one frame. 
+    本节提到了关于actors的不同方法。 Python API 提供了 __[commands](python_api.md#command.SpawnActor)__ 以在一帧中应用最常见的批处理。
 
 ### Spawning
 
-__The world object is responsible of spawning actors and keeping track of these.__ Spawning only requires a blueprint, and a [carla.Transform](python_api.md#carla.Transform) stating a location and rotation for the actor.  
+__世界对象负责生成actors并跟踪它们.__ 生成只需要一个蓝图，以及一个[carla.Transform](python_api.md#carla.Transform) 说明actor的位置和旋转角度.  
 
-The world has two different methods to spawn actors.  
+世界有两种不同的方法来生成actors.  
 
-* [`spawn_actor()`](python_api.md#carla.World.spawn_actor) raises an exception if the spawning fails.
-* [`try_spawn_actor()`](python_api.md#carla.World.try_spawn_actor) returns `None` if the spawning fails.
+* [`spawn_actor()`](python_api.md#carla.World.spawn_actor) 如果生成失败，则引发异常.
+* [`try_spawn_actor()`](python_api.md#carla.World.try_spawn_actor) 如果生成失败则返回 `None` .
 
 ```py
 transform = Transform(Location(x=230, y=195, z=40), Rotation(yaw=180))
@@ -79,7 +79,7 @@ actor = world.spawn_actor(blueprint, transform)
 ```
 
 !!! Important
-    CARLA uses the [Unreal Engine coordinates system](https://carla.readthedocs.io/en/latest/python_api/#carlarotation). Remember that [`carla.Rotation`](https://carla.readthedocs.io/en/latest/python_api/#carlarotation) constructor is defined as `(pitch, yaw, roll)`, that differs from Unreal Engine Editor `(roll, pitch, yaw)`. 
+    CARLA 使用的是[虚幻引擎坐标系](https://carla.readthedocs.io/en/latest/python_api/#carlarotation). 请记住，[`carla.Rotation`](https://carla.readthedocs.io/en/latest/python_api/#carlarotation) 构造函数定义为 `(pitch, yaw, roll)`, 与 Unreal Engine Editor  `(roll, pitch, yaw)`不同. 
 
 The actor will not be spawned in case of collision at the specified location. No matter if this happens with a static object or another actor. It is possible to try avoiding these undesired spawning collisions.  
 
