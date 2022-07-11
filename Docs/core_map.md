@@ -57,7 +57,7 @@ my_waypoint.get_landmarks(200.0,True)
 
 ### Waypoints
 
-A [`carla.Waypoint`](python_api.md#carla.Waypoint) 是 CARLA 世界中的 3D 定向点，对应于 OpenDRIVE 车道。 与航点相关的一切都发生在客户端； 只需与服务器通信一次即可获取包含航点信息的 [地图对象t](python_api.md#carlamap) .
+A [`carla.Waypoint`](python_api.md#carla.Waypoint) 是 CARLA 世界中的 3D 定向点，对应于 OpenDRIVE 车道。 与航点相关的一切都发生在客户端； 只需与服务器通信一次即可获取包含航点信息的 [地图对象](python_api.md#carlamap) .
 
 每个航路点都包含一个 [`carla.Transform`](python_api.md#carla.Transform) 它说明了它在地图上的位置以及包含它的车道的方向。 变量  `road_id`,`section_id`,`lane_id` 和 `s` 对应于 OpenDRIVE 道路。 路点的`id`  由这四个值的哈希组合构成。
 
