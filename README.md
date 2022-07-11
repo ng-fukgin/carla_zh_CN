@@ -37,7 +37,7 @@ CARLA Simulator
   - [x] '1st-   World and client': 'core_world.md'：@ng-fukgin
   - [x] '2nd-  Actors and blueprints': 'core_actors.md'：@ng-fukgin
   - [x] '3rd-  Maps and navigation': 'core_map.md'：@ng-fukgin
-  - [ ] '4th-  Sensors and data': 'core_sensors.md'：@ng-fukgin
+  - [x] '4th-  Sensors and data': 'core_sensors.md'：@ng-fukgin
 - [ ] Advanced concepts:
   - [ ] 'OpenDRIVE standalone mode': 'adv_opendrive.md'：名字
   - [ ] 'PTV-Vissim co-simulation': 'adv_ptv.md'：名字
