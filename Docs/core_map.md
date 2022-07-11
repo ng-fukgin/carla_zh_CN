@@ -1,6 +1,6 @@
 # 3rd. Maps and navigation
 
-在讨论了这个世界和它的actors员之后, 现在是时候把所有东西都放在适当的位置，了解地图以及actors如何导航它。.  
+在讨论了这个世界和它的actors之后, 现在是时候把所有东西都放在适当的位置，了解地图以及actors如何导航它。.  
 
 - [__The map__](#the-map)  
 	- [Changing the map](#changing-the-map)  
