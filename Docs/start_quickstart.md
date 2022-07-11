@@ -20,8 +20,8 @@
 安装 CARLA 前应满足以下要求：
 
 * __系统要求.__ CARLA 是为 Windows 和 Linux 系统构建的.
-* __足够的 GPU.__ CARLA 旨在进行逼真的模拟，因此服务器至少需要 6 GB GPU，尽管我们建议使用 8 GB。 强烈建议使用专用 GPU 进行机器学习. 
-* __磁盘空间.__ CARLA 将使用大约 20 GB 的空间e.
+* __足够的 GPU.__ CARLA 旨在进行逼真的模拟，因此服务器至少需要 6 GB GPU，我们建议使用 8 GB。 强烈建议使用专用 GPU 进行机器学习. 
+* __磁盘空间.__ CARLA 将使用大约 20 GB 的空间.
 * __Python.__ [Python](https://www.python.org/downloads/) 是 CARLA 中的主要脚本语言。 CARLA 在 Linux 上支持 Python 2.7 和 Python 3，在 Windows 上支持 Python 3；.
 * __Pip.__ CARLA 客户端库的某些安装方法需要 pip 或 pip3（取决于您的 Python 版本）20.3 或更高版本. 检查您的 __pip__ 版本：
 
