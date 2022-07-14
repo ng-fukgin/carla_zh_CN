@@ -59,7 +59,7 @@ python3 config.py -x opendrive/TownBig.xodr
 网格的生成是这种模式的关键要素。 只有当生成的网格是平滑的并且完全符合其定义时，该特征才能成功。 因此，这一步正在不断改进。 在最后的迭代中，交叉路口已经过抛光以避免出现不准确的情况，尤其是在不平坦的车道连接处.  
 
 ![opendrive_meshissue](img/opendrive_meshissue.jpg)
-<div style="text-align: right"><i>在生成交汇点网格时，较高的车道往往会阻挡它们下方的车道。 <br><code>smooth_junctions</code> 参数可以防止这种问题.</i></div>
+<div style="text-align: right"><i>在生成交汇点网格时，较高的车道往往会阻挡它们下方的车道。 <br>参数<code>smooth_junctions</code>可以防止这种问题.</i></div>
 
 除此之外，不是将整个地图创建为唯一的网格，而是创建了不同的部分。 通过划分网格，模拟器可以避免渲染不可见的部分，从而节省成本。 工作更小还允许生成巨大的地图并包含可能出现在一小部分网格上的问题.
 
