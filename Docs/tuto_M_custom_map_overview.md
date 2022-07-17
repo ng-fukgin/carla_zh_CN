@@ -1,49 +1,49 @@
-# Add a new map
+# 添加一个新地图
 
-Users of CARLA can create custom maps and use them to run simulations. There are several ways to import custom maps in CARLA. The method to be used will depend on whether you are using a packaged version of CARLA or a version built from source. This section gives an overview of what you need to start the process, the different options available to import, and customization and pedestrian navigation tools available.
+CARLA的用户可以创建自定义地图并使用它们来进行仿真。 在CARLA中导入自定义地图有多种方法。 要使用的方法取决于你使用的是CARLA的打包版本还是从源代码构建的版本。 本节概述了开始该过程所需的内容、导入时可开启的选项、可用的定制工具和行人导航工具。
 
-- [__Overview__](#overview)
-- [__Generation__](#generation)
-- [__Importation__](#importation)
-- [__Customization__](#customization)
-- [__Generate pedestrian navigation__](#generate-pedestrian-navigation)
-
----
-
-## Overview
-
-Using custom maps in CARLA involves four main processes:
-
-1. Generation
-2. Importation
-3. Customization
-4. Pedestrian Navigation
-
-Read on further for additional general information on each process.
+- [__概述__](#overview)
+- [__生成__](#generation)
+- [__导入__](#importation)
+- [__定制__](#customization)
+- [__生成行人导航__](#generate-pedestrian-navigation)
 
 ---
 
-## Generation
+##概述
 
-CARLA requires map geometry information in `.fbx` format and OpenDRIVE information in `.xodr` format. The current recommended software to generate these files is RoadRunner.
+在Carla中使用自定义地图有以下4个过程：
 
-__[This guide](tuto_M_generate_map.md) explains how to use RoadRunner to generate the map information.__
+1. 生成
+2. 导入
+3. 定制
+4. 行人导航
+
+请继续阅读以了解每个过程的详细内容
 
 ---
 
-## Importation
+## 生成
 
-There are several ways to import your map into CARLA. 
+CARLA需要`.fbx`格式的地图几何信息和`.xodr`格式的OpenDRIVE信息。 当前推荐使用RoadRunner软件生成这些文件。
 
-If you are using a __package version__ of CARLA, you will import your map using Docker. This option is only available in Linux, and you will not have the ability to customize the map using the Unreal Editor. __You will find the guide [here](tuto_M_add_map_package.md).__
+__[此处](tuto_M_generate_map.md) 将指导你如何使用RoadRunner生成地图信息。__
 
-If you are using a __source build__ version of CARLA, there are three methods available to import your map:
+---
 
-1. Using the automatic `make import` process (recommended). __You will find the guide [here](tuto_M_add_map_source.md).__
-2. Using the RoadRunner plugin. __You will find the guide [here](tuto_M_add_map_alternative.md#roadrunner-plugin-import).__
-3. Manually importing the map into Unreal Engine. __You will find the guide [here](tuto_M_add_map_alternative.md#manual-import).__
+## 导入
 
-The following video explains some of the methods available to import maps into CARLA:
+有几种方法可以将你的地图导入CARLA。
+
+如果你使用的是CARLA的打包版本，你需要使用Docker导入地图。 此方法仅在Linux下可用，并且你将不能在Unreal Editor中编辑你的地图。 __更多详情请查看[此处](tuto_M_add_map_package.md)。__
+
+如果你使用的是CARLA的源代码构建版本，则可以使用以下三种方法来导入你的地图：
+
+1. 使用`make import`命令自动导入（推荐）。__更多详情请查看[此处](tuto_M_add_map_source.md)。__
+2. 使用RoadRunner插件，__更多详情请查看[此处](tuto_M_add_map_alternative.md#roadrunner-plugin-import)。__
+3. 手动导入地图到Unreal Engine中。__更多详情请查看[此处](tuto_M_add_map_alternative.md#manual-import)。__
+
+以下视频介绍了一些可用于将地图导入CARLA的方法：
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/mHiUUZ4xC9o" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -51,30 +51,30 @@ The following video explains some of the methods available to import maps into C
 
 ---
 
-## Customization
+## 定制
 
-As well as hundreds of static meshes ready to be added to the landscape, CARLA provides several tools and guides to help you customize your map:
+除了将准备的好的静态网格添加到景观外，CARLA还提供了多种工具和指南来帮助你自定义地图：
 
-- __Add sub-levels:__ Sub-levels will allow multiple people to work on the same map at the same time. They will also allow you to toggle layers of your map with the Python API, just like the CARLA layered maps. __You will find the guide [here](tuto_M_custom_layers.md).__
-- __Set default weather:__ Experiment with different weather presets, and when you find the right combination, set the default weather for your map. __You will find the guide [here](tuto_M_custom_weather_landscape.md#weather-customization).__
-- __Populate landscape:__ Use blueprints to populate the landscape with repeating meshes such as street lights, power lines, and walls. __You will find the guide [here](tuto_M_custom_weather_landscape.md#add-serial-meshes).__
-- __Paint the roads:__ Paint the roads with a master material that blends different textures. Add decals and meshes such as fallen leaves, cracks, or manholes. __You will find the guide [here](tuto_M_custom_road_painter.md).__
-- __Add procedural buildings:__ Add buildings with a custom size, amount of floors, and variable mesh combinations using the procedural building blueprint. __You will find the guide [here](tuto_M_custom_buildings.md).__
-- __Add traffic lights and signs:__ Add traffic lights and signs and configure their area of influence. Group traffic lights at junctions. __You will find the guide [here](tuto_M_custom_add_tl.md).__
-
----
-
-## Generate pedestrian navigation
-
-For pedestrians to be spawned and navigate the map, you need to generate the pedestrian navigation information using the tool provided by CARLA. Pedestrian navigation should be generated after you complete the customization of your map so that obstacles are not created over the top of navigation paths. __You can find the guide [here](tuto_M_generate_pedestrian_navigation.md).__
+- __添加子级别:__ 子级别可以使得多人在同一张地图上协同工作. 它们还允许你使用Python API切换地图的图层, 就像CARLA的分层地图一样。 __更多详情请查看[此处](tuto_M_custom_layers.md)。__
+- __设置默认天气:__ 尝试不同的天气预设，并找到你认为合适的天气。将其设置为地图的默认天气。 __更多详情请查看[此处](tuto_M_custom_weather_landscape.md#weather-customization)。__
+- __填充景观__：使用蓝图填充具有重复网格的景观，例如路灯、电源线和墙壁。__更多详情请查看[此处](tuto_M_custom_weather_landscape.md#add-serial-meshes)。__
+- __绘制道路__：使用混合不同纹理的主材质绘制道路。添加贴花和网格，例如落叶、裂缝或沙井。__更多详情请查看[此处](tuto_M_custom_road_painter.md)。__
+- __添加程序性建筑__：使用程序性建筑蓝图添加具有自定义大小、楼层数量和可变网格组合的建筑物。__更多详情请查看[此处](tuto_M_custom_buildings.md)。__
+- __添加交通灯和标志__：添加交通灯和标志并配置其影响区域。在路口设置红绿灯组。__更多详情请查看[此处](tuto_M_custom_add_tl.md)。__
 
 ---
 
-If you have any questions about the above process, feel free to post these in the [forum](https://github.com/carla-simulator/carla/discussions).
+## 生成行人导航
+
+要生成行人并在地图上导航，您需要使用CARLA提供的工具生成行人导航信息。 行人导航应在定制完地图后生成，以免在导航路径上生成障碍物。 __更多详情请查看[此处](tuto_M_generate_pedestrian_navigation.md).__
+
+---
+
+如果您对上述内容有任何疑问，请随时在[论坛](https://github.com/carla-simulator/carla/discussions)中反馈。
 
 <div class="build-buttons">
 <p>
-<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
+<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="前往CARLA论坛">
+CARLA论坛</a>
 </p>
 </div>
