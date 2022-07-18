@@ -39,7 +39,7 @@ CARLA Simulator
   - [x] '3rd-  Maps and navigation': 'core_map.md'：@ng-fukgin
   - [x] '4th-  Sensors and data': 'core_sensors.md'：@ng-fukgin
 - [ ] Advanced concepts:
-  - [ ] 'OpenDRIVE standalone mode': 'adv_opendrive.md'：名字
+  - [x ] 'OpenDRIVE standalone mode': 'adv_opendrive.md'：@ng-fukgin
   - [ ] 'PTV-Vissim co-simulation': 'adv_ptv.md'：名字
   - [ ] 'Recorder': 'adv_recorder.md'：名字
   - [ ] 'Rendering options': 'adv_rendering_options.md'：名字
@@ -104,7 +104,7 @@ CARLA Simulator
 - [ ] CARLA Ecosystem:
   - [ ] 'Ansys Real Time Radar Model': 'ecosys_ansys.md'：名字
 - [ ] Contributing:
-  - [ ] 'Contribution guidelines': 'cont_contribution_guidelines.md'：名字
-  - [ ] 'Code of conduct': 'cont_code_of_conduct.md'：名字
-  - [ ] 'Coding standard': 'cont_coding_standard.md'：名字
-  - [ ] 'Documentation standard': 'cont_doc_standard.md'：名字
+  - [ ] 'Contribution guidelines': 'cont_contribution_guidelines.md'：@ng-fukgin
+  - [ ] 'Code of conduct': 'cont_code_of_conduct.md'：@ng-fukgin
+  - [ ] 'Coding standard': 'cont_coding_standard.md'：@ng-fukgin
+  - [ ] 'Documentation standard': 'cont_doc_standard.md'：@ng-fukgin
