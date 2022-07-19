@@ -63,18 +63,18 @@ CARLA Simulator
 - [ ] ROS bridge:
   - [ ] 'ROS bridge documentation': 'ros_documentation.md'：名字
 - [ ] Custom Maps:
-  - [ ] 'Overview of custom maps in CARLA': 'tuto_M_custom_map_overview.md'：名字
-  - [ ] 'Create a map in RoadRunner': 'tuto_M_generate_map.md'：名字
-  - [ ] 'Import map in CARLA package': 'tuto_M_add_map_package.md'：名字
-  - [ ] 'Import map in CARLA source build': 'tuto_M_add_map_source.md'：名字
-  - [ ] 'Alternative ways to import maps': 'tuto_M_add_map_alternative.md'：名字
-  - [ ] 'Manually prepare map package': 'tuto_M_manual_map_package.md'：名字
-  - [ ] 'Customizing maps: Layered maps': 'tuto_M_custom_layers.md'：名字
-  - [ ] 'Customizing maps: Traffic lights and signs': 'tuto_M_custom_add_tl.md'：名字
-  - [ ] 'Customizing maps: Road painter': 'tuto_M_custom_road_painter.md'：名字
-  - [ ] 'Customizing maps: Procedural Buildings': 'tuto_M_custom_buildings.md'：名字
-  - [ ] 'Customizing maps: Weather and landscape': 'tuto_M_custom_weather_landscape.md'：名字
-  - [ ] 'Generate pedestrian navigation': 'tuto_M_generate_pedestrian_navigation.md'：名字
+  - [ ] 'Overview of custom maps in CARLA': 'tuto_M_custom_map_overview.md'：@lancelot-Yagami
+  - [ ] 'Create a map in RoadRunner': 'tuto_M_generate_map.md'：@lancelot-Yagami
+  - [ ] 'Import map in CARLA package': 'tuto_M_add_map_package.md'：@lancelot-Yagami
+  - [ ] 'Import map in CARLA source build': 'tuto_M_add_map_source.md'：@lancelot-Yagami
+  - [ ] 'Alternative ways to import maps': 'tuto_M_add_map_alternative.md'：@lancelot-Yagami
+  - [ ] 'Manually prepare map package': 'tuto_M_manual_map_package.md'：@lancelot-Yagami
+  - [ ] 'Customizing maps: Layered maps': 'tuto_M_custom_layers.md'：@lancelot-Yagami
+  - [ ] 'Customizing maps: Traffic lights and signs': 'tuto_M_custom_add_tl.md'：@lancelot-Yagami
+  - [ ] 'Customizing maps: Road painter': 'tuto_M_custom_road_painter.md'：@lancelot-Yagami
+  - [ ] 'Customizing maps: Procedural Buildings': 'tuto_M_custom_buildings.md'：@lancelot-Yagami
+  - [ ] 'Customizing maps: Weather and landscape': 'tuto_M_custom_weather_landscape.md'：@lancelot-Yagami
+  - [ ] 'Generate pedestrian navigation': 'tuto_M_generate_pedestrian_navigation.md'：@lancelot-Yagami
 - [ ] Large Maps:
   - [ ] 'Large maps overview': 'large_map_overview.md'：名字
   - [ ] 'Create a large map in RoadRunner': 'large_map_roadrunner.md'：名字
