@@ -64,7 +64,7 @@ CARLA Simulator
   - [ ] 'ROS bridge documentation': 'ros_documentation.md'：名字
 - [ ] Custom Maps:
   - [x] 'Overview of custom maps in CARLA': 'tuto_M_custom_map_overview.md'：@lancelot-Yagami
-  - [ ] 'Create a map in RoadRunner': 'tuto_M_generate_map.md'：@lancelot-Yagami
+  - [x] 'Create a map in RoadRunner': 'tuto_M_generate_map.md'：@lancelot-Yagami
   - [ ] 'Import map in CARLA package': 'tuto_M_add_map_package.md'：@lancelot-Yagami
   - [ ] 'Import map in CARLA source build': 'tuto_M_add_map_source.md'：@lancelot-Yagami
   - [ ] 'Alternative ways to import maps': 'tuto_M_add_map_alternative.md'：@lancelot-Yagami
