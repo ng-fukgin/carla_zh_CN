@@ -10,7 +10,7 @@ CARLA的用户可以创建自定义地图并使用它们来进行仿真。 在CA
 
 ---
 
-## 概述
+## overview概述
 
 在Carla中使用自定义地图有以下4个过程：
 
@@ -23,7 +23,7 @@ CARLA的用户可以创建自定义地图并使用它们来进行仿真。 在CA
 
 ---
 
-## 生成
+## generation生成
 
 CARLA需要`.fbx`格式的地图几何信息和`.xodr`格式的OpenDRIVE信息。 当前推荐使用RoadRunner软件生成这些文件。
 
@@ -31,7 +31,7 @@ __[此处](tuto_M_generate_map.md) 将指导你如何使用RoadRunner生成地�
 
 ---
 
-## 导入
+## importation导入
 
 有几种方法可以将你的地图导入CARLA。
 
@@ -51,7 +51,7 @@ __[此处](tuto_M_generate_map.md) 将指导你如何使用RoadRunner生成地�
 
 ---
 
-## 定制
+## customization定制
 
 除了将准备的好的静态网格添加到景观外，CARLA还提供了多种工具和指南来帮助你自定义地图：
 
@@ -64,7 +64,7 @@ __[此处](tuto_M_generate_map.md) 将指导你如何使用RoadRunner生成地�
 
 ---
 
-## 生成行人导航
+## generate-pedestrian-navigation生成行人导航
 
 你需要使用CARLA提供的工具生成行人导航信息，并且需要在定制完地图之后，以免在行人导航的路径上存在障碍物。 __更多详情请查看[此处](tuto_M_generate_pedestrian_navigation.md).__
 
