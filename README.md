@@ -104,7 +104,7 @@ CARLA Simulator
 - [ ] CARLA Ecosystem:
   - [ ] 'Ansys Real Time Radar Model': 'ecosys_ansys.md'：名字
 - [ ] Contributing:
-  - [ ] 'Contribution guidelines': 'cont_contribution_guidelines.md'：@ng-fukgin
-  - [ ] 'Code of conduct': 'cont_code_of_conduct.md'：@ng-fukgin
+  - [x] 'Contribution guidelines': 'cont_contribution_guidelines.md'：@ng-fukgin
+  - [x] 'Code of conduct': 'cont_code_of_conduct.md'：@ng-fukgin
   - [ ] 'Coding standard': 'cont_coding_standard.md'：@ng-fukgin
   - [ ] 'Documentation standard': 'cont_doc_standard.md'：@ng-fukgin
