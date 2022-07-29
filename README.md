@@ -101,8 +101,8 @@ CARLA Simulator
   - [ ] 'Customize vehicle suspension': 'tuto_D_customize_vehicle_suspension.md'：名字
   - [ ] 'Generate detailed colliders': 'tuto_D_generate_colliders.md'：名字
   - [ ] 'Make a release': 'tuto_D_make_release.md'：名字
-- [ ] CARLA Ecosystem:
-  - [ ] 'Ansys Real Time Radar Model': 'ecosys_ansys.md'：名字
+- [x] CARLA Ecosystem:
+  - [x] 'Ansys Real Time Radar Model': 'ecosys_ansys.md'：@ng-fukgin
 - [x] Contributing:
   - [x] 'Contribution guidelines': 'cont_contribution_guidelines.md'：@ng-fukgin
   - [x] 'Code of conduct': 'cont_code_of_conduct.md'：@ng-fukgin
