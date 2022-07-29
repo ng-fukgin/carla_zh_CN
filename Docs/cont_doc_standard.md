@@ -1,18 +1,18 @@
-# Documentation Standard
+#文档标准
 
-This document will serve as a guide and example of some rules that need to be followed in order to contribute to the documentation.
+本文档将作为一些规则的指南和示例，这些规则需要遵循才能对文档做出贡献
 
-*   [__Docs structure__](#docs-structure)  
-*   [__Rules__](#rules)  
-*   [__Exceptions__](#exceptions)  
+*   [__文档结构__](#docs-structure)  
+*   [__规则__](#rules)  
+*   [__例外__](#exceptions)  
 
 ---
 ## Docs structure
 
-We use a mix of markdown and HTML tags to customize the documentation along with an [`extra.css`](https://github.com/carla-simulator/carla/tree/master/Docs/extra.css) file.
-To update Python API docs, instead of directly modifying the Markdown you need to edit the corresponding YAML files inside [`carla/PythonAPI/docs/`][fileslink] and run [`doc_gen.py`][scriptlink] or `make PythonAPI.docs`.  
+我们使用 Markdown 和 HTML 标签的组合来自定义文档以及 [`extra.css`](https://github.com/carla -simulator/carla/tree/master/Docs/extra.css) 文件.
+要更新 Python API 文档，而不是直接修改 Markdown，您需要在 [`carla/PythonAPI/docs/`][fileslink] 中编辑相应的 YAML 文件并运行 [`doc_gen.py`][scriptlink] 或 `make PythonAPI .docs`.
 
-This will re-generate the respective Markdown files inside `carla/Docs/`, which can then be fed into `mkdocs`.
+这将在 `carla/Docs/` 中重新生成相应的 Markdown 文件，然后可以将其输入 `mkdocs`.
 
 [fileslink]: https://github.com/carla-simulator/carla/tree/master/PythonAPI/docs
 [scriptlink]: https://github.com/carla-simulator/carla/blob/master/PythonAPI/docs/doc_gen.py
@@ -20,18 +20,18 @@ This will re-generate the respective Markdown files inside `carla/Docs/`, which 
 ---
 ## Rules
 
-*   Leave always an empty line between sections and at the end of the document.
-*   Writting should not exceed `100` columns, except for HTML related content, markdown tables, code snipets and referenced links.
-*   If an inline link exceeds the limit, use referenced `[name][reference_link]` markdown notation `[reference_link]: https://` rather than `[name](https://)`.
-*   Use `<br>` to make inline jumps rather than leaving two spaces at the end of a line.
-*   Use `<h1>Title</h1>` at the beggining of a new page in order to make a Title or `<hx>Heading<hx>` to make a heading that **won't show** on the navigation bar.
-*   Use `------` underlining a Heading or `#` hierarchy to make headings and show them in the navigation bar.
+* 在章节之间和文档末尾始终留空行。
+* 写作不应超过 100 列，HTML 相关内容、markdown 表、代码片段和引用链接除外。
+* 如果内联链接超出限制，请使用引用的 `[name][reference_link]` 标记符号 `[reference_link]: https://` 而不是 `[name](https://)`。
+* 使用 `<br>` 进行内联跳转，而不是在行尾留下两个空格。
+* 在新页面的开头使用 `<h1>Title</h1>` 来制作标题或 `<hx>Heading<hx>` 来在导航栏制作**不会显示**的标题 。
+* 使用 `-----` 为标题或层次结构加下划线来制作标题并将它们显示在导航栏中。
 
 ---
 ## Exceptions
 
-  * Documentation generated via Python scripts like PythonAPI reference
+ * 通过 Python API 参考等 Python 脚本生成的文档
 
-Handy markdown [cheatsheet][cheatlink].
+简便的Markdown [cheatsheet] [cheatlink]。
 
 [cheatlink]: https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
