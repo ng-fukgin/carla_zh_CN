@@ -41,12 +41,12 @@ CARLA Simulator
 - [ ] Advanced concepts:
   - [x] 'OpenDRIVE standalone mode': 'adv_opendrive.md'：@ng-fukgin
   - [x] 'PTV-Vissim co-simulation': 'adv_ptv.md'：@ng-fukgin
-  - [ ] 'Recorder': 'adv_recorder.md'：名字
-  - [ ] 'Rendering options': 'adv_rendering_options.md'：名字
-  - [ ] 'RSS': 'adv_rss.md'：名字
-  - [ ] 'Synchrony and time-step': 'adv_synchrony_timestep.md'：名字
-  - [ ] 'Benchmarking Performance': 'adv_benchmarking.md'：名字
-  - [ ] 'CARLA Agents': 'adv_agents.md'：名字
+  - [ ] 'Recorder': 'adv_recorder.md'：@ng-fukgin
+  - [ ] 'Rendering options': 'adv_rendering_options.md'：@ng-fukgin
+  - [ ] 'RSS': 'adv_rss.md'：@ng-fukgin
+  - [ ] 'Synchrony and time-step': 'adv_synchrony_timestep.md'：@ng-fukgin
+  - [ ] 'Benchmarking Performance': 'adv_benchmarking.md'：@ng-fukgin
+  - [ ] 'CARLA Agents': 'adv_agents.md'：@ng-fukgin
 - [ ] Traffic Simulation:
   - [ ] 'Traffic Simulation Overview': 'ts_traffic_simulation_overview.md'：名字
   - [ ] 'Traffic Manager': 'adv_traffic_manager.md'：名字
@@ -95,12 +95,12 @@ CARLA Simulator
   - [ ] 'Create standalone packages': 'tuto_A_create_standalone.md'：名字
   - [ ] "Material customization": 'tuto_A_material_customization.md'：名字
 - [ ] Tutorials (developers):
-  - [ ] 'How to upgrade content': 'tuto_D_contribute_assets.md'：名字
-  - [ ] 'Create a sensor': 'tuto_D_create_sensor.md'：名字
-  - [ ] 'Create semantic tags': 'tuto_D_create_semantic_tags.md'：名字
-  - [ ] 'Customize vehicle suspension': 'tuto_D_customize_vehicle_suspension.md'：名字
-  - [ ] 'Generate detailed colliders': 'tuto_D_generate_colliders.md'：名字
-  - [ ] 'Make a release': 'tuto_D_make_release.md'：名字
+  - [x] 'How to upgrade content': 'tuto_D_contribute_assets.md'：@ng-fukgin
+  - [ ] 'Create a sensor': 'tuto_D_create_sensor.md'：@ng-fukgin
+  - [ ] 'Create semantic tags': 'tuto_D_create_semantic_tags.md'：@ng-fukgin
+  - [ ] 'Customize vehicle suspension': 'tuto_D_customize_vehicle_suspension.md'：@ng-fukgin
+  - [ ] 'Generate detailed colliders': 'tuto_D_generate_colliders.md'：@ng-fukgin
+  - [ ] 'Make a release': 'tuto_D_make_release.md'：@ng-fukgin
 - [x] CARLA Ecosystem:
   - [x] 'Ansys Real Time Radar Model': 'ecosys_ansys.md'：@ng-fukgin
 - [x] Contributing:
