@@ -40,7 +40,7 @@ CARLA Simulator
   - [x] '4th-  Sensors and data': 'core_sensors.md'：@ng-fukgin
 - [ ] Advanced concepts:
   - [x] 'OpenDRIVE standalone mode': 'adv_opendrive.md'：@ng-fukgin
-  - [ ] 'PTV-Vissim co-simulation': 'adv_ptv.md'：名字
+  - [x] 'PTV-Vissim co-simulation': 'adv_ptv.md'：@ng-fukgin
   - [ ] 'Recorder': 'adv_recorder.md'：名字
   - [ ] 'Rendering options': 'adv_rendering_options.md'：名字
   - [ ] 'RSS': 'adv_rss.md'：名字
