@@ -47,6 +47,7 @@ sudo apt-get update
 ```
 
 !!! Warning
+
     以下命令取决于您的 Ubuntu 版本。确保做出相应的选择. 
 
 __Ubuntu 18.04__.
