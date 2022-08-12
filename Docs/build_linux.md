@@ -35,7 +35,7 @@
 
 ### 软件要求
 
-CARLA 需要许多不同类型的软件才能运行。 有些是在 CARLA 构建过程本身期间构建的，例如 *Boost.Python*。 其他是应该在开始构建之前安装的二进制文件（*cmake*、*clang*、不同版本的 *Python* 等）。 要安装这些要求，请运行以下命令：
+CARLA 需要许多不同类型的软件才能运行。 有些是在 CARLA 构建过程中自己构建的，例如*Boost.Python*。 有一些是应该在开始构建之前安装的二进制文件（cmake、clang、不同版本的 Python 等）。 要安装所需要的软件，请运行以下命令：
 
 ```sh
 sudo apt-get update &&
@@ -70,7 +70,7 @@ sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/lib/llvm-8/bin/
 sudo update-alternatives --install /usr/bin/clang clang /usr/lib/llvm-8/bin/clang 180
 ```
 
-从CARLA 0.9.12版本开始, 用户可以选择安装 CARLA Python API 通过`pip` 或 `pip3`的版本需要20.3以上。要检查您是否有合适的版本，请运行以下命令:
+从CARLA 0.9.12版本开始, 用户可以选择20.3以上版本的`pip` 或 `pip3`需要安装 CARLA Python API 。要检查您是否有合适的版本，请运行以下命令:
 
 ```sh
 # For Python 3
