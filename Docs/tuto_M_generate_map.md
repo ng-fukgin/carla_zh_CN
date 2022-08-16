@@ -65,15 +65,17 @@ __请记住，带有大量道具的地图会显著减慢导入过程。__ 这是
 
 __1.__ 导出场景时选择CARLA选项：
 
-  - 在主工具栏中，选择`File` -> `Export` -> `CARLA (.fbx, .xodr, .rrdata.xml)`
+>- 在主工具栏中，选择`File` -> `Export` -> `CARLA (.fbx, .xodr, .rrdata.xml)`
 
 __2.__ 在弹出的窗口中：
-  - 选中以下选项：
+  
+>- 选中以下选项：
      - _Split by Segmentation_：按语义分割划分网格。
      - _Power of Two Texture Dimensions_：用于提高性能。
      - _Embed Textures_：确保纹理嵌入到网格中。
      - _Export to Tiles_：选择瓦片的大小（只有一块时不选中此选项）。
-  - 不选中以下选项:
+     
+>- 不选中以下选项:
     - _Export Individual Tiles_: 仅生成包含所有地图块的`.fbx`文件
 
 >>>>![roadrunner_export](../img/roadrunner_export.png)
