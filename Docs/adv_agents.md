@@ -1,50 +1,52 @@
 # CARLA Agents
 
-CARLA Agent scripts allow a vehicle to either follow a random, endless route or take the shortest route to a given destination. Agents obey traffic lights and react to other obstacles in the road. There are three agent types available. Parameters such as target speed, braking distance, tailgating behavior, and more can be modified. Actor classes can be modified or used as a base class to create custom agents according to the user's needs.
+CARLA Agent脚本允许车辆按照随机的、无尽的路线行驶，或者以最短的路线前往指定目的地。代理会遵守交通信号灯并对道路上的其他障碍物作出反应。有三种可用的代理类型。可以修改参数，如目标速度、制动距离、紧跟行为等。可以修改或使用Actor类作为基类来根据用户的需求创建自定义代理。
 
-- [__Overview of agent scripts__](#overview-of-agent-scripts)
-    - [Planning and control](#planning-and-control)
-    - [Agent behaviors](#agent-behaviors)
-- [__Implement an agent__](#implement-an-agent)
-- [__Behavior types__](#behavior-types)
-    - [Create your own behavior type](#create-your-own-behavior-type)
-- [__Creating an agent__](#creating-an-agent)
-
----
-
-## Overview of agent scripts
-
-The main scripts involved in the CARLA Agents are found in `PythonAPI/carla/agents/navigation`. They fall into two categories; __planning and control__ and __agent behaviors__.
-
-### Planning and control
-
-- __`controller.py`:__ Combines longitudinal and lateral PID controllers into a single class, __VehiclePIDController__, used for low-level control of vehicles from the client side of CARLA.
-- __`global_route_planner.py`:__ Gets detailed topology from the CARLA server to build a graph representation of the world map, providing waypoint and road option information for the __Local Planner__.
-- __`local_planner.py`:__ Follows waypoints based on control inputs from the __VehiclePIDController__. Waypoints can either be provided by the __Global Route Planner__ or be calculated dynamically, choosing random paths at junctions, similar to the [Traffic Manager](adv_traffic_manager.md).
-
-### Agent behaviors
-
-- __`basic_agent.py`:__ Contains an agent base class that implements a __Basic Agent__ that roams around the map or reaches a target destination in the shortest distance possible, avoiding other vehicles, responding to traffic lights but ignoring stop signs.
-- __`behavior_agent.py`:__ Contains a class that implements a more complex __Behavior Agent__ that can reach a target destination in the shortest distance possible, following traffic lights, signs, and speed limits while tailgating other vehicles. There are three predefined types that condition how the agent behaves.
-- __`behavior_types.py`:__ Contains the parameters for the behavior types that condition the __Behavior Agent__; Cautious, Normal, and Aggressive.
+- [CARLA Agents](#carla-agents)
+  - [代理脚本概述](#代理脚本概述)
+    - [规划和控制](#规划和控制)
+    - [代理行为](#代理行为)
+  - [实现一个代理](#实现一个代理)
+  - [行为类型](#行为类型)
+  - [创建自定义行为类型](#创建自定义行为类型)
+  - [创建代理](#创建代理)
 
 ---
 
-## Implement an agent
+## 代理脚本概述
 
-This section will explain how to use the example CARLA Agent classes in your own scripts. At the end of the section, you will find out how to run an example script that shows the different agents in action.
+CARLA Agents中的主要脚本位于`PythonAPI/carla/agents/navigation`目录下。它们分为两类：**规划和控制**和**代理行为**。
 
-__1.__ Import the agent class you want to use:
+### 规划和控制
 
-```py
-# To import a basic agent
+- `controller.py`：将纵向和横向PID控制器结合到一个类中，称为**VehiclePIDController**，用于从CARLA客户端对车辆进行低级控制。
+- `global_route_planner.py`：从CARLA服务器获取详细的拓扑结构，构建世界地图的图形表示，为**Local Planner**提供路标和道路选项信息。
+- `local_planner.py`：根据来自**VehiclePIDController**的控制输入，按照路标行驶。路标可以由**Global Route Planner**提供，也可以在动态计算中选择随机路径，类似于[Traffic Manager](adv_traffic_manager.md)。
+
+### 代理行为
+
+- `basic_agent.py`：包含一个实现了**Basic Agent**的代理基类，可以在地图上漫游或以最短的距离到达目标位置，避开其他车辆，对交通信号灯作出反应，但忽略停止标志。
+- `behavior_agent.py`：包含一个实现了更复杂的**Behavior Agent**的类，可以以最短的距离到达目标位置，遵守交通信号灯、标志和速度限制，并紧跟其他车辆。有三种预定义的行为类型来控制代理的行为。
+- `behavior_types.py`：包含条件**Behavior Agent**的行为类型的参数；谨慎型、正常型和激进型。
+
+---
+
+## 实现一个代理
+
+本节将解释如何在自己的脚本中使用示例CARLA Agent类。在本节结束时，您将了解如何运行一个显示不同代理行为的示例脚本。
+
+__1.__ 导入要使用的代理类：
+
+```python
+# 导入基本代理
 from agents.navigation.basic_agent import BasicAgent
 
-# To import a behavior agent
+# 导入行为代理
 from agents.navigation.behavior_agent import BehaviorAgent
 ```
 
-__2.__ Any vehicle can be turned into an agent. [Spawn a vehicle](core_actors.md#spawning) and pass it as an argument to the agent class to instantiate it:
+__2.__任何车辆都可以转化为代理。[生成一个车辆](core_actors.md#spawning)，并将其作为参数传递给代理类以实例化：
+
 
 ```py
 # To start a basic agent
@@ -54,23 +56,27 @@ agent = BasicAgent(vehicle)
 agent = BehaviorAgent(vehicle, behavior='aggressive')
 ```
 
-Read more about behavior types and how to configure your own in the section [__behavior types__](#behavior-types).
+了解有关行为类型及如何配置自定义行为类型的更多信息，请查看[__行为类型__](#behavior-types)部分。
 
-__3.__ You can set a destination for the agent to travel to. If you don't set a destination for the agent, it will roam endlessly around the map. To set the destination, provide the agent with a [location](python_api.md#carlalocation):
+
+__3.__ 您可以设置代理前往的目的地。如果没有为代理设置目的地，它将在地图上无休止地漫游。要设置目的地，请为代理提供一个[位置](python_api.md#carlalocation)：
+
 
 ```py
 destination = random.choice(spawn_points).location
 agent.set_destination(destination)
 ```
 
-__5.__ Vehicle controls and behaviors are applied during a navigation step. During each step, the __Basic Agent__ will apply a vehicle control and react to any vehicles or traffic lights by performing an emergency stop. The __Behavior Agent__ will react to traffic lights, avoid pedestrians, follow cars and navigate intersections according to the behavior type you applied:
+__5.__ 在导航的每个步骤中，车辆控制和行为都会被应用。在每个步骤中，**基本代理**将应用车辆控制，并通过执行紧急停车来对其他车辆或交通信号灯做出反应。**行为代理**将根据所应用的行为类型对交通信号灯做出反应，避开行人，跟随其他车辆并在交叉口进行导航。
+
 
 ```py
 while True:
     vehicle.apply_control(agent.run_step())
 ```
 
-__6.__ You can check if the agent has finished its trajectory and perform an action when that happens. The following snippet will end the simulation once your vehicle has reached its destination:
+__6.__ 您可以检查代理是否已完成其轨迹，并在完成时执行相应的操作。以下代码片段将在车辆到达目的地后结束模拟：
+
 
 ```py
 while True:
@@ -81,7 +87,8 @@ while True:
     vehicle.apply_control(agent.run_step())
 ```
 
-__7.__ Instead of finishing the simulation when an agent has reached its target destination, a new, random route can be generated for the agent to follow:
+__7.__ 当代理到达目标位置时，可以选择生成一个新的随机路径让代理继续跟随：
+
 
 ```py
 while True:
@@ -92,18 +99,19 @@ while True:
     vehicle.apply_control(agent.run_step())
 ```
 
-The __Basic Agent__ provides a few methods to manipulate agent behavior or program routes to follow:
+__Basic Agent__ 提供了几种方法来操作代理的行为或指定行驶路线：
 
-- __`set_target_speed(speed)`:__ Set the target speed in km/h
-- __`follow_speed_limits(value=True)`:__ Sets the agent to follow speed limits.
-- __`set_destination(end_location, start_location=None)`:__ The agent will travel from a specific start location to an end location via the shortest route possible. If no start location is provided, it will use the current agent location.
-- __`set_global_plan(plan, stop_waypoint_creation=True, clean_queue=True)`:__ Adds a specific plan for the agent to follow. The plan argument should consist of a list of `[carla.Waypoint, RoadOption]` that will be the path the agent needs to take. `stop_waypoint_creation` will prevent waypoints from being automatically created once the path has run its course. `clean_queue` will reset the agent's current plan.
-- __`trace_route(start_waypoint, end_waypoint)`:__ Gets the shortest distance between two waypoints from the Global Route Planner and returns the path as a list of `[carla.Waypoint, RoadOption]` for the agent to follow.
-- __`ignore_traffic_lights(active=True)`:__ Set the agent to ignore or obey traffic lights.
-- __`ignore_stop_signs(active=True)`:__ Set the agent to ignore or obey stop signs.
-- __`ignore_vehicles(active=True)`:__ Set the agent to ignore or react to other vehicles.
+- `set_target_speed(speed)`: 设置目标速度（以千米/小时为单位）
+- `follow_speed_limits(value=True)`: 设置代理是否遵守速度限制。
+- `set_destination(end_location, start_location=None)`: 代理将从指定的起始位置前往目标位置，通过最短路径进行行驶。如果未提供起始位置，则使用当前代理的位置作为起始位置。
+- `set_global_plan(plan, stop_waypoint_creation=True, clean_queue=True)`: 为代理添加特定的行驶计划。计划参数应该是一个由`[carla.Waypoint, RoadOption]`组成的列表，代表代理需要遵循的路径。`stop_waypoint_creation`参数将阻止自动创建路径上的路点。`clean_queue`参数将重置代理的当前计划。
+- `trace_route(start_waypoint, end_waypoint)`: 从全局路线规划器中获取两个路点之间的最短路径，并以`[carla.Waypoint, RoadOption]`的列表形式返回代理需要遵循的路径。
+- `ignore_traffic_lights(active=True)`: 设置代理是否忽略或遵守交通信号灯。
+- `ignore_stop_signs(active=True)`: 设置代理是否忽略或遵守停止标志。
+- `ignore_vehicles(active=True)`: 设置代理是否忽略或对其他车辆做出反应。
 
-The `automatic_control.py` script, found in `PythonAPI/examples`, is an example of the Basic and Behavior Agents in action. To try the script, navigate to the example directory and run the following command:
+`automatic_control.py` 脚本位于 `PythonAPI/examples` 目录中，展示了基本代理和行为代理的示例。要尝试运行该脚本，请导航到示例目录并执行以下命令：
+
 
 ```sh
 # To run with a basic agent
@@ -115,30 +123,32 @@ python3 automatic_control.py --agent=Behavior --behavior=aggressive
 
 ---
 
-## Behavior types
+## 行为类型
 
-Behavior types for the behavior agent are defined in `behavior_types.py`. The three pre-configured profiles are __'cautious'__, __'normal'__, and __'aggressive'__. You can use the set profiles, modify them or create your own. The following variables can be adjusted:
+行为代理的行为类型在 `behavior_types.py` 中定义。预设的三个配置文件是 __'cautious'__、__'normal'__ 和 __'aggressive'__。您可以使用这些预设配置文件，修改它们或创建自己的配置文件。以下变量可以进行调整：
 
-- __`max_speed`__: The maximum speed in km/h your vehicle will be able to reach.
-- __`speed_lim_dist`__: Value in km/h that defines how far your vehicle's target speed will be from the current speed limit (e.g., if the speed limit is 30km/h and `speed_lim_dist` is 10km/h, then the target speed will be 20km/h)
-- __`speed_decrease`__: How quickly in km/h your vehicle will slow down when approaching a slower vehicle ahead.
-- __`safety_time`__: Time-to-collision; an approximation of the time it will take for your vehicle to collide with one in front if it brakes suddenly.
-- __`min_proximity_threshold`__: The minimum distance in meters from another vehicle or pedestrian before your vehicle performs a maneuver such as avoidance, or tailgating.
-- __`braking_distance`__: The distance from a pedestrian or vehicle at which your vehicle will perform an emergency stop.
-- __`tailgate_counter`__: A counter to avoid tailgating too quickly after the last tailgate.
+- __`max_speed`__：您的车辆能够达到的最大速度，以千米/小时为单位。
+- __`speed_lim_dist`__：以千米/小时为单位的值，定义了您的车辆的目标速度与当前速度限制之间的距离（例如，如果速度限制为30千米/小时，而 `speed_lim_dist` 为10千米/小时，则目标速度为20千米/小时）。
+- __`speed_decrease`__：当接近前方较慢的车辆时，您的车辆以千米/小时为单位的速度减少速率。
+- __`safety_time`__：碰撞时间；如果您的车辆突然刹车，与前方车辆碰撞所需的大致时间。
+- __`min_proximity_threshold`__：与另一辆车或行人的最小距离（以米为单位），在达到该距离之前，您的车辆将执行回避或紧跟动作。
+- __`braking_distance`__：与行人或车辆之间的距离，在该距离处，您的车辆将执行紧急停车。
+- __`tailgate_counter`__：避免在上次紧跟动作之后过快地紧跟。
 
-## Create your own behavior type
+## 创建自定义行为类型
 
-To create your own behavior type:
+要创建自己的行为类型：
 
-__1.__ Create the class for your behavior type in `behavior_types.py`:
+__1.__ 在 `behavior_types.py` 中创建行为类型的类：
+
 
 ```py
 class ProfileName(object):
     # complete value definitions
 ```
 
-__2.__ Define and instantiate your behavior type in the `behavior_agent.py` script:
+__2.__ 在 `behavior_agent.py` 脚本中定义并实例化您的行为类型：
+
 
 ```py
 # Parameters for agent behavior
@@ -157,11 +167,12 @@ elif behavior == '<type_name>':
 
 ---
 
-## Creating an agent
+## 创建代理
 
-The CARLA Agents are just examples of the kind of agents users can run. Users can build upon the __Basic Agent__ to create their own agents. The possibilities are endless. There are only two elements that are necessary for every agent, __the initialization__ and the __run step__.
+CARLA Agents 只是用户可以运行的代理类型的示例。用户可以基于基本代理 (`Basic Agent`) 构建自己的代理。可能性是无限的。每个代理都只需要两个必要的元素，即 __初始化__ 和 __运行步骤__。
 
-Find an example of a minimal layout of a custom agent below:
+以下是一个自定义代理最简布局的示例：
+
 
 ```py
 import carla
@@ -186,11 +197,12 @@ class CustomAgent(BasicAgent):
         return control
 ```
 
-Check out the `basic_agent.py` and `behavior_agent.py` scripts to explore their structure and functions for more ideas on how to create your own.
+请查看 `basic_agent.py` 和 `behavior_agent.py` 脚本，以了解它们的结构和函数，获取有关如何创建自己代理的更多想法。
 
 ---
 
-You can explore the provided agent scripts, expand upon them or use them as a baseline to create your own. If you have any questions about the agents, feel free to post in the [forum](https://github.com/carla-simulator/carla/discussions/).
+您可以探索提供的代理脚本，对其进行扩展或将其用作创建自己代理的基础。如果您对代理有任何问题，欢迎在 [论坛](https://github.com/carla-simulator/carla/discussions/) 上发帖提问。
+
 
 
 
