@@ -1,4 +1,4 @@
-site_name: CARLA Simulator
+site_name: CARLA模拟器
 repo_url: https://github.com/ng-fukgin/carla_zh_CN
 docs_dir: Docs
 edit_uri: 'edit/master/Docs/'
@@ -7,93 +7,93 @@ extra_css: [extra.css]
 extra_javascript: [extra.js]
 
 nav:
-- Home: 'index.md'
-- Getting started:
-  - 'Introduction': 'start_introduction.md'
-  - 'Quick start package installation': 'start_quickstart.md'
-- Building CARLA:
-  - 'Linux build': 'build_linux.md'
-  - 'Windows build': 'build_windows.md'
-  - 'Update CARLA': 'build_update.md'
-  - 'Build system': 'build_system.md'
-  - 'CARLA in Docker': 'build_docker.md'
-  - 'F.A.Q.': 'build_faq.md'
-- First steps:
-  - 'Core concepts': 'core_concepts.md'
-  - '1st- World and client': 'core_world.md'
-  - '2nd- Actors and blueprints': 'core_actors.md'
-  - '3rd- Maps and navigation': 'core_map.md'
-  - '4th- Sensors and data': 'core_sensors.md'
-- Advanced concepts:
-  - 'OpenDRIVE standalone mode': 'adv_opendrive.md'
-  - 'PTV-Vissim co-simulation': 'adv_ptv.md'
-  - 'Recorder': 'adv_recorder.md'
-  - 'Rendering options': 'adv_rendering_options.md'
-  - 'RSS': 'adv_rss.md'
-  - 'Synchrony and time-step': 'adv_synchrony_timestep.md'
-  - 'Benchmarking Performance': 'adv_benchmarking.md'
-  - 'CARLA Agents': 'adv_agents.md'
-- Traffic Simulation:
-  - 'Traffic Simulation Overview': 'ts_traffic_simulation_overview.md'
-  - 'Traffic Manager': 'adv_traffic_manager.md'
-  - 'SUMO co-simulation': 'adv_sumo.md'
-  - 'Scenic': 'tuto_G_scenic.md'
-- References:
-  - 'Python API reference': 'python_api.md'
-  - 'Blueprint Library': 'bp_library.md'
-  - 'C++ reference' : 'ref_cpp.md'
-  - 'Recorder binary file format': 'ref_recorder_binary_file_format.md'
-  - "Sensors reference": 'ref_sensors.md'  
-- Plugins:
-  - 'carlaviz — web visualizer': 'plugins_carlaviz.md'
-- ROS bridge:
-  - 'ROS bridge documentation': 'ros_documentation.md'
-- Custom Maps:
-  - 'Overview of custom maps in CARLA': 'tuto_M_custom_map_overview.md'
-  - 'Create a map in RoadRunner': 'tuto_M_generate_map.md'
-  - 'Import map in CARLA package': 'tuto_M_add_map_package.md'
-  - 'Import map in CARLA source build': 'tuto_M_add_map_source.md'
-  - 'Alternative ways to import maps': 'tuto_M_add_map_alternative.md'
-  - 'Manually prepare map package': 'tuto_M_manual_map_package.md'
-  - 'Customizing maps: Layered maps': 'tuto_M_custom_layers.md'
-  - 'Customizing maps: Traffic lights and signs': 'tuto_M_custom_add_tl.md'
-  - 'Customizing maps: Road painter': 'tuto_M_custom_road_painter.md'
-  - 'Customizing maps: Procedural Buildings': 'tuto_M_custom_buildings.md'
-  - 'Customizing maps: Weather and landscape': 'tuto_M_custom_weather_landscape.md'
-  - 'Generate pedestrian navigation': 'tuto_M_generate_pedestrian_navigation.md'
-- Large Maps:
-  - 'Large maps overview': 'large_map_overview.md'
-  - 'Create a large map in RoadRunner': 'large_map_roadrunner.md'
-  - 'Import/Package a large map': 'large_map_import.md'
-- Tutorials (general):
-  - 'Add friction triggers': "tuto_G_add_friction_triggers.md"
-  - 'Control vehicle physics': "tuto_G_control_vehicle_physics.md"
-  - 'Control walker skeletons': "tuto_G_control_walker_skeletons.md"
-  - 'Generate maps with OpenStreetMap': 'tuto_G_openstreetmap.md'
-  - 'Retrieve simulation data': "tuto_G_retrieve_data.md"
-  - 'CarSim Integration': "tuto_G_carsim_integration.md"
-  - 'RLlib Integration': "tuto_G_rllib_integration.md"
-  - 'Chrono Integration': 'tuto_G_chrono.md'
-  - 'Build Unreal and CARLA in Docker': 'build_docker_unreal.md'
-- Tutorials (assets):
-  - 'Add a new vehicle': 'tuto_A_add_vehicle.md'
-  - 'Add new props': 'tuto_A_add_props.md'
-  - 'Create standalone packages': 'tuto_A_create_standalone.md'
-  - "Material customization": 'tuto_A_material_customization.md'
-- Tutorials (developers):
-  - 'How to upgrade content': 'tuto_D_contribute_assets.md'
-  - 'Create a sensor': 'tuto_D_create_sensor.md'
-  - 'Create semantic tags': 'tuto_D_create_semantic_tags.md'
-  - 'Customize vehicle suspension': 'tuto_D_customize_vehicle_suspension.md'
-  - 'Generate detailed colliders': 'tuto_D_generate_colliders.md'
-  - 'Make a release': 'tuto_D_make_release.md'
-- CARLA Ecosystem:
-  - 'Ansys Real Time Radar Model': 'ecosys_ansys.md'
-- Contributing:
-  - 'Contribution guidelines': 'cont_contribution_guidelines.md'
-  - 'Code of conduct': 'cont_code_of_conduct.md'
-  - 'Coding standard': 'cont_coding_standard.md'
-  - 'Documentation standard': 'cont_doc_standard.md'
+- 首页: 'index.md'
+- 入门指南:
+  - 介绍: 'start_introduction.md'
+  - 快速入门安装: 'start_quickstart.md'
+- 构建CARLA:
+  - Linux构建: 'build_linux.md'
+  - Windows构建: 'build_windows.md'
+  - 更新CARLA: 'build_update.md'
+  - 构建系统: 'build_system.md'
+  - 在Docker中使用CARLA: 'build_docker.md'
+  - 常见问题解答: 'build_faq.md'
+- 初步了解:
+  - 核心概念: 'core_concepts.md'
+  - 第一步 - 世界和客户端: 'core_world.md'
+  - 第二步 - 角色和蓝图: 'core_actors.md'
+  - 第三步 - 地图和导航: 'core_map.md'
+  - 第四步 - 传感器和数据: 'core_sensors.md'
+- 高级概念:
+  - 独立OpenDRIVE模式: 'adv_opendrive.md'
+  - PTV-Vissim协同仿真: 'adv_ptv.md'
+  - 录制器: 'adv_recorder.md'
+  - 渲染选项: 'adv_rendering_options.md'
+  - RSS: 'adv_rss.md'
+  - 同步性和时间步长: 'adv_synchrony_timestep.md'
+  - 性能基准测试: 'adv_benchmarking.md'
+  - CARLA Agents: 'adv_agents.md'
+- 交通仿真:
+  - 交通仿真概述: 'ts_traffic_simulation_overview.md'
+  - 交通管理器: 'adv_traffic_manager.md'
+  - SUMO协同仿真: 'adv_sumo.md'
+  - Scenic: 'tuto_G_scenic.md'
+- 参考:
+  - Python API参考: 'python_api.md'
+  - 蓝图库: 'bp_library.md'
+  - C++参考: 'ref_cpp.md'
+  - 录制器二进制文件格式: 'ref_recorder_binary_file_format.md'
+  - 传感器参考: 'ref_sensors.md'
+- 插件:
+  - carlaviz - 网页可视化工具: 'plugins_carlaviz.md'
+- ROS桥接:
+  - ROS桥接文档: 'ros_documentation.md'
+- 自定义地图:
+  - CARLA中自定义地图概述: 'tuto_M_custom_map_overview.md'
+  - 在RoadRunner中创建地图: 'tuto_M_generate_map.md'
+  - 在CARLA包中导入地图: 'tuto_M_add_map_package.md'
+  - 在CARLA源代码构建中导入地图: 'tuto_M_add_map_source.md'
+  - 导入地图的其他方法: 'tuto_M_add_map_alternative.md'
+  - 手动准备地图包: 'tuto_M_manual_map_package.md'
+  - 自定义地图: 分层地图: 'tuto_M_custom_layers.md'
+  - 自定义地图: 交通灯和标志: 'tuto_M_custom_add_tl.md'
+  - 自定义地图: 路面绘制工具: 'tuto_M_custom_road_painter.md'
+  - 自定义地图: 过程化建筑物: 'tuto_M_custom_buildings.md'
+  - 自定义地图: 天气和景观: 'tuto_M_custom_weather_landscape.md'
+  - 生成行人导航: 'tuto_M_generate_pedestrian_navigation.md'
+- 大型地图:
+  - 大型地图概述: 'large_map_overview.md'
+  - 在RoadRunner中创建大型地图: 'large_map_roadrunner.md'
+  - 导入/打包大型地图: 'large_map_import.md'
+- 教程（常规）:
+  - 添加摩擦触发器: 'tuto_G_add_friction_triggers.md'
+  - 控制车辆物理特性: 'tuto_G_control_vehicle_physics.md'
+  - 控制行人骨骼: 'tuto_G_control_walker_skeletons.md'
+  - 使用OpenStreetMap生成地图: 'tuto_G_openstreetmap.md'
+  - 检索仿真数据: 'tuto_G_retrieve_data.md'
+  - CarSim集成: 'tuto_G_carsim_integration.md'
+  - RLlib集成: 'tuto_G_rllib_integration.md'
+  - Chrono集成: 'tuto_G_chrono.md'
+  - 在Docker中构建Unreal和CARLA: 'build_docker_unreal.md'
+- 教程（资源）:
+  - 添加新车辆: 'tuto_A_add_vehicle.md'
+  - 添加新道具: 'tuto_A_add_props.md'
+  - 创建独立包: 'tuto_A_create_standalone.md'
+  - 材质自定义: 'tuto_A_material_customization.md'
+- 教程（开发者）:
+  - 如何升级内容: 'tuto_D_contribute_assets.md'
+  - 创建传感器: 'tuto_D_create_sensor.md'
+  - 创建语义标签: 'tuto_D_create_semantic_tags.md'
+  - 自定义车辆悬挂: 'tuto_D_customize_vehicle_suspension.md'
+  - 生成详细的碰撞器: 'tuto_D_generate_colliders.md'
+  - 发布版本: 'tuto_D_make_release.md'
+- CARLA生态系统:
+  - Ansys实时雷达模型: 'ecosys_ansys.md'
+- 贡献:
+  - 贡献指南: 'cont_contribution_guidelines.md'
+  - 行为准则: 'cont_code_of_conduct.md'
+  - 编码标准: 'cont_coding_standard.md'
+  - 文档编写规范: 'cont_doc_standard.md'
 
 markdown_extensions:
   - admonition
