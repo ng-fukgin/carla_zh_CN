@@ -1,90 +1,91 @@
-# Generate Pedestrian Navigation
+# 生成行人导航
 
-To allow pedestrians to navigate a map, you will need to generate a pedestrian navigation file. This guide details what meshes to use and how to generate the file.
+为了使行人能够在地图上导航，您需要生成一个行人导航文件。本指南详细介绍了要使用的网格以及如何生成该文件。
 
-- [__Before you begin__](#before-you-begin)
-- [__Pedestrian navigable meshes__](#pedestrian-navigable-meshes)
-- [__Optional pedestrian navigation options__](#optional-pedestrian-navigation-options)
-- [__Generate the pedestrian navigation__](#generate-the-pedestrian-navigation)
-
----
-
-## Before you begin
-
-Map customization (adding buildings, painting the road, adding landscape features, etc.) should be completed before generating the pedestrian navigation in order to avoid interference or collisions between the two, resulting in the need to generate the pedestrian navigation a second time.
+- [生成行人导航](#生成行人导航)
+  - [开始之前](#开始之前)
+  - [行人可导航网格](#行人可导航网格)
+  - [可选的行人导航选项](#可选的行人导航选项)
+  - [生成行人导航](#生成行人导航-1)
 
 ---
 
-## Pedestrian navigable meshes
+## 开始之前
 
-Pedestrians can only navigate specific meshes. You need to name the meshes you want to include in pedestrian navigation according to the nomenclature in the table below:
+在生成行人导航之前，应完成地图定制（添加建筑物、绘制道路、添加景观特征等），以避免干扰或碰撞，并导致需要再次生成行人导航。
 
-| Type | Name includes | Description |
+---
+
+## 行人可导航网格
+
+行人只能在特定的网格上导航。您需要按照下表中的命名规则为要包含在行人导航中的网格命名：
+
+| 类型 | 包含名称 | 描述 |
 |------|------------|-------------|
-| Ground | `Road_Sidewalk` or `Roads_Sidewalk` | Pedestrians will walk over these meshes freely. |
-| Crosswalk  | `Road_Crosswalk` or `Roads_Crosswalk` | Pedestrians will walk over these meshes as a second option if no ground is found. |
-| Grass | `Road_Grass` or `Roads_Grass` | Pedestrians won't walk on this mesh unless you specify a percentage of them to do so. |
-| Road | `Road_Road` or `Roads_Road` <br> `Road_Curb` or `Roads_Curb` <br> `Road_Gutter` or `Roads_Gutter` <br> `Road_Marking` or `Roads_Marking` | Pedestrians will only cross roads through these meshes. |
-
-<br>
+| 地面 | `Road_Sidewalk` 或 `Roads_Sidewalk` | 行人可以自由走动在这些网格上。 |
+| 人行横道 | `Road_Crosswalk` 或 `Roads_Crosswalk` | 如果没有地面可用，行人可以选择走这些网格上的人行横道。 |
+| 草地 | `Road_Grass` 或 `Roads_Grass` | 除非您指定一定比例的行人可以走在草地上，否则行人不会走在这个网格上。 |
+| 道路 | `Road_Road` 或 `Roads_Road` <br> `Road_Curb` 或 `Roads_Curb` <br> `Road_Gutter` 或 `Roads_Gutter` <br> `Road_Marking` 或 `Roads_Marking` | 行人只会通过这些网格穿越道路。 |
 
 ---
 
-## Optional pedestrian navigation options
+## 可选的行人导航选项
 
-The following step is not necessary for generating a pedestrian navigation, but allows you to customize pedestrian activity to a certain extent.
+下面的步骤不是生成行人导航所必需的，但允许您在一定程度上自定义行人活动。
 
-- __Generate new crosswalks__.
+- __生成新的人行横道__。
 
-Avoid doing this if the crosswalk is already defined the `.xodr` file as this will lead to duplication:
+如果人行横道在 `.xodr` 文件中已经定义，请避免执行此操作，否则会导致重复定义：
 
-1. Create a plane mesh that extends a bit over two sidewalks that you want to connect.
-2. Place the mesh overlapping the ground and disable it's physics and rendering.
-3. Change the name of the mesh to `Road_Crosswalk` or `Roads_Crosswalk`.
+1. 创建一个平面网格，它稍微超出了您想要连接的两个人行道。
+2. 将该网格放置在地面上方，并禁用其物理和渲染。
+3. 将网格的名称更改为 `Road_Crosswalk` 或 `Roads_Crosswalk`。
 
-![ue_crosswalks](../img/ue_crosswalks.jpg)  
+![ue_crosswalks](../img/ue_crosswalks.jpg)
 
 ---
-## Generate the pedestrian navigation
 
-__1.__ To prevent the map being too large to export, select the __BP_Sky object__ and add a tag `NoExport` to it. If you have any other particularly large meshes that are not involved in the pedestrian navigation, add the `NoExport` tag to them as well. 
+## 生成行人导航
 
-![ue_skybox_no_export](../img/ue_noexport.png) 
+__1.__ 为了防止地图过大而无法导出，请选择 __BP_Sky 对象__ 并给它添加标签 `NoExport`。如果有其他特别大的网格不参与行人导航，请将 `NoExport` 标签也添加到它们上。
 
-__2.__ Double check your mesh names. Mesh names should start with any of the appropriate formats listed below in order to be recognized as areas where pedestrians can walk. By default, pedestrians will be able to walk over sidewalks, crosswalks, and grass (with minor influence over the rest):  
+![ue_skybox_no_export](../img/ue_noexport.png)
 
-*   Sidewalk = `Road_Sidewalk` or `Roads_Sidewalk` 
-*   Crosswalk = `Road_Crosswalk` or `Roads_Crosswalk` 
-*   Grass = `Road_Grass` or `Roads_Grass`
+__2.__ 仔细检查网格名称。网格名称应以下面列出的任何适当格式之一开头，以便被识别为行人可以行走的区域。默认情况下，行人可以在人行道、人行横道和草地上行走（对其他网格的影响较小）：
 
-![ue_meshes](../img/ue_meshes.jpg) 
+* 人行道 = `Road_Sidewalk` 或 `Roads_Sidewalk`
+* 人行横道 = `Road_Crosswalk` 或 `Roads_Crosswalk`
+* 草地 = `Road_Grass` 或 `Roads_Grass`
 
-__3.__ Press `ctrl + A` to select everything and export the map by selecting `File` -> `Carla Exporter`. A `<mapName>.obj` file will be created in `Unreal/CarlaUE4/Saved`.
+![ue_meshes](../img/ue_meshes.jpg)
 
-__4.__ Move the `<mapName>.obj` and the `<mapName>.xodr` to `Util/DockerUtils/dist`.  
+__3.__ 按下 `ctrl + A` 选择所有内容，并通过选择 `File` -> `Carla Exporter` 导出地图。将创建一个 `<mapName>.obj` 文件，保存在 `Unreal/CarlaUE4/Saved` 中。
 
-__5.__ Run the following command to generate the navigation file:  
+__4.__ 将 `<mapName>.obj` 和 `<mapName>.xodr` 移动到 `Util/DockerUtils/dist`。
 
-*   __Windows__ 
+__5.__ 运行以下命令生成导航文件：
+
+* __Windows__
 ```sh
-build.bat <mapName> # <mapName> has no extension
+build.bat <mapName> # <mapName> 不包含扩展名
+
 ```
 *   __Linux__
 ```sh
 ./build.sh <mapName> # <mapName> has no extension
 ```
 
-__6.__ A `<mapName>.bin` file will be created. This file contains the information for pedestrian navigation on your map. Move this file to the `Nav` folder of the package that contains the map.
+__6.__ 一个 `<mapName>.bin` 文件将被创建。该文件包含了地图上行人导航的信息。将此文件移动到包含地图的包的 `Nav` 文件夹中。
 
-__7.__ Test the pedestrian navigation by starting a simulation and running the example script `generate_traffic.py` in `PythonAPI/examples`.
+__7.__ 通过启动仿真并在 `PythonAPI/examples` 中运行示例脚本 `generate_traffic.py` 来测试行人导航。
 
 ---
 
-If you have any questions about the process, then you can ask in the [forum](https://github.com/carla-simulator/carla/discussions).
+如果您对该过程有任何问题，请在 [论坛](https://github.com/carla-simulator/carla/discussions) 中提问。
 
 <div class="build-buttons">
 <p>
-<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
+<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="前往 CARLA 论坛">
+CARLA 论坛</a>
 </p>
 </div>
