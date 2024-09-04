@@ -1,313 +1,204 @@
-# Recorder  
-
-This feature allows to record and reenact a previous simulation. All the events happened are registered in the [recorder file](ref_recorder_binary_file_format.md). There are some high-level queries to trace and study those events.  
-
-*   [__Recording__](#recording)  
-*   [__Simulation playback__](#simulation-playback)  
-	*   [Setting a time factor](#setting-a-time-factor)  
-*   [__Recorded file__](#recorded-file)  
-*   [__Queries__](#queries)  
-	*   [Collisions](#collisions)  
-	*   [Blocked actors](#blocked-actors)  
-*   [__Sample Python scripts__](#sample-python-scripts)  
-
+# 记录器
+此功能允许记录和重演先前的模拟。所有发生的事件都记录在[记录文件](ref_recorder_binary_file_format.md)中。有一些高级查询可以用来追踪和研究这些事件。
+*   [__记录__](#记录)
+*   [__模拟回放__](#模拟回放)
+    *   [设置时间因子](#设置时间因子)
+*   [__记录文件__](#记录文件)
+*   [__查询__](#查询)
+    *   [碰撞](#碰撞)
+    *   [阻塞的演员](#阻塞的演员)
+*   [__示例 Python 脚本__](#示例-python-脚本)
 ---
-## Recording
-
-All the data is written in a binary file on the server side only. However, the recorder is managed using the [carla.Client](python_api.md#carla.Client).  
-
-Actors are updated on every frame according to the data contained in the recorded file. Actors in the current simulation that appear in the recording will be either moved or re-spawned to emulate it. Those that do not appear in the recording will continue their way as if nothing happened.  
-
+## 记录
+所有数据都写入服务器端的二进制文件中。然而，记录器是通过[carla.Client](python_api.md#carla.Client)来管理的。
+每个帧都会根据记录文件中的数据更新演员。当前模拟中出现在记录中的演员将被移动或重新生成以模拟它们。那些未出现在记录中的演员将继续它们的行动，就像什么都没发生一样。
 !!! Important
-    By the end of the playback, vehicles will be set to autopilot, but __pedestrians will stop__. 
-
-The recorder file includes information regarding many different elements.  
-
-*   __Actors__ — creation and destruction, bounding and trigger boxes.  
-*   __Traffic lights__ — state changes and time settings.  
-*   __Vehicles__ — position and orientation, linear and angular velocity, light state, and physics control.  
-*   __Pedestrians__ — position and orientation, and linear and angular velocity.  
-*   __Lights__ — Light states from buildings, streets, and vehicles.
-
-To start recording there is only need for a file name. Using `\`, `/` or `:` characters in the file name will define it as an absolute path. If no path is detailed, the file will be saved in `CarlaUE4/Saved`.  
-
+    在回放结束时，车辆将被设置为自动驾驶，但__行人将停止__。
+记录文件包括许多不同元素的信息。
+*   __演员__ — 创建和销毁，边界和触发框。
+*   __交通灯__ — 状态变化和时间设置。
+*   __车辆__ — 位置和方向，线性和角速度，灯光状态和物理控制。
+*   __行人__ — 位置和方向，线性和角速度。
+*   __灯光__ — 来自建筑物、街道和车辆的灯光状态。
+要开始记录，只需要一个文件名。在文件名中使用`\`、`/`或`:`字符将定义它为绝对路径。如果没有详细说明路径，文件将保存在`CarlaUE4/Saved`中。
 ```py
 client.start_recorder("/home/carla/recording01.log")
 ```
-
-By default, the recorder is set to store only the necessary information to play the simulation back. In order to save all the information previously mentioned, the argument `additional_data` has to be configured when starting the recording.  
-
+默认情况下，记录器设置为只存储播放模拟所需的必要信息。为了保存前面提到的所有信息，需要在开始记录时配置`additional_data`参数。
 ```py
 client.start_recorder("/home/carla/recording01.log", True)
 ```
-
 !!! Note
-    Additional data includes: linear and angular velocity of vehicles and pedestrians, traffic light time settings, execution time, actors' trigger and bounding boxes, and physics controls for vehicles.  
-
-To stop the recording, the call is also straightforward.
-
+    附加数据包括：车辆和行人的线性和角速度，交通灯时间设置，执行时间，演员的触发和边界框，以及车辆的物理控制。
+要停止记录，调用也非常简单。
 ```py
 client.stop_recorder()
 ```
-
 !!! Note
-    As an estimate, 1h recording with 50 traffic lights and 100 vehicles takes around 200MB in size.
-
+    作为参考，1小时记录50个交通灯和100辆车辆大约需要200MB的空间。
 ---
-## Simulation playback
-
-A playback can be started at any point during a simulation. Besides the path to the log file, this method needs some parameters.
-
+## 模拟回放
+可以在模拟的任何点开始回放。除了日志文件的路径之外，此方法还需要一些参数。
 ```py
 client.replay_file("recording01.log", start, duration, camera)
 ```
-
-| Parameter                                                                                                                        | Description                                                                                                                      | Notes                                                                                                                            |
-| -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `start`                                                                                                                          | Recording time in seconds to start the simulation at.                                                                            | If positive, time will be considered from the beginning of the recording. <br> If negative, it will be considered from the end. |
-| `duration`                                                                                                                       | Seconds to playback. 0 is all the recording.                                                                                     | By the end of the playback, vehicles will be set to autopilot and pedestrians will stop.                                         |
-| `camera`                                                                                                                         | ID of the actor that the camera will focus on.                                                                                   | Set it to `0` to let the spectator move freely.                                                                                  |
-
+| 参数 | 描述 | 备注 |
+| --- | --- | --- |
+| `start` | 开始模拟的记录时间（秒）。 | 如果为正数，时间将从记录开始时计算。 <br> 如果为负数，它将从记录结束时计算。 |
+| `duration` | 回放秒数。0表示全部记录。 | 回放结束时，车辆将被设置为自动驾驶，行人将停止。 |
+| `camera` | 摄像头将聚焦的演员ID。 | 设置为`0`以让观察者自由移动。 |
 <br>
-
-
-
-### Setting a time factor
-
-The time factor will determine the playback speed. It can be changed any moment without stopping the playback.
-
+### 设置时间因子
+时间因子将决定回放速度。可以在不停止回放的情况下随时更改它。
 ```py
 client.set_replayer_time_factor(2.0)
 ```
-
-| Parameter     | Default       | Fast motion   | Slow motion   |
-| ------------- | ------------- | ------------- | ------------- |
-| `time_factor` | **1\.0**      | **\>1.0**     | ** <1.0 **    |
-
+| 参数 | 默认值 | 快速运动 | 慢速运动 |
+| --- | --- | --- | --- |
+| `time_factor` | **1.0** | **>1.0** | **<1.0** |
 <br>
-
-
-
 !!! Important
-    If `time_factor>2.0`, the actors' position interpolation is disabled and just updated. Pedestrians' animations are not affected by the time factor.  
-
-When the time factor is around __20x__ traffic flow is easily appreciated.
-
-![flow](img/RecorderFlow2.gif)
-
+    如果`time_factor>2.0`，将禁用演员的位置插值并仅更新它们。行人的动画不受时间因子的影响。
+当时间因子约为__20x__时，可以轻松观察到交通流量。
+![流量](img/RecorderFlow2.gif)
 ---
-## Recorded file
-
-The details of a recording can be retrieved using a simple API call. By default, it only retrieves those frames where an event was registered. Setting the parameter `show_all` would return all the information for every frame. The specifics on how the data is stored are detailed in the [recorder's reference](ref_recorder_binary_file_format.md).  
-
+## 记录文件
+可以使用简单的API调用来检索记录的详细信息。默认情况下，它只检索注册了事件的那些帧。设置`show_all`参数将返回每个帧的所有信息。关于数据存储方式的详细信息在[记录器参考](ref_recorder_binary_file_format.md)中详细说明。
 ```py
-# Show info for relevant frames
+# 显示相关帧的信息
 print(client.show_recorder_file_info("recording01.log"))
 ``` 
-
-* __Opening information.__ Map, date and time when the simulation was recorded.  
-
-* __Frame information.__ Any event that could happen such as actors spawning or collisions. It contains the actors' ID and some additional information.  
-
-* __Closing information.__ Number of frames and total time recorded.  
-
+* __打开信息.__ 记录模拟的地图、日期和时间。
+* __帧信息.__ 可能发生的任何事件，如演员的生成或碰撞。它包含演员的ID和一些附加信息。
+* __关闭信息.__ 帧数和记录的总时间。
 ```
-Version: 1
-Map: Town05
-Date: 02/21/19 10:46:20
-
+版本：1
+地图：Town05
+日期：02/21/19 10:46:20
 Frame 1 at 0 seconds
- Create 2190: spectator (0) at (-260, -200, 382.001)
- Create 2191: traffic.traffic_light (3) at (4255, 10020, 0)
- Create 2192: traffic.traffic_light (3) at (4025, 7860, 0)
+ 创建 2190: 观察者 (0) 在 (-260, -200, 382.001)
+ 创建 2191: 交通灯 (3) 在 (4255, 10020, 0)
+ 创建 2192: 交通灯 (3) 在 (4025, 7860, 0)
  ...
- Create 2258: traffic.speed_limit.90 (0) at (21651.7, -1347.59, 15)
- Create 2259: traffic.speed_limit.90 (0) at (5357, 21457.1, 15)
-
+ 创建 2258: 交通标志.90 (0) 在 (21651.7, -1347.59, 15)
+ 创建 2259: 交通标志.90 (0) 在 (5357, 21457.1, 15)
 Frame 2 at 0.0254253 seconds
- Create 2276: vehicle.mini.cooperst (1) at (4347.63, -8409.51, 120)
+ 创建 2276: 车辆.mini.cooperst (1) 在 (4347.63, -8409.51, 120)
   number_of_wheels = 4
   object_type =
   color = 255,241,0
   role_name = autopilot
 ... 
-Frame 2350 at 60.2805 seconds
- Destroy 2276
-
-Frame 2351 at 60.3057 seconds
- Destroy 2277
+帧 2350 在 60.2805 秒
+ 销毁 2276
+帧 2351 在 60.3057 秒
+ 销毁 2277
 ...
-
-Frames: 2354
-Duration: 60.3753 seconds
+帧数：2354
+总时间：60.3753 秒
 ```
-
 ---
-## Queries
-
-### Collisions
-
-Vehicles must have a [collision detector](ref_sensors.md#collision-detector) attached to record collisions. These can be queried, using arguments to filter the type of the actors involved in the collisions. For example, `h` identifies actors whose `role_name = hero`, usually assigned to vehicles managed by the user. There is a specific set of actor types available for the query. 
-
-* __h__ = Hero  
-* __v__ = Vehicle  
-* __w__ = Walker  
-* __t__ = Traffic light  
-* __o__ = Other  
-* __a__ = Any  
-
+## 查询
+### 碰撞
+车辆必须有一个[碰撞检测器](ref_sensors.md#collision-detector)附加到记录碰撞。这些可以通过过滤涉及碰撞的演员类型的参数来查询。例如，`h`标识具有`role_name = hero`的演员，通常分配给用户管理的车辆。对于查询，有一组特定的演员类型可用。
+* __h__ = 英雄  
+* __v__ = 车辆  
+* __w__ = 行人  
+* __t__ = 交通灯  
+* __o__ = 其他  
+* __a__ = 任何  
 !!! Note
-    The `manual_control.py` script assigns `role_name = hero` for the ego vehicle.  
-
-The collision query requires two flags to filter the collisions. The following example would show collisions between vehicles, and any other object.  
-
+    `manual_control.py`脚本将`role_name = hero`分配给主车辆。
+碰撞查询需要两个标志来过滤碰撞。以下示例将显示车辆之间的碰撞，以及其他对象的碰撞。
 ```py
 print(client.show_recorder_collisions("recording01.log", "v", "a"))
 ```
-
-The output summarizes time of the collision, and type, ID and description of the actors involved.  
-
+输出总结了碰撞的时间，以及涉及到的演员的类型、ID和描述。
 ```
-Version: 1
-Map: Town05
-Date: 02/19/19 15:36:08
-
-    Time  Types     Id Actor 1                                 Id Actor 2
-      16   v v     122 vehicle.yamaha.yzf                     118 vehicle.dodge_charger.police
-      27   v o     122 vehicle.yamaha.yzf                       0
-
-Frames: 790
-Duration: 46 seconds
+版本：1
+地图：Town05
+日期：02/19/19 15:36:08
+    时间  类型     Id 演员 1                                 Id 演员 2
+      16   v v     122 车辆.yamaha.yzf                     118 车辆.dodge_charger.police
+      27   v o     122 车辆.yamaha.yzf                       0
+帧数：790
+总时间：46 秒
 ```
-
 !!! Important
-    As it is the `hero` or `ego` vehicle who registers the collision, this will always be `Actor 1`. 
-
-
-The collision can be reenacted by using the recorder and setting it seconds before the event.
-
+    由于是`hero`或`ego`车辆注册了碰撞，这将是`Actor 1`。
+可以通过记录器重演碰撞，并设置在事件之前几秒钟。
 ```py
 client.replay_file("col2.log", 13, 0, 122)
 ```
-In this case, the playback showed this. 
-
-![collision](img/collision1.gif)
-
-### Blocked actors
-
-Detects vehicles that where stucked during the recording. An actor is considered blocked if it does not move a minimum distance in a certain time. This definition is made by the user during the query.
-
+在这种情况下，回放显示了以下内容。
+![碰撞](img/collision1.gif)
+### 阻塞的演员
+检测在记录过程中被卡住的车辆。如果一个演员在一定时间内没有移动最小距离，则认为它被卡住了。这个定义是在查询时由用户做出的。
 ```py
 print(client.show_recorder_actors_blocked("recording01.log", min_time, min_distance))
 ```
-
-| Parameter                                                 | Description                                               | Default                                                   |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `min_time`                                                | Minimum seconds to move \`min\_distance\`.                | 30secs.                                                   |
-| `min_distance`                                            | Minimum centimeters to move to not be considered blocked. | 10cm.                                                     |
-
-
-
+| 参数 | 描述 | 默认值 |
+| --- | --- | --- |
+| `min_time` | 移动`min_distance`的最小秒数。 | 30秒。 |
+| `min_distance` | 最小厘米移动距离以不被视为阻塞。 | 10厘米。 |
 ---
-
 !!! Note
-    Sometimes vehicles are stopped at traffic lights for longer than expected.  
-
-The following example considers that vehicles are blocked when moving less than 1 meter during 60 seconds.
-
+    有时车辆在交通灯处停留的时间比预期的要长。
+以下示例考虑当车辆在60秒内移动不到1米时，它被认为被阻塞。
 ```py
 client.show_recorder_actors_blocked("col3.log", 60, 100)
 ```
-
-The output is sorted by __duration__, which states how long it took to stop being "blocked" and move the `min_distance`.
-
+输出按__持续时间__排序，这表示移动`min_distance`之前被认为阻塞的时间。
 ```
-Version: 1
-Map: Town05
-Date: 02/19/19 15:45:01
-
-    Time     Id Actor                                 Duration
-      36    173 vehicle.nissan.patrol                      336
-      75    214 vehicle.chevrolet.impala                   295
-     302    143 vehicle.bmw.grandtourer                     67
-
-Frames: 6985
-Duration: 374 seconds
+版本：1
+地图：Town05
+日期：02/19/19 15:45:01
+    时间     Id 演员                                 持续时间
+      36    173 车辆.nissan.patrol                      336
+      75    214 车辆.chevrolet.impala                   295
+     302    143 车辆.bmw.grandtourer                     67
+帧数：6985
+总时间：374 秒
 ```
-
-The vehicle `173` was stopped for `336` seconds at time `36` seconds. Reenact the simulation a few seconds before the second `36` to check it out.
-
+车辆`173`在36秒时被停止，持续了`336`秒。在事件发生前的几秒钟重新播放模拟以查看它。
 ```py
 client.replay_file("col3.log", 34, 0, 173)
 ```
-
-![accident](img/accident.gif)
-
+![事故](img/accident.gif)
 ---
-## Sample python scripts
-
-Some of the provided scripts in `PythonAPI/examples` facilitate the use of the recorder.
-
-
-
-* __start_recording.py__ starts the recording. The duration of the recording can be set, and actors can be spawned at the beginning of it.  
-
-| Parameter                         | Description                       |
-| ------------------------------------------------------------- | ------------------------------------------------------------- |
-| `-f`                              | Filename.                         |
-| `-n`<small> (optional)</small>    | Vehicles to spawn. Default is 10. |
-| `-t`<small> (optional)</small>    | Duration of the recording.        |
-
-
-
-* __start_replaying.py__ starts the playback of a recording. Starting time, duration, and actor to follow can be set.
-
-
-| Parameter                      | Description                    |
-| ----------------------------- | ----------------------------- |
-| `-f`                           | Filename.                      |
-| `-s`<small> (optional)</small> | Starting time. Default is 10.  |
-| `-d`<small> (optional)</small> | Duration. Default is all.      |
-| `-c`<small> (optional)</small> | IDof the actor to follow.      |
-
-
-
-
-* __show_recorder_file_info.py__ shows all the information in the recording file. By default, it only shows frames where an event is recorded. However, all of them can be shown.  
-
-
-| Parameter                      | Description                    |
-| ------------------------------------------------------------- | ------------------------------------------------------------- |
-| `-f`                           | Filename.                      |
-| `-s`<small> (optional)</small> | Flag to show all details.      |
-
-
-
-* __show_recorder_collisions.py__ shows recorded collisions between two flags of actors of types __A__ and __B__. `-t = vv` would show all collisions between vehicles. 
-
-
-| Parameter                                                                                                                                         | Description                                                                                                                                       |
-| ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `-f`                                                                                                                                              | Filename.                                                                                                                                         |
-| `-t`                                                                                                                                              | Flags of the actors involved. <br>`h` = hero <br> `v` = vehicle <br> `w` = walker <br> `t` = traffic light <br>`o` = other <br>`a` = any |
-
-
-
-* __show_recorder_actors_blocked.py__ lists vehicles considered blocked. Actors are considered blocked when not moving a minimum distance in a certain time.  
-
-
-| Parameter                                          | Description                                        |
-| -------------------------------------------------- | -------------------------------------------------- |
-| `-f`                                               | Filename.                                          |
-| `-t`<small> (optional)</small>                     | Time to move `-d` before being considered blocked. |
-| `-d`<small> (optional)</small>                     | Distance to move to not be considered blocked.     |
-
-
-
-
-
+## 示例 Python 脚本
+`PythonAPI/examples`目录中提供的某些脚本简化了记录器的使用。
+* __start_recording.py__ 开始记录。可以设置记录的持续时间，并在开始时生成演员。
+| 参数 | 描述 |
+| --- | --- |
+| `-f` | 文件名。 |
+| `-n`<small>(可选)</small> | 要生成的车辆数。默认是10。 |
+| `-t`<small>(可选)</small> | 记录的持续时间。 |
+* __start_replaying.py__ 开始播放记录的模拟。可以设置开始时间、持续时间和要跟随的演员。
+| 参数 | 描述 |
+| --- | --- |
+| `-f` | 文件名。 |
+| `-s`<small>(可选)</small> | 开始时间。默认是10。 |
+| `-d`<small>(可选)</small> | 持续时间。默认是全部。 |
+| `-c`<small>(可选)</small> | 要跟随的演员的ID。 |
+* __show_recorder_file_info.py__ 显示记录文件中的所有信息。默认情况下，它只显示记录了事件的帧。然而，所有帧都可以显示。
+| 参数 | 描述 |
+| --- | --- |
+| `-f` | 文件名。 |
+| `-s`<small>(可选)</small> | 显示所有详细信息的标志。 |
+* __show_recorder_collisions.py__ 显示记录的两种演员类型的碰撞之间的碰撞。`-t = vv`将显示所有车辆之间的碰撞。
+| 参数 | 描述 |
+| --- | --- |
+| `-f` | 文件名。 |
+| `-t` | 涉及的演员标志。<br>`h` = 英雄 <br> `v` = 车辆 <br> `w` = 行人 <br> `t` = 交通灯 <br>`o` = 其他 <br>`a` = 任何 |
+* __show_recorder_actors_blocked.py__ 列出被认为阻塞的车辆。当一个演员在一定时间内没有移动最小距离时，它被认为是阻塞的。
+| 参数 | 描述 |
+| --- | --- |
+| `-f` | 文件名。 |
+| `-t`<small>(可选)</small> | 在被视为阻塞之前移动`-d`的时间。 |
+| `-d`<small>(可选)</small> | 要被视为不阻塞需要移动的距离。 |
 ---
-Now it is time to experiment for a while. Use the recorder to playback a simulation, trace back events, make changes to see new outcomes. Feel free to say your word in the CARLA forum about this matter.  
+现在是时候进行一些实验了。使用记录器回放模拟，追踪事件，进行更改以查看新的结果。对于此事，欢迎在CARLA论坛上发表您的意见。
 
 <div class="build-buttons">
 <p>

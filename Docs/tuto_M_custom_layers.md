@@ -1,89 +1,89 @@
-# Customizing Maps: Layered Maps
+# 自定义地图：分层地图
 
-Utilizing levels in your custom map enables multiple people to work on a single map concurrently. It also allows you to use the Python API to load and unload layers on your map during a simulation, just like the [layered CARLA maps](core_map.md#layered-maps).
+在自定义地图中使用级别，可以让多个人同时在同一张地图上工作。它还允许您在模拟期间使用Python API加载和卸载地图的层，就像[分层CARLA地图](core_map.md#layered-maps)一样。
 
-This guide will explain how to add a new level, how to add assets to a level, and how to configure a level to be always loaded or not.
+本指南将解释如何添加新的级别，如何向级别添加资源，并如何配置级别是否始终加载。
 
-- [__Add a new level__](#add-a-new-level)
-- [__Add assets to a level__](#add-assets-to-a-level)
-- [__Configure level loading options__](#configure-level-loading-options)
-- [__Next steps__](#next-steps)
-
----
-
-## Add a new level
-
-All new levels in your map will be nested within the parent level, known as the _Persistent Level_. To create a new level:
-
-__1. Open the levels panel.__
-
-1. In the Unreal Engine editor, open _Window_ from the menu bar.
-2. Click on _Levels_.
-
-__2. Create a new level.__
-
-1. In the _Levels_ panel, click on _Levels_ and select _Create New..._.
-2. Choose _Empty Level_.
-3. Save the level in `Content/Carla/Maps/Sublevels/<map_name>/`. To integrate the level with the CARLA Python API, use the naming convention `<map_name>_<layer_name>`, e.g., `TutorialMap_Buildings`. For a list of available layers, check [here](core_map.md#carla-maps).
-
->>>>>>![create new level](../img/new_level.png)
+- [__添加新的级别__](#添加新的级别)
+- [__向级别添加资源__](#向级别添加资源)
+- [__配置级别加载选项__](#配置级别加载选项)
+- [__下一步__](#下一步)
 
 ---
 
-## Add assets to a level
+## 添加新的级别
 
-__1. Select the level to which you want to add assets__.
+所有新的级别都将嵌套在父级别中，即 _Persistent Level_。要创建新的级别：
 
-In the _Levels_ panel, double-click the level to which you would like to add assets. Make sure the level is unlocked by toggling the lock icon.
+__1. 打开级别面板。__
 
-__2. Select the assets to add.__
+1. 在Unreal Engine编辑器中，打开菜单栏的 _Window_。
+2. 单击 _Levels_。
 
-1. Select all the assets you would like to add to the level.
-2. Right-click and go to _Level_.
-3. Click on _Move Selection to Current Level_.
+__2. 创建一个新的级别。__
 
-__3. Save the level.__
+1. 在 _Levels_ 面板中，单击 _Levels_，然后选择 _Create New..._。
+2. 选择 _Empty Level_。
+3. 将级别保存在 `Content/Carla/Maps/Sublevels/<map_name>/` 目录下。为了与CARLA Python API集成，使用命名约定 `<map_name>_<layer_name>`，例如 `TutorialMap_Buildings`。可用的层列表，请参阅[这里](core_map.md#carla-maps)。
 
-If a level has pending changes to save, you will see a pencil icon next to it in the _Levels_ panel. Click this to save the changes.
-
-![moving assets](../img/move_assets.png)
-
----
-
-## Configure level loading options
-
-Levels can be configured to be able to be toggled or to be always loaded. To configure the level for either option:
-
-1. Right-click the level in the _Levels_ panel and go to _Change Streaming Method_.
-2. Choose the desired setting:
-    1. _Always Loaded_: The level __will not be able__ to be toggled via the Python API.
-    2. _Blueprint_: The level __will be able__ to be toggled via the Python API. A blue dot will appear beside the level name.
-
-Regardless of the setting, you will still be able to toggle the level in the editor by pressing the eye icon.
-
->>>>>>![levels](../img/levels.png)
+>>>>>>![创建新级别](../img/new_level.png)
 
 ---
 
-## Next steps
+## 向级别添加资源
 
-Continue customizing your map using the tools and guides below:
+__1. 选择要向其添加资源的级别__。
 
-- [Add and configure traffic lights and signs.](tuto_M_custom_add_tl.md)
-- [Add buildings with the procedural building tool.](tuto_M_custom_buildings.md)
-- [Customize the road with the road painter tool.](tuto_M_custom_road_painter.md)
-- [Customize the weather](tuto_M_custom_weather_landscape.md#weather-customization)
-- [Customize the landscape with serial meshes.](tuto_M_custom_weather_landscape.md#add-serial-meshes)
+在 _Levels_ 面板中，双击要向其添加资源的级别。确保通过切换锁定图标将级别解锁。
 
-Once you have finished with the customization, you can [generate the pedestrian navigation information](tuto_M_generate_pedestrian_navigation.md).
+__2. 选择要添加的资源。__
+
+1. 选择要添加到级别的所有资源。
+2. 右键单击，然后选择 _Level_。
+3. 单击 _Move Selection to Current Level_。
+
+__3. 保存级别。__
+
+如果级别有未保存的更改，您将在 _Levels_ 面板中的级别旁边看到一个铅笔图标。点击它来保存更改。
+
+![移动资源](../img/move_assets.png)
 
 ---
 
-If you have any questions about the process, then you can ask in the [forum](https://github.com/carla-simulator/carla/discussions).
+## 配置级别加载选项
+
+级别可以配置为可切换或始终加载。要配置级别的选项：
+
+1. 右键单击 _Levels_ 面板中的级别，然后选择 _Change Streaming Method_。
+2. 选择所需的设置：
+    1. _Always Loaded_：级别 __将无法__ 通过Python API切换。
+    2. _Blueprint_：级别 __将能够__ 通过Python API切换。级别名称旁边会出现蓝点。
+
+无论设置如何，您仍然可以通过按眼睛图标来在编辑器中切换级别。
+
+>>>>>>![级别](../img/levels.png)
+
+---
+
+## 下一步
+
+使用以下工具和指南继续自定义地图：
+
+- [添加和配置交通灯和路标。](tuto_M_custom_add_tl.md)
+- [使用程序化建筑工具添加建筑物。](tuto_M_custom_buildings.md)
+- [使用道路绘制工具自定义道路。](tuto_M_custom_road_painter.md)
+- [自定义天气](tuto_M_custom_weather_landscape.md#weather-customization)
+- [使用序列网格自定义景观。](tuto_M_custom_weather_landscape.md#add-serial-meshes)
+
+完成自定义后，您可以[生成行人导航信息](tuto_M_generate_pedestrian_navigation.md)。
+
+---
+
+如果您对此过程有任何疑问，可以在[论坛](https://github.com/carla-simulator/carla/discussions)上提问。
 
 <div class="build-buttons">
 <p>
-<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
+<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="前往CARLA论坛">
+CARLA论坛</a>
 </p>
 </div>

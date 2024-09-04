@@ -1,68 +1,45 @@
-# Create distribution packages for assets 
-
-It is a common practice in CARLA to manage assets with standalone packages. Keeping them aside allows to reduce the size of the build. These asset packages can be easily imported into a CARLA package anytime. They also become really useful to easily distribute assets in an organized way. 
-
-- [__Export a package from the UE4 Editor__](#export-a-package-from-the-ue4-editor)  
-- [__Export a package using Docker__](#export-a-package-using-docker)
-- [__Import assets into a CARLA package__](#import-assets-into-a-carla-package)  
-
+# 创建资产分发包
+在CARLA中，使用独立的包来管理资产是一种常见做法。将它们分开可以减少构建的大小。这些资产包可以随时轻松地导入到CARLA包中。它们还有助于以有组织的方式轻松分发资产。
+- [从UE4编辑器导出包](#从ue4编辑器导出包)
+- [使用Docker导出包](#使用docker导出包)
+- [将资产导入CARLA包](#将资产导入carla包)
 ---
-## Export a package in a CARLA build from source
-
-Once assets are imported into Unreal, users can generate a __standalone package__ for them. This will be used to distribute the content to CARLA packages such as 0.9.8.
-
-To export packages, simply run the command below.
-
+## 从源代码构建的CARLA中导出包
+一旦资产被导入到Unreal中，用户可以为它们生成一个__独立包__。这将用于将内容分发到CARLA包，如0.9.8。
+要导出包，只需运行以下命令。
 ```sh
 make package ARGS="--packages=Package1,Package2"
 ```
-
-This will create a standalone package compressed in a `.tar.gz` file for each of the packages listed. The files will be saved in `Dist` folder on Linux, and `/Build/UE4Carla/` on Windows. 
-
+这将为列表中列出的每个包创建一个压缩在`.tar.gz`文件中的独立包。在Linux上，文件将保存在`Dist`文件夹中，在Windows上，将保存在`/Build/UE4Carla/`。
 ---
-
-## Export a package using Docker
-
-Unreal Engine and CARLA can be built in a Docker image which can then be used to create a package or export assets for use in a package.
-
-To create the Docker image, follow the tutorial [here](build_docker_unreal.md).
-
-When you have the image ready:
-
-1. Navigate to `Util/Docker`.
-2. Create a CARLA package or prepare assets for use in a package by running one of the following commands:
-
+## 使用Docker导出包
+Unreal Engine和CARLA可以在Docker镜像中构建，然后使用该镜像创建包或导出资产以在包中使用。
+要创建Docker镜像，请遵循[这里](build_docker_unreal.md)的教程。
+当您准备好镜像后：
+1. 导航到`Util/Docker`。
+2. 通过运行以下任一命令来创建CARLA包或准备在包中使用的资产：
 ```sh
-# To create a standalone package
+# 创建独立包
 ./docker_tools.py --output /output/path
-
-#To cook assets to be consumed in a CARLA package
+# 烹饪资产以供CARLA包使用
 ./docker_tools.py --input /assets/to/import/path --output /output/path --packages PkgeName1,PkgeName2
 ```
-
 ---
-## Import assets into a CARLA package
-
-A standalone package is contained in a `.tar.gz` file. The way this is extracted depends on the platform.  
-
-*   __On Windows__ extract the compressed file in the main root CARLA folder.  
-*   __On Linux__ move the compressed file to the `Import` folder and run the following script.  
-
+## 将资产导入CARLA包
+独立包包含在`.tar.gz`文件中。提取此文件的方式取决于平台。
+*   在__Windows__上，将压缩文件解压到CARLA的主根文件夹中。
+*   在__Linux__上，将压缩文件移动到`Import`文件夹并运行以下脚本。
 ```sh
 cd Import
 ./ImportAssets.sh
 ```
-
 !!! Note
-    Standalone packages cannot be directly imported into a CARLA build. Follow the tutorials to import [props](tuto_A_add_props.md), [maps](tuto_M_custom_map_overview.md) or [vehicles](tuto_A_add_vehicle.md).
-
+    独立包不能直接导入到CARLA构建中。请遵循教程来导入[道具](tuto_A_add_props.md)、[地图](tuto_M_custom_map_overview.md)或[车辆](tuto_A_add_vehicle.md)。
 ---
-
-That sumps up how to create and use standalone packages in CARLA. If there is any unexpected issue, feel free to post in the forum. 
-
+这就是如何在CARLA中创建和使用独立包的方法。如果遇到任何意外问题，请随时在论坛上发帖。
 <div class="build-buttons">
 <p>
-<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
+<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="前往CARLA论坛">
+CARLA论坛</a>
 </p>
 </div>

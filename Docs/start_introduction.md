@@ -2,7 +2,7 @@
 
 ![Welcome to CARLA](img/welcome.png)
 
-!!! 重要
+!!! Important
     本文档指向的是最新版本的 CARLA(0.9.13,目前是最新版本)。有关以前版本的文档，请在您看到此按钮的右下角选择所需的版本： ![docs_version_panel](img/docs_version_panel.jpg)
 
 

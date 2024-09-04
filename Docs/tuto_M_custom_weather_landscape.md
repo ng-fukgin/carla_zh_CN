@@ -15,7 +15,7 @@ CARLA提供了几个蓝图，用于帮助您创建地图的默认天气设置，
 		- [BP\_SplinePoweLine](#bp_splinepoweline)
 	- [下一步](#下一步)
 
-!!! 重要提示
+!!! Important
     本教程仅适用于使用源代码构建并具有访问 Unreal Editor 的用户。
 
 ---
@@ -32,7 +32,7 @@ CARLA提供了几个蓝图，用于帮助您创建地图的默认天气设置，
 
 要尝试不同的天气参数，请转到 `BP_Sky` actor 的 _Details_ 面板，并在 _Parameters_ 部分调整值。
 
-!!! 重要提示
+!!! Important
     如果场景中加载了多个 `BP_Sky` 蓝图，则天气将重复并产生不良效果，例如出现两个太阳。
 
 ### BP_Weather
@@ -146,7 +146,7 @@ __BP_SplinePoweLine__ 蓝图位于 `Carla/Static/Pole/PoweLine`。它沿贝塞�
 <div style="text-align: right"><i>BP_SplinePowerLine 的 socket 可视化。</i></div>
 <br>
 
-!!! 重要提示
+!!! Important
     杆之间的 socket 数量及其名称应保持一致。否则，可能会出现可视化问题。
 
 ---

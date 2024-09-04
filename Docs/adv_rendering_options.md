@@ -1,59 +1,39 @@
-# Rendering options
 
-This guide details the different rendering options available in CARLA, including quality levels, no-rendering mode and off-screen mode. It also explains how version 0.9.12 of CARLA differs from previous versions in these respects.
-
-- [__Graphics quality__](#graphics-quality)  
-	- [Vulkan graphics API](#vulkan-graphics-api)  
-	- [Quality levels](#quality-levels)  
-- [__No-rendering mode__](#no-rendering-mode)  
-- [__Off-screen mode__](#off-screen-mode)  
-	- [Off-screen Vs no-rendering](#off-screen-vs-no-rendering)
-	- [Setting off-screen mode (Version 0.9.12+)](#setting-off-screen-mode-version-0912)
-	- [Setting off-screen mode (Versions prior to 0.9.12)](#setting-off-screen-mode-versions-prior-to-0912)
-
-
+# 渲染选项
+本指南详细介绍了CARLA中可用的不同渲染选项，包括质量级别、无渲染模式和离屏模式。此外，还解释了版本0.9.12的CARLA在这些方面与之前版本的区别。
+- [__图形质量__](#graphics-quality)  
+	- [Vulkan图形API](#vulkan-graphics-api)  
+	- [质量级别](#quality-levels)
+- [__无渲染模式__](#no-rendering-mode)
+- [__离屏模式__](#off-screen-mode)  
+	- [离屏与无渲染](#off-screen-vs-no-rendering)
+	- [设置离屏模式（版本0.9.12+）](#setting-off-screen-mode-version-0912)
+	- [设置离屏模式（版本0.9.12之前的版本）](#setting-off-screen-mode-versions-prior-to-0912)
 !!! Important
-    Some of the command options below are not equivalent in the CARLA packaged releases. Read the [Command line options](start_quickstart.md#command-line-options) section to learn more about this. 
-
+    以下命令选项在CARLA打包发行版中并不等效。请阅读[命令行选项](start_quickstart.md#command-line-options)部分了解更多信息。
 ---
-## Graphics quality
-
-### Vulkan graphics API
-
-Starting from version 0.9.12, CARLA runs on Unreal Engine 4.26 which only supports the Vulkan graphics API. Previous versions of CARLA could be configured to use OpenGL. If you are using a previous version of CARLA, please select the corresponding documentation version in the lower right corner of the screen for more information.
-
-### Quality levels
-
-CARLA has two different levels for graphics quality. __Epic__  is the default and is the most detailed. __Low__ disables all post-processing and shadows and the drawing distance is set to 50m instead of infinite.
-
-The simulation runs significantly faster in __Low__ mode. This is helpful in situations where there are technical limitations, where precision is nonessential or to train agents under conditions with simpler data or involving only close elements.
-
-The images below compare both modes. The flag used is the same for Windows and Linux. There is no equivalent option when working with the build, but the UE editor has its own quality settings. Go to `Settings/Engine Scalability Settings` for a greater customization of the desired quality. 
-
-#### Epic mode
+## 图形质量
+### Vulkan图形API
+从版本0.9.12开始，CARLA运行在Unreal Engine 4.26上，该版本仅支持Vulkan图形API。之前版本的CARLA可以配置为使用OpenGL。如果您使用的是CARLA的早期版本，请在屏幕右下角选择相应版本的文档以获取更多信息。
+### 质量级别
+CARLA有两个不同的图形质量级别。__史诗__ 是默认级别，也是最详细的。__低__ 级别禁用所有后处理和阴影，并将绘制距离设置为50米，而不是无限。
+在 __低__ 模式下，模拟运行速度显著加快。这在存在技术限制、精度非必需或训练代理在涉及简单数据或仅近距离元素的情况下非常有帮助。
+下面的图片比较了这两种模式。在Windows和Linux上使用的标志是相同的。在构建版本中没有等效选项，但UE编辑器有自己的质量设置。前往 `设置/引擎可扩展性设置` 以获得所需质量的更多定制。
+#### 史诗模式
 `./CarlaUE4.sh -quality-level=Epic`
-
-![Epic mode screenshot](img/rendering_quality_epic.jpg)
-*Epic mode screenshot*
-
-#### Low mode
+![史诗模式截图](img/rendering_quality_epic.jpg)
+*史诗模式截图*
+#### 低模式
 `./CarlaUE4.sh -quality-level=Low`
-
-![Low mode screenshot](img/rendering_quality_low.jpg)
-*Low mode screenshot*
-
+![低模式截图](img/rendering_quality_low.jpg)
+*低模式截图*
 <br>
-
 !!! Important
-    The issue that made Epic mode show an abnormal whiteness has been fixed. If the problem persists, delete `GameUserSettings.ini`. It is saving previous settings, and will be generated again in the next run. __Ubuntu path:__ `  ~/.config/Epic/CarlaUE4/Saved/Config/LinuxNoEditor/` __Windows path:__ `<Package folder>\WindowsNoEditor\CarlaUE4\Saved\Config\WindowsNoEditor\`
-
+    导致史诗模式显示异常白色的 issue 已修复。如果问题仍然存在，请删除 `GameUserSettings.ini`。它保存了之前的设置，并在下一次运行时重新生成。__Ubuntu路径：__ `~/.config/Epic/CarlaUE4/Saved/Config/LinuxNoEditor/` __Windows路径：__ `<Package folder>\WindowsNoEditor\CarlaUE4\Saved\Config\WindowsNoEditor\`
 ---
-## No-rendering mode
-
-This mode disables rendering. Unreal Engine will skip everything regarding graphics. This mode prevents rendering overheads. It facilitates a lot traffic simulation and road behaviours at very high frequencies. To enable or disable no-rendering mode, change the world settings, or use the provided script in `/PythonAPI/util/config.py`.  
-
-Below is an example on how to enable and then disable it via script:
-
+## 无渲染模式
+此模式禁用渲染。Unreal Engine将跳过与图形有关的所有内容。此模式防止了渲染开销。它极大地促进了在高频率下的交通模拟和道路行为。要启用或禁用无渲染模式，请更改世界设置，或使用 `/PythonAPI/util/config.py` 中提供的脚本。
+以下是如何通过脚本启用然后禁用它的示例：
 ```py
 settings = world.get_settings()
 settings.no_rendering_mode = True
@@ -62,108 +42,74 @@ world.apply_settings(settings)
 settings.no_rendering_mode = False
 world.apply_settings(settings)
 ```
-To disable and enable rendering via the command line, run the following commands:
-
+通过命令行禁用和启用渲染，运行以下命令：
 ```sh
 cd PythonAPI/util && python3 config.py --no-rendering
 ```
 ```sh
 cd PythonAPI/util && python3 config.py --rendering
 ```
-
-The script `PythonAPI/examples/no_rendering_mode.py` will enable no-rendering mode, and use __Pygame__ to create an aerial view using simple graphics:
-
+脚本 `PythonAPI/examples/no_rendering_mode.py` 将启用无渲染模式，并使用 __Pygame__ 创建一个使用简单图形的空中视图：
 ```sh
 cd PythonAPI/examples && python3 no_rendering_mode.py
 ```
-
 !!! Warning
-    In no-rendering mode, cameras and GPU sensors will return empty data. The GPU is not used. Unreal Engine is not drawing any scene. 
-
+    在无渲染模式下，摄像头和GPU传感器将返回空数据。不会使用GPU。Unreal Engine不绘制任何场景。
 ---
-## Off-screen mode
-
-Starting from version 0.9.12, CARLA runs on Unreal Engine 4.26 which introduced support for off-screen rendering. In previous versions of CARLA, off-screen rendering depended upon the graphics API you were using.
-
-### Off-screen vs no-rendering
-
-It is important to understand the distinction between __no-rendering mode__ and __off-screen mode__:
-
-- __No-rendering mode:__ Unreal Engine does not render anything. Graphics are not computed. GPU based sensors return empty data.
-- __Off-screen mode:__ Unreal Engine is working as usual, rendering is computed but there is no display available. GPU based sensors return data.
-
-### Setting off-screen mode (Version 0.9.12+)
-
-To start CARLA in off-screen mode, run the following command:
-
+## 离屏模式
+从版本0.9.12开始，CARLA运行在Unreal Engine 4.26上，该版本引入了对离屏渲染的支持。在CARLA的早期版本中，离屏渲染取决于您使用的图形API。
+### 离屏与无渲染
+了解 __无渲染模式__ 和 __离屏模式__ 之间的区别非常重要：
+- __无渲染模式：__ Unreal Engine不渲染任何内容。不计算图形。基于GPU的传感器返回空数据。
+- __离屏模式：__ Unreal Engine像往常一样工作，渲染被计算，但没有可用的显示。基于GPU的传感器返回数据。
+### 设置离屏模式（版本0.9.12+）
+要以离屏模式启动CARLA，请运行以下命令：
 ```sh
 ./CarlaUE4.sh -RenderOffScreen
 ```
-
-### Setting off-screen mode (Versions prior to 0.9.12)
-
-Using off-screen mode differs if you are using either OpenGL or Vulkan. 
-
-__Using OpenGL__, you can run in off-screen mode in Linux by running the following command:
-
+### 设置离屏模式（版本0.9.12之前的版本）
+使用OpenGL或Vulkan进行离屏模式有所不同。
+__使用OpenGL__，您可以在Linux中以离屏模式运行以下命令：
 ```sh
 # Linux
 DISPLAY= ./CarlaUE4.sh -opengl
 ```
-
-__Vulkan__ requires extra steps because it needs to communicate to the display X server using the X11 network protocol to work properly. The following steps will guide you on how to set up an Ubuntu 18.04 machine without a display so that CARLA can run with Vulkan.
-
-__1. Fetch the latest NVIDIA driver:__
-
+__Vulkan__ 需要额外的步骤，因为它需要使用X11网络协议与显示X服务器通信才能正常工作。以下步骤将指导您如何在没有显示的Ubuntu 18.04机器上设置CARLA以使用Vulkan。
+__1. 获取最新的NVIDIA驱动程序：__
 ```sh
 wget http://download.nvidia.com/XFree86/Linux-x86_64/450.57/NVIDIA-Linux-x86_64-450.57.run
 ```
-
-__2. Install the driver:__
-
+__2. 安装驱动程序：__
 ```sh
 sudo /bin/bash NVIDIA-Linux-x86_64-450.57.run --accept-license --no-questions --ui=none
 ```
-
-__3. Install the xserver related dependencies:__
-
+__3. 安装与xserver相关的依赖项：__
 ```sh
 sudo apt-get install -y xserver-xorg mesa-utils libvulkan1
 ```
-
-__4. Configure the xserver:__
-
+__4. 配置xserver：__
 ```sh
 sudo nvidia-xconfig --preserve-busid -a --virtual=1280x1024
 ```
-
-__5. Set the SDL_VIDEODRIVER variable.__
-
+__5. 设置SDL_VIDEODRIVER变量。__
 ```sh
 ENV SDL_VIDEODRIVER=x11
 ```
-
-__6. Run the xserver:__
-
+__6. 运行xserver：__
 ```sh
 sudo X :0 &
 ```
-
-__7. Run CARLA:__
-
+__7. 运行CARLA：__
 ```sh
 DISPLAY=:0.GPU ./CarlaUE4.sh -vulkan
 ```
-
-CARLA provides a Dockerfile that performs all the above steps [here](https://github.com/carla-simulator/carla/blob/0.9.12/Util/Docker/Release.Dockerfile).
-
+CARLA提供了一个Dockerfile，执行上述所有步骤，[请点击此处](https://github.com/carla-simulator/carla/blob/0.9.12/Util/Docker/Release.Dockerfile)。
 ---
-
-Any issues or doubts related with this topic can be posted in the CARLA forum.
-
+与此主题相关的任何问题或疑问都可以在CARLA论坛上发布。
 <div class="build-buttons">
 <p>
-<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
+<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="前往CARLA论坛">
+CARLA论坛</a>
 </p>
 </div>
+

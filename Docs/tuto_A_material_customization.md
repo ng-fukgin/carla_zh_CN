@@ -1,161 +1,144 @@
-# Material customization
-
-The CARLA team prepares every asset to run under certain default settings. However, users that work in a build from source can modify these to best suit their needs.  
-
-*   [__Car materials__](#car-materials)  
-*   [__Customize car materials__](#customize-car-materials)  
-	*   [Exterior properties](#exterior-properties)  
-*   [__Building materials__](#building-materials)  
-*   [__Customize a building material__](#customize-a-building-material)  
-
+# 材质自定义
+CARLA团队为每个资产都准备了某些默认设置。然而，对于从源代码构建的用户来说，他们可以根据自己的需求对这些设置进行修改。
+*   汽车材质
+*   自定义汽车材质
+	*   外部属性
+*   建筑材质
+*   自定义建筑材质
 !!! Important
-    This tutorial only applies to users that work with a build from source, and have access to the Unreal Editor.  
-
+    本教程仅适用于从源代码构建且可以访问Unreal编辑器的用户。
 ---
-## Car materials
-
-In CARLA, there is a set of master materials that are used as templates for the different parts of the vehicle. An instance of these is created for each vehicle model, and then changed to the desired result.  The master materials can be found in `Content/Carla/Static/GenericMaterials/Vehicles`, and these are the following.  
-
+## 汽车材质
+在CARLA中，有一套用于车辆不同部分的模板的母材质。为每个车辆模型创建这些材质的一个实例，然后更改以达到所需的结果。母材质可以在`Content/Carla/Static/GenericMaterials/Vehicles`中找到，如下所示。
 ![materials_master](img/material_customization/Materials_Master.jpg)
-<div style="text-align: right"><i>Master materials applied to cars.</i></div>
-
-*   __M_CarExterior_Master__ — Material applied to the body of the car.  
-*   __M_CarInterior_Master__ — Material applied to the inside of the car.  
-*   __M_CarLightsGlass_Master__ — Material applied to the glass covering car lights.  
-*   __M_CarWindows_Master__ — Material applied to the windows.  
-*   __M_CarLicensePlate_Master__ — Material applied to the license plate.  
-*   __M_CarVehicleLights_Master__ — Material applied to the car lights as an emissive texure.  
-*   __M_CarVehicleLigthsSirens_Master__ — Material applied to the sirens, if applicable.  
+<div style="text-align: right"><i>应用于汽车的母材质。</i></div>
+*   __M_CarExterior_Master__ — 应用于汽车车身的材质。
+*   __M_CarInterior_Master__ — 应用于汽车内部的材质。
+*   __M_CarLightsGlass_Master__ — 应用于覆盖汽车灯的玻璃材质。
+*   __M_CarWindows_Master__ — 应用于汽车的窗户材质。
+*   __M_CarLicensePlate_Master__ — 应用于车牌的材质。
+*   __M_CarVehicleLights_Master__ — 应用于汽车的灯光的发射材质。
+*   __M_CarVehicleLigthsSirens_Master__ — 应用于警报灯（如果适用）的材质。
+---
+## 自定义汽车材质
+创建母材质的实例并将其存储在新模型的相应文件夹中。以下是新模型材质实例的创建示例，位于蓝图库中的警车 *vehicle.dodge_charger.police*。
+![materials_instances](img/material_customization/Materials_Instances.jpg)
+<div style="text-align: right"><i>警车蓝图中的材质实例。</i></div>
+关于材质及其如何工作的通用文档可以在[UE文档](https://docs.unrealengine.com/en-US/Engine/Rendering/Materials/index.html)中找到。所有材质都可以进行大量修改，但只有外部材质具有值得关注的属性。其他材质有一些可以更改的属性，例如玻璃材质的透明度和颜色，但除非有特定目的，否则不建议这样做。
+### 外部属性
+外部材质应用于汽车车身，这是可以自定义最多的材质。
+*   基础颜色 — 车身的基本颜色。
+*   色调 — 色调颜色，其可见性取决于可视化的角度。
+![materials_Tint](img/material_customization/Materials_Tint.jpg)
+<div style="text-align: right"><i>带有粉红色调的红色汽车。左侧未启用色调，右侧启用。</i></div>
+*   灰尘 — 应用于汽车的灰尘纹理。灰尘旨在堆积在几何体的顶部，底部部分几乎看不见。如果几何体旋转，灰尘将出现在车辆顶部。
+	*   `Amount` — 纹理的不透明度。
+	*   `Color` — 灰尘纹理的基础颜色。
+	*   `Tiling` — 灰尘纹理图案的大小和重复。
+	*   `Thickness` — 灰尘的密度。
+	*   `Roughness` — 由于灰尘而减少汽车金属反射。
+![materials_Dust](img/material_customization/Materials_Dust.jpg)
+<div style="text-align: right"><i>汽车材质中的灰尘属性。</i></div>
+*   片状物 — 应用于汽车金属漆的闪亮片状物。
+	*   `On/Off` — 启用或禁用该功能。
+	*   `Scale` — 片状物的尺寸。
+	*   `Brightness` — 闪亮的强度。
+	*   `Color` — 颗粒的基础颜色。
+![materials_Flakes](img/material_customization/Materials_Flakes.jpg)
+<div style="text-align: right"><i>汽车材质中的片状物属性。</i></div>
+以下是您提供的文本翻译：
 
 ---
-## Customize car materials
 
-Create instances of the master materials and store them in the corresponding folder for the new model. Here is an example of the instances created for the police car available in the blueprint library, *vehicle.dodge_charger.police*. 
-
-![materials_instances](img/material_customization/Materials_Instances.jpg)
-<div style="text-align: right"><i>Instanced materials for the police car blueprint.</i></div>
-
-Generic documentation for materials and how to work with them can be found in the [UE Docs](https://docs.unrealengine.com/en-US/Engine/Rendering/Materials/index.html). All the materials can be modified to a great extent, but only the exterior one has properties worth mentioning. Others have certain properties that can be changed, such as opacity and color in glass materials, but it is not recommended to do so, except for specific purposes.  
-
-### Exterior properties  
-
-The exterior material is applied to the body of the car, and it is the one that can be customized the most. 
-
-*   __Base color__ — Base color of the bodywork.  
-*   __Tint shade__ — Tint color which visibility varies depending on the angle of visualization.  
-
-![materials_Tint](img/material_customization/Materials_Tint.jpg)
-<div style="text-align: right"><i>Red car with pink tint. On the left, tint is disabled, on the right, enabled.</i></div>
-
-*   __Dust__ — A texture of dirt applied to the car. Dust is meant to pile on top of the geometry, and it is barely noticeable in the bottom parts. If the geometry is rotated, the dust will appear on the parts of the vehicle that are on top. 
-	*   `Amount` — Opacity of the texture.  
-	*   `Color` — Base color of the dust texture.  
-	*   `Tiling` — Size and repetition of the dust texture pattern.  
-	*   `Thickness` — Density of the dust.  
-	*   `Roughness` — Decrease of the car's metallic reflections due to dust.  
-
-![materials_Dust](img/material_customization/Materials_Dust.jpg)
-<div style="text-align: right"><i>Dust property in a car's material.</i></div>
-
-*   __Flakes__ — Sparkling flakes to the metallic paint of the car.  
-	*   `On/Off` — Enables or disables the feature.  
-	*   `Scale` — Size of the flakes. 
-	*   `Brightness` — Intensity of the sparkle.  
-	*   `Color` — Base color of the particles.  
-
-![materials_Flakes](img/material_customization/Materials_Flakes.jpg)
-<div style="text-align: right"><i>Flakes property in a car's material.</i></div>
-
-*   __Gain__ — Noise to the base paint of the car. 
-	*   __On/Off__ — Enables or disables the feature.  
-	*   __Scale__ — Size of the gain.  
-	*   __Color__ — Base color of the gain.  
+*   **增益** — 对车辆的基础漆面添加噪点。
+    *   **开/关** — 启用或禁用此功能。
+    *   **比例** — 增益的大小。
+    *   **颜色** — 增益的基础颜色。
 
 ![materials_Gain](img/material_customization/Materials_Gain.jpg)
-<div style="text-align: right"><i>Gain property in a car's material.</i></div>
+<div style="text-align: right"><i>车辆材质中的增益属性。</i></div>
 
-*   __Mud__ — A texture of mud applied to the car. Mud appears from the bottom to top of the car.  
-	*   `Height` — Portion of the car where mud appears.  
-	*   `Mud_Color` — Base color of the mud texture.  
-	*   `Mud_Tiling` — Size and repetition of the mud texture pattern.  
-	*   `Mud_Thickness` — Density of the mud. 
+*   **泥土** — 应用于车身的泥土纹理。泥土从车底向上覆盖车身。
+    *   `高度` — 车身上泥土出现的部分。
+    *   `泥土颜色` — 泥土纹理的基础颜色。
+    *   `泥土平铺` — 泥土纹理图案的大小和重复率。
+    *   `泥土厚度` — 泥土的密度。
 
 ![materials_mude](img/material_customization/Materials_Mud.jpg)
-<div style="text-align: right"><i>Mud property in a car's material.</i></div>
+<div style="text-align: right"><i>车辆材质中的泥土属性。</i></div>
 
-*   __Noise__ — Noise applied to the normal of the material. Creates an orange peel effect.  
-	*   `On/Off` — Enables or disables the feature.  
-	*   `Scale` — Size of the bumps created by the alteration of the normal map.  
+*   **噪点** — 应用于材质法线的噪点效果，创建橘皮效果。
+    *   `开/关` — 启用或禁用此功能。
+    *   `比例` — 由法线贴图变化所产生的凸起的大小。
 
 ![materials_noise](img/material_customization/Materials_Noise_High.jpg)
-<div style="text-align: right"><i>Noise property in a car's material.</i></div>
+<div style="text-align: right"><i>车辆材质中的噪点属性。</i></div>
 
-*   __Surface__ — Gloss and transparent coating applied to the vehicle's paint. This last step in [automotive paint](https://en.wikipedia.org/wiki/Automotive_paint).  
-	*   `ClearCoat` — Opacity of the coating.  
-	*   `ClearCoat_Brightness` — Glossiness of the resulting material.  
-	*   `ClearCoat_Metallic` — Reflection of the resulting material.  
+*   **表面** — 应用于车辆漆面的光泽和透明涂层。这是[汽车漆](https://en.wikipedia.org/wiki/Automotive_paint)的最后一步。
+    *   `透明涂层` — 涂层的不透明度。
+    *   `透明涂层亮度` — 材质的光泽度。
+    *   `透明涂层金属感` — 材质的反射效果。
 
 ![materials_Surface](img/material_customization/Materials_Surface.jpg)
-<div style="text-align: right"><i>Visualization of the Surface coating applied to a material.</i></div>
-
+<div style="text-align: right"><i>应用于材质的表面涂层的可视化效果。</i></div>
 
 ---
-## Building materials
 
-The materials applied to buildings are made of four basic textures that are combined to determine the basic properties of the material.  
+## 构建材质
 
-*   __Diffuse__ — Contains the basic painting of the material.  
-	*   `RGB` — Channels with the base colors.  
-	*   `Alpha` — This channel defines a mask that allows to modify the color of the portions in white. This is useful to create some variations from the same material.  
+建筑物材质由四种基本纹理组成，这些纹理结合起来决定材质的基本属性。
+
+*   **漫射** — 包含材质的基础色彩。
+    *   `RGB` — 包含基础颜色的通道。
+    *   `Alpha` — 此通道定义了一个允许修改白色区域颜色的遮罩。此功能有助于从相同材质中创建一些变化。
 
 ![building_diffuse_alpha](img/building_diffuse_alpha.png)
 
-*   __ORME__ — Maps different properties of the material using specific channels.  
-	*   `Ambient occlusion` — Contained in the `R` channel.  
-	*   `Roughness` — Contained in the `G` channel.  
-	*   `Metallic map` — Contained in the `B` channel.  
-	*   `Emissive mask` — Contained in the `Alpha` channel. This mask allows to change the emissive color and intensity of the portions in white.  
+*   **ORME** — 使用特定通道映射材质的不同属性。
+    *   `环境光遮蔽` — 包含在 `R` 通道中。
+    *   `粗糙度` — 包含在 `G` 通道中。
+    *   `金属感` — 包含在 `B` 通道中。
+    *   `自发光遮罩` — 包含在 `Alpha` 通道中。此遮罩允许改变白色部分的自发光颜色和强度。
 
-*   __Normal__ — Contains the normal map of the material.  
-	*   `RGB` — The normal map information.  
+*   **法线** — 包含材质的法线贴图。
+    *   `RGB` — 法线贴图的信息。
 
-*   __Emissive__ — If applicable, this texture is used to set the emissive base colors of the texture.  
-	*   `RGB` — Color information for the emissive elements in the texture.  
+*   **自发光** — 如果适用，此纹理用于设置纹理的自发光基础色。
+    *   `RGB` — 纹理中自发光元素的颜色信息。
 
 ![emissive](img/EmissiveIntensity.gif)
 
 ---
-## Customize a building material
 
-Similarly to car materials, a building material can be greatly changed if desired, but it is only recommended if the user has some expertise with Unreal Engine. However, there is some customization available for the two main shaders that buildings use.  
+## 自定义建筑物材质
 
+与车辆材质类似，建筑物材质也可以根据需要进行大幅度更改，但仅推荐具有Unreal Engine使用经验的用户进行此操作。然而，对于建筑物使用的两个主要着色器，仍然提供了一些可用的自定义选项。
 
 ![building_material](img/building_material.png)
 
+*   **玻璃着色器** — `M_GlassMaster`。
+    *   `Opacity` — 允许在 __Diffuse__ `Alpha` 纹理的白色区域上进行颜色更改。
+    *   `Color` — 基于 __Diffuse__ `Alpha` 纹理的白色区域应用的色调。
 
-*   __Glass shader__ — `M_GlassMaster`.  
-	*   `Opacity` — Enable color changes on the white area on the __Diffuse__ `Alpha` texture.  
-	*   `Color` — Tint to be applied based on the white area on the __Diffuse__ `Alpha` texture.  
-
-*   __Building shader__ — `M_MaterialMaster`  
-	*   `Change Color` — Enable color changes on the white area on the __Diffuse__ `Alpha` texture.  
-	*   `Color` — Tint to be applied based on the white area on the __Diffuse__ `Alpha` texture.  
-	*   `Emissive Texture` — Enable the usage of an __Emissive__ texture.  
-	*   `EmissiveColor` — Tint to be applied based on the white area on the __ORME__ `Emissive mask` texture.
-	*   `Emissive atenuance` — Factor that divides the intensity stated in __BP_Lights__ to obtain proper emissive values.  
-	*   `RoughnessCorrection` — Changes the intensity of the roughness map.  
-	*   `MetallicCorrection` — Changes the intensity of the metallic map.  
-	*   `NormalFlatness` — Changes the intensity of the normal map.  
+*   **建筑着色器** — `M_MaterialMaster`
+    *   `Change Color` — 允许在 __Diffuse__ `Alpha` 纹理的白色区域上进行颜色更改。
+    *   `Color` — 基于__Emissive__ `Alpha` 纹理的白色区域应用的色调。
+    *   `Emissive Texture` — 启用 __ORME__  纹理的使用。
+    *   `EmissiveColor` — 基于__ORME__  `Emissive mask` 纹理的白色区域应用的色调。
+    *   `Emissive atenuance` — 将 __BP_Lights__ 中指定的强度除以此因子以获得适当的自发光值。
+    *   `RoughnessCorrection` — 改变粗糙度贴图的强度。
+    *   `MetallicCorrection` — 改变金属感贴图的强度。
+    *   `NormalFlatness` — 改变法线贴图的强度。
 
 ---
 
-That is a wrap on the most remarkable ways users can customize the materials of vehicles and buildings. 
+这就是用户自定义车辆和建筑物材质的最显著方法。
 
-Any doubts that may arise are more than welcomed in the forum.
+如果在操作中有任何疑问，欢迎到论坛讨论。
 
 <div class="build-buttons">
 <p>
-<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
+<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="访问CARLA论坛">
+CARLA论坛</a>
 </p>
 </div>

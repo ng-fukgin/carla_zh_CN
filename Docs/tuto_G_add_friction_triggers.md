@@ -1,54 +1,35 @@
-# How to add friction triggers
-
-*Friction Triggers* are box triggers that can be added on runtime and let users define
-a different friction of the vehicles' wheels when being inside those type of triggers.
-For example, this could be useful for making slippery surfaces in certain regions of
-a map dynamically.
-
-In order to spawn a friction trigger using PythonAPI, users must first get the
-`static.trigger.friction` blueprint definition, and then set the following necessary
-attributes to that blueprint definition:
-
-- *friction*: The friction of the trigger box when vehicles are inside it.
-- *extent_x*: The extent of the bounding box in the X coordinate in centimeters.
-- *extent_y*: The extent of the bounding box in the Y coordinate in centimeters.
-- *extent_z*: The extent of the bounding box in the Z coordinate in centimeters.
-
-Once done that, define a transform to specify the location and rotation for the friction
-trigger and spawn it.
-
-##### Example
-
+# 如何添加摩擦触发器
+摩擦触发器是一种可以在运行时添加的盒形触发器，当车辆进入这些触发器时，允许用户定义车辆轮子的不同摩擦力。例如，这可以用来在地图的特定区域动态地创建滑滑的表面。
+使用PythonAPI在运行时生成摩擦触发器，用户首先需要获取`static.trigger.friction`蓝图定义，然后设置以下必要的属性到该蓝图定义中：
+- *friction*：当车辆进入触发器时，触发器盒的摩擦力。
+- *extent_x*：触发器盒在X坐标上的边界框扩展，以厘米为单位。
+- *extent_y*：触发器盒在Y坐标上的边界框扩展，以厘米为单位。
+- *extent_z*：触发器盒在Z坐标上的边界框扩展，以厘米为单位。
+完成这些设置后，定义一个转换以指定摩擦触发器的地点和旋转，并生成它。
+##### 示例
 ```py
 import carla
-
 def main():
-    # Connect to client
+    # 连接到客户端
     client = carla.Client('127.0.0.1', 2000)
     client.set_timeout(2.0)
-
-    # Get World and Actors
+    # 获取世界和演员
     world = client.get_world()
     actors = world.get_actors()
-
-    # Find Trigger Friction Blueprint
+    # 查找摩擦触发器蓝图
     friction_bp = world.get_blueprint_library().find('static.trigger.friction')
-
     extent = carla.Location(700.0, 700.0, 700.0)
-
     friction_bp.set_attribute('friction', str(0.0))
     friction_bp.set_attribute('extent_x', str(extent.x))
     friction_bp.set_attribute('extent_y', str(extent.y))
     friction_bp.set_attribute('extent_z', str(extent.z))
-
-    # Spawn Trigger Friction
+    # 生成摩擦触发器
     transform = carla.Transform()
     transform.location = carla.Location(100.0, 0.0, 0.0)
     world.spawn_actor(friction_bp, transform)
-
-    # Optional for visualizing trigger
+    # 可选的用于可视化触发器
     world.debug.draw_box(box=carla.BoundingBox(transform.location, extent * 1e-2), rotation=transform.rotation, life_time=100, thickness=0.5, color=carla.Color(r=255,g=0,b=0))
-
 if __name__ == '__main__':
     main()
 ```
+

@@ -1,164 +1,115 @@
-# Generate maps with OpenStreetMap
-
-In this guide you will learn:
-
-- How to export a map from OpenStreetMaps.
-- The different formats of map that can be used in CARLA and each format's limitations.
-- How to convert the native `.osm` format to `.xodr`.
-- How to include traffic light information in the `.xodr` file.
-- How to run the final map in a CARLA simulation.
-
-[OpenStreetMap](https://www.openstreetmap.org) is an open data map of the world developed by thousands of contributors and licensed under the [Open Data Commons Open Database License](https://opendatacommons.org/licenses/odbl/). Sections of the map can be exported to an XML formatted `.osm` file. CARLA can convert this file to an OpenDRIVE format and ingest it using the [OpenDRIVE Standalone Mode](#adv_opendrive.md).
-
-- [__Export a map with OpenStreetMap__](#export-a-map-with-openstreetmap)
-- [__Using OpenStreetMaps in CARLA__](#using-openstreetmaps-in-carla)
-- [__Convert OpenStreetMap format to OpenDRIVE format__](#convert-openstreetmap-format-to-opendrive-format)
+# 使用OpenStreetMap生成地图
+在本指南中，您将学习：
+- 如何从OpenStreetMaps导出地图。
+- 可以在CARLA中使用不同格式的地图以及每种格式的限制。
+- 如何将原生`.osm`格式转换为`.xodr`。
+- 如何在`.xodr`文件中包含交通灯信息。
+- 如何在CARLA模拟中运行最终地图。
+[OpenStreetMap](https://www.openstreetmap.org)是一个由成千上万的贡献者开发的世界开放数据地图，根据[Open Data Commons Open Database License](https://opendatacommons.org/licenses/odbl/)许可。地图的部分可以导出为XML格式的`.osm`文件。CARLA可以将此文件转换为OpenDRIVE格式，并使用[OpenDRIVE独立模式](#adv_opendrive.md)将其导入。
+- [__从OpenStreetMap导出地图__](#从openstreetmap导出地图)
+- [__在CARLA中使用OpenStreetMaps__](#在carla中使用openstreetmaps)
+- [__将OpenStreetMap格式转换为OpenDRIVE格式__](#将openstreetmap格式转换为opendrive格式)
     - [Linux](#linux)
     - [Windows](#windows)
-    - [Generate Traffic Lights](#generate-traffic-lights)
-- [__Ingest into CARLA__](#ingest-into-carla)
-
+    - [生成交通灯](#生成交通灯)
+- [__导入CARLA__](#导入carla)
 ---
-## Export a map with OpenStreetMap
-
-This section explains how to export your desired map information from Open Street Map:
-
-__1.__ Navigate to the [Open Street Map website](https://www.openstreetmap.org). You will see the map view and a panel on the right side of the window where you can configure different map layers, query different features, toggle the legend, and more.
-
-__2.__ Search for your desired location and zoom in to a specific area.
-
+## 从OpenStreetMap导出地图
+本节介绍如何从Open Street Map导出您所需的地图信息：
+__1.__ 访问[Open Street Map网站](https://www.openstreetmap.org)。您将看到地图视图和窗口右侧的面板，您可以在其中配置不同的地图图层、查询不同的特征、切换图例等。
+__2.__ 搜索您想要的位置并放大到特定区域。
 ![openstreetmap_view](img/tuto_g_osm_web.jpg)
-
-!!! Note
-    If you would like to use a map of a large area, for example, Paris, you may consider using CARLA's [__Large Map__ feature](large_map_overview.md).
-
-__3.__ Click on _Export_ on the upper left side of the window to open the _Export_ panel.
-
-__4.__ Click on _Manually select a different area_ in the _Export_ panel.
-
-__5.__ Select a custom area by dragging the corners of the square area in the viewport.
-
-__6.__ Click the _Export_ button in the _Export_ panel and save the map information of the selected area as a `.osm` file.
-
+!!! 提示
+    如果您想使用大区域地图，例如巴黎，您可以考虑使用CARLA的[__大型地图__功能](large_map_overview.md)。
+__3.__ 在窗口左上角点击“导出”以打开“导出”面板。
+__4.__ 在“导出”面板中点击“手动选择不同的区域”。
+__5.__ 通过在视图中拖动方形区域的角来选择一个自定义区域。
+__6.__ 在“导出”面板中点击“导出”按钮，并将选定区域的地图信息保存为`.osm`文件。
 ![openstreetmap_area](img/tuto_g_osm_area.jpg)
-
 ---
-## Using OpenStreetMaps in CARLA
-
-Open Street Map data can be used in CARLA via three different methods. The method you use will depend on if the data is in the original `.osm` format or if you convert the file to `.xodr` using the conversion method explained in the following sections. Keeping the file in `.osm` is the most restrictive method as it does not allow for settings customization.
-
-__Options available for `.xodr` format:__
-
-- Generate the map in your own script. __This method allows parameterization.__
-- Pass the file as a parameter to CARLA's `config.py`. __This method does not allow parameterization.__
-
-__Options available for `.osm` format:__
-
-- Pass the file as a parameter to CARLA's `config.py`. __This method does not allow parameterization.__
-
-The following sections will provide more detail on the options listed above.
-
+## 在CARLA中使用OpenStreetMaps
+Open Street Map数据可以通过三种不同的方法在CARLA中使用。您使用的 方法将取决于数据是否处于原始`.osm`格式，或者您是否使用下面几节中解释的转换方法将文件转换为`.xodr`。保留文件为`.osm`是最受限制的方法，因为它不允许自定义设置。
+__对于`.xodr`格式的选项：__
+- 在您自己的脚本中生成地图。__此方法允许参数化。__
+- 将文件作为参数传递给CARLA的`config.py`。__此方法不允许参数化。__
+__对于`.osm`格式的选项：__
+- 将文件作为参数传递给CARLA的`config.py`。__此方法不允许参数化。__
+以下各节将详细说明上面列出的选项。
 ---
-
-## Convert OpenStreetMap format to OpenDRIVE format
-
-This section demonstrates how to use the Python API to convert the `.osm` file we exported in the previous section to `.xodr` format so that it is ready for use in CARLA.
-
-The [carla.Osm2OdrSettings](python_api.md#carla.Osm2OdrSettings) class is used to configure conversion settings such as offset values, traffic light generation, origin coordinates, and more. The full list of configurable parameters is found in the Python API [documentation](python_api.md#carla.Osm2OdrSettings). The [carla.Osm2Odr](python_api.md#carla.Osm2Odr) class uses these settings to parse the `.osm` data and output it in `.xodr` format.
-
-In Windows, the `.osm` file must be encoded to `UTF-8`. This is not necessary in Linux. Below are example code snippets that show how to perform the file conversion depending on your operating system:
-
+## 将OpenStreetMap格式转换为OpenDRIVE格式
+本节演示如何使用Python API将我们在上一节导出的`.osm`文件转换为`.xodr`格式，以便在CARLA中使用。
+[carla.Osm2OdrSettings](python_api.md#carla.Osm2OdrSettings)类用于配置转换设置，如偏移值、交通灯生成、原点坐标等。可配置参数的完整列表可以在Python API [文档](python_api.md#carla.Osm2OdrSettings)中找到。[carla.Osm2Odr](python_api.md#carla.Osm2Odr)类使用这些设置来解析`.osm`数据并将其输出为`.xodr`格式。
+在Windows上，`.osm`文件必须编码为`UTF-8`。这在Linux上是不必要的。以下是根据您的操作系统执行文件转换的示例代码片段：
 ##### Linux
-
 ```py
-# Read the .osm data
+# 读取.osm数据
 f = open("path/to/osm/file", 'r')
 osm_data = f.read()
 f.close()
-
-# Define the desired settings. In this case, default values.
+# 定义所需的设置。在这种情况下，使用默认值。
 settings = carla.Osm2OdrSettings()
-# Set OSM road types to export to OpenDRIVE
-settings.set_osm_way_types(["motorway", "motorway_link", "trunk", "trunk_link", "primary", "primary_link", "secondary", "secondary_link", "tertiary", "tertiary_link", "unclassified", "residential"])
-# Convert to .xodr
-xodr_data = carla.Osm2Odr.convert(osm_data, settings)
 
-# save opendrive file
+# 设置要导出到OpenDRIVE的OSM道路类型
+settings.set_osm_way_types(["motorway", "motorway_link", "trunk", "trunk_link", "primary", "primary_link", "secondary", "secondary_link", "tertiary", "tertiary_link", "unclassified", "residential"])
+# 将转换为.xodr
+xodr_data = carla.Osm2Odr.convert(osm_data, settings)
+# 保存opendrive文件
 f = open("path/to/output/file", 'w')
 f.write(xodr_data)
 f.close()
 ```
-
 ##### Windows
-
 ```py
 import io
-
-# Read the .osm data
+# 读取.osm数据
 f = io.open("test", mode="r", encoding="utf-8")
 osm_data = f.read()
 f.close()
-
-# Define the desired settings. In this case, default values.
+# 定义所需的设置。在这种情况下，使用默认值。
 settings = carla.Osm2OdrSettings()
-# Set OSM road types to export to OpenDRIVE
+# 设置要导出到OpenDRIVE的OSM道路类型
 settings.set_osm_way_types(["motorway", "motorway_link", "trunk", "trunk_link", "primary", "primary_link", "secondary", "secondary_link", "tertiary", "tertiary_link", "unclassified", "residential"])
-# Convert to .xodr
+# 将转换为.xodr
 xodr_data = carla.Osm2Odr.convert(osm_data, settings)
-
-# save opendrive file
+# 保存opendrive文件
 f = open("path/to/output/file", 'w')
 f.write(xodr_data)
 f.close()
 ```
-<br>
-
 ---
-### Generate Traffic Lights
-
-Open Street Map data can define which junctions are controlled with traffic lights. To use this traffic light data in CARLA, you need to enable it in the OSM map settings via the Python API before converting the `.osm` file to `.xodr` format:
-
+### 生成交通灯
+Open Street Map数据可以定义哪些路口受交通灯控制。要使用此交通灯数据在CARLA中，您需要在将`.osm`文件转换为`.xodr`格式之前在OSM地图设置中启用它：
 ```py
-# Define the desired settings. In this case, default values.
+# 定义所需的设置。在这种情况下，使用默认值。
 settings = carla.Osm2OdrSettings()
-# enable traffic light generation from OSM data
+# 从OSM数据生成交通灯
 settings.generate_traffic_lights = True
-# Convert to .xodr
+# 转换为.xodr
 xodr_data = carla.Osm2Odr.convert(osm_data, settings)
 ```
-
-Traffic light data quality can vary depending on the region from which you extract data. Some traffic light information may be missing completely. To work within these limitations, you can use the Python API to configure all junctions to be controlled with traffic lights:
-
+交通灯数据质量可能会因提取数据的地区而异。某些交通灯信息可能完全缺失。为了在这些限制内工作，您可以使用Python API配置所有路口都受交通灯控制：
 ```py
 settings.all_junctions_with_traffic_lights = True
 ```
-
-You can also exclude certain roads, e.g., motorway links, from generating traffic lights:
-
+您还可以排除某些道路，例如，从生成交通灯中排除：
 ```
 settings.set_traffic_light_excluded_way_types(["motorway_link"])
 ```
-
 ---
-## Ingest into CARLA
-
-This section explains how to use the different options available to ingest your Open Street Map information into CARLA using the [OpenDRIVE Standalone Mode](adv_opendrive.md).
-
-There are three options available:
-
-[__A)__](#a-use-your-own-script) Generate the map using a converted `.xodr` file in your own custom Python script. __This method allows parameterization.__  
-[__B)__](#b-pass-xodr-to-configpy) Pass a converted `.xodr` file as a parameter to the CARLA `config.py` script. __This method does not allow parameterization.__  
-[__C)__](#c-pass-osm-to-configpy) Pass the original `.osm` file as a parameter to the CARLA `config.py` script. __This method does not allow parameterization.__  
-
-###### A) Use your own script
-
-Generate the new map and block the simulation until it is ready by calling [`client.generate_opendrive_world()`](python_api.md#carla.Client.generate_opendrive_world). Use the [carla.OpendriveGenerationParameters](python_api.md#carla.OpendriveGenerationParameters) class to configure the mesh generation. See below for an example:
-
+## 导入CARLA
+本节解释了如何使用[OpenDRIVE独立模式](adv_opendrive.md)将您的Open Street Map信息导入CARLA。
+有三种可用的选项：
+[__A)__](#a-使用您自己的脚本) 使用转换后的`.xodr`文件在您自己的自定义Python脚本中生成新地图。__此方法允许参数化。__  
+[__B)__](#b-将xodr传递给configpy) 将转换后的`.xodr`文件作为参数传递给CARLA的`config.py`脚本。__此方法不允许参数化。__  
+[__C)__](#c-将osm传递给configpy) 将原始`.osm`文件作为参数传递给CARLA的`config.py`脚本。__此方法不允许参数化。__  
+###### A) 使用您自己的脚本
+生成新地图并阻塞模拟，直到它准备就绪，通过调用[`client.generate_opendrive_world()`](python_api.md#carla.Client.generate_opendrive_world)。使用[carla.OpendriveGenerationParameters](python_api.md#carla.OpendriveGenerationParameters)类配置网格生成。以下是一个示例：
 ```py
-vertex_distance = 2.0  # in meters
-max_road_length = 500.0 # in meters
-wall_height = 0.0      # in meters
-extra_width = 0.6      # in meters
+vertex_distance = 2.0  # 以米为单位
+max_road_length = 500.0 # 以米为单位
+wall_```
+wall_height = 0.0      # 以米为单位
+extra_width = 0.6      # 以米为单位
 world = client.generate_opendrive_world(
     xodr_xml, carla.OpendriveGenerationParameters(
         vertex_distance=vertex_distance,
@@ -168,50 +119,34 @@ world = client.generate_opendrive_world(
         smooth_junctions=True,
         enable_mesh_visibility=True))
 ```
-
 !!! Note
-    `wall_height = 0.0` is strongly recommended. OpenStreetMap defines lanes in opposing directions as different roads. If walls are generated, this will result in wall overlapping and undesired collisions.
-
-###### B) Pass `.xodr` to `config.py`
-
-After you have started a CARLA server, run the following command in a separate terminal to load your Open Street Map:
-
+    `wall_height = 0.0`强烈推荐使用。OpenStreetMap定义了双向行驶的道路为不同的道路。如果生成墙壁，这将导致墙壁重叠和意外碰撞。
+###### B) 将`.xodr`传递给`config.py`
+启动CARLA服务器后，在另一个终端中运行以下命令以加载您的Open Street Map：
 ```sh
 cd PythonAPI/util
-
 python3 config.py -x=/path/to/xodr/file
 ```
-
-[Default parameters](python_api.md#carla.OpendriveGenerationParameters) will be used.
-###### C) Pass `.osm` to `config.py`
-
-After you have started a CARLA server, run the following command in a separate terminal to load your Open Street Map:
-
+[默认参数](python_api.md#carla.OpendriveGenerationParameters)将被使用。
+###### C) 将`.osm`传递给`config.py`
+启动CARLA服务器后，在另一个终端中运行以下命令以加载您的Open Street Map：
 ```sh
 cd PythonAPI/util
-
 python3 config.py --osm-path=/path/to/OSM/file
 ```
-
-[Default parameters](python_api.md#carla.OpendriveGenerationParameters) will be used.
-
-
-Regardless of the method used, the map will be ingested into CARLA and the result should be similar to the image below:
-
+[默认参数](python_api.md#carla.OpendriveGenerationParameters)将被使用。
+无论使用哪种方法，地图都将被导入CARLA，结果应类似于以下图像：
 ![opendrive_meshissue](img/tuto_g_osm_carla.jpg)
-<div style="text-align: right"><i>Outcome of the CARLA map generation using OpenStreetMap.</i></div>
-
+<div style="text-align: right"><i>使用OpenStreetMap生成的CARLA地图的结果。</i></div>
 <br>
 !!! Warning
-    The roads generated end abruptly at the borders of the map. This will cause the Traffic Manager to crash when vehicles are not able to find the next waypoint. To avoid this, the OSM mode in the Traffic Manager is set to __True__ by default ([`set_osm_mode()`](python_api.md#carlatrafficmanager)). This will show a warning and destroy vehicles when necessary.  
-
+    生成的道路在地图的边界突然结束。这将导致交通管理器在车辆无法找到下一个路点时崩溃。为了避免这种情况，交通管理器的OSM模式默认设置为__True__ ([`set_osm_mode()`](python_api.md#carlatrafficmanager))。这将显示警告并在必要时销毁车辆。
 ---
-
-Any issues and doubts related with this topic can be posted in the CARLA forum.
-
+关于此主题的任何问题和疑虑都可以在CARLA论坛上提出。
 <div class="build-buttons">
 <p>
 <a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
+CARLA论坛</a>
 </p>
 </div>
+

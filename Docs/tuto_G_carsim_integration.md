@@ -1,64 +1,41 @@
-# CarSim Integration
-
-CARLA's integration with CarSim allows vehicle controls in CARLA to be forwarded to CarSim. CarSim will do all required physics calculations of the vehicle and return the new state to CARLA. 
-
-This page shows you how to generate a `.sim` file, explains how vehicle dimensions relate between CARLA and CarSim and how to run a simulation on CARLA using the CarSim integration.
-
-*   [__Before you begin__](#before-you-begin)  
-*   [__Set up CarSim__](#set-up-carsim)  
-	*   [__Generate the .sim file__](#generate-the-sim-file)  
-        * [__On Windows__](#on-windows)
-        * [__On Ubuntu__](#on-ubuntu)
-	*   [__Vehicle sizes__](#vehicle-sizes)  
-*   [__Run the simulation__](#run-the-simulation)  
-
+# CarSim集成
+CARLA与CarSim的集成允许将CARLA中的车辆控制转发到CarSim。CarSim将完成车辆所需的所有物理计算，并将新状态返回给CARLA。
+本页向您展示了如何生成`.sim`文件，解释了CARLA和CarSim之间车辆尺寸的关系，以及如何使用CarSim集成在CARLA上运行模拟。
+*   [__开始之前__](#before-you-begin)  
+*   [__设置CarSim__](#set-up-carsim)  
+    *   [__生成.sim文件__](#generate-the-sim-file)  
+        * [__在Windows上__](#on-windows)
+        * [__在Ubuntu上__](#on-ubuntu)
+    *   [__车辆尺寸__](#vehicle-sizes)  
+*   [__运行模拟__](#run-the-simulation)  
 ---
-## Before you begin
-
-1. You will need a license for CarSim and to have the software up and running. If you don't currently have a license for CarSim, you can contact the team [here](https://www.carsim.com/forms/additional_information.php) for information.
-2. To allow communication with Unreal Engine you will need to install the VehicleSim Dynamics plugin (version 2020.0) for Unreal Engine 4.24. For information on finding specific versions of the plugin, check this [link](https://www.carsim.com/products/supporting/unreal/index.php). Installation of the plugin will depend on your operating system:
-   
-    __For Windows__:
-
-    Get the plugin [here](https://www.unrealengine.com/marketplace/en-US/product/carsim-vehicle-dynamics).
-
-    __For Ubuntu__:
-
-    1. Download the plugin [here](https://www.carsim.com/users/unreal_plugin/unreal_plugin_2020_0.php).
-    2. Replace the file `CarSim.Build.cs` with the file found [here](https://carla-releases.s3.eu-west-3.amazonaws.com/Backup/CarSim.Build.cs) in order to use the correct solver for Ubuntu.
-
-3. This step can be skipped if you are using the packaged version of CARLA. The packaged version has already been compiled using this flag but if you are building CARLA from source then you will need to compile the server with the `--carsim` flag.  
-
-    If you are building CARLA from source, run the following command in the root folder to compile the server with the `--carsim` flag:
-
+## 开始之前
+1. 您需要获得CarSim的许可证，并确保软件运行正常。如果您目前还没有CarSim的许可证，可以通过[这里](https://www.carsim.com/forms/additional_information.php)与团队联系以获取相关信息。
+2. 为了与Unreal Engine通信，您需要为Unreal Engine 4.24安装VehicleSim Dynamics插件（版本2020.0）。关于查找特定版本的插件，请查看这个[链接](https://www.carsim.com/products/supporting/unreal/index.php)。插件的安装将取决于您的操作系统：
+    __对于Windows__：
+    在[这里](https://www.unrealengine.com/marketplace/en-US/product/carsim-vehicle-dynamics)获取插件。
+    __对于Ubuntu__：
+    1. 在[这里](https://www.carsim.com/users/unreal_plugin/unreal_plugin_2020_0.php)下载插件。
+    2. 使用[这里](https://carla-releases.s3.eu-west-3.amazonaws.com/Backup/CarSim.Build.cs)找到的文件替换`CarSim.Build.cs`文件，以便在Ubuntu上使用正确的求解器。
+3. 如果您使用的是CARLA的打包版本，则可以跳过此步骤。打包版本已经使用此标志进行了编译，但是如果您从源代码构建CARLA，则需要使用`--carsim`标志编译服务器。
+    如果您从源代码构建CARLA，在根文件夹中运行以下命令以使用`--carsim`标志编译服务器：
 ```sh
     make launch ARGS="--carsim"
 ```
-
-## Set up CarSim
-
-The following section details how to generate the `.sim` file which is required to run the simulation. There is also important information detailed regarding the relationship of vehicle sizes between CARLA and CarSim. 
-
-#### Generate the .sim file
-
-The `.sim` file describes the simulation to be run in both CARLA and CarSim. This file is required by the plugin to run the simulation. There is currently no way to generate this file on Ubuntu, however we will describe below how to use a previously generated file to run the simulation on Ubuntu. 
-
-##### On Windows
-
-After you have configured all the parameters on CarSim, use the GUI to generate the `.sim` file as highlighted below:
-
-![generate .sim file](img/carsim_generate.jpg)
-
-The resulting `.sim` file should look something like this:
-
+## 设置CarSim
+以下部分详细介绍了生成运行模拟所需的`.sim`文件的方法。此外，还详细说明了CARLA和CarSim之间车辆尺寸关系的重要信息。
+#### 生成.sim文件
+`.sim`文件描述了在CARLA和CarSim中要运行的模拟。此文件是运行插件所需的。目前无法在Ubuntu上生成此文件，但是下面我们将介绍如何使用之前生成的文件在Ubuntu上运行模拟。
+##### 在Windows上
+在CarSim上配置所有参数后，使用GUI生成`.sim`文件，如下所示：
+![生成.sim文件](img/carsim_generate.jpg)
+生成的`.sim`文件应如下所示：
 ```
 SIMFILE
-
 SET_MACRO $(ROOT_FILE_NAME)$ Run_dd7a828d-4b14-4c77-9d09-1974401d6b25
 SET_MACRO $(OUTPUT_PATH)$ D:\carsim\Data\Results
 SET_MACRO $(WORK_DIR)$ D:\carsim\Data\
 SET_MACRO $(OUTPUT_FILE_PREFIX)$ $(WORK_DIR)$Results\Run_dd7a828d-4b14-4c77-9d09-1974401d6b25\LastRun
-
 FILEBASE $(OUTPUT_FILE_PREFIX)$
 INPUT $(WORK_DIR)$Results\$(ROOT_FILE_NAME)$\Run_all.par
 INPUTARCHIVE $(OUTPUT_FILE_PREFIX)$_all.par
@@ -77,24 +54,17 @@ VEHICLE_CODE i_i
 EXT_MODEL_STEP 0.00050000
 PORTS_IMP 0
 PORTS_EXP 0
-
 DLLFILE D:\carsim\Programs\solvers\carsim_64.dll
 END
 ```
-##### On Ubuntu
-
-There is no way to create the `.sim` file via GUI on Ubuntu. In order to proceed you will need to follow these steps:
-
-1. Generate the `.sim` file in Windows or use the file template below.
-2. Modify the `.sim` file so the variables `INPUT`, `INPUTARCHIVE`, `LOGFILE` and so on point towards the corresponding files in your Ubuntu 
-system.
-3. Replace the `DLLFILE` line to point towards the CarSim solver which, in the default installation, will be `SOFILE /opt/carsim_2020.0/lib64/libcarsim.so.2020.0`. 
-
-The resulting file should be similar to this:
-
+##### 在Ubuntu上
+在Ubuntu上无法通过GUI创建`.sim`文件。为了继续操作，您需要执行以下步骤：
+1. 在Windows中生成`.sim`文件，或使用下面的文件模板。
+2. 修改`.sim`文件，使`INPUT`、`INPUTARCHIVE`、`LOGFILE`等变量指向您Ubuntu系统中的相应文件。
+3. 替换`DLLFILE`行，使其指向CarSim求解器，在默认安装中，它将是`SOFILE /opt/carsim_2020.0/lib64/libcarsim.so.2020.0`。
+修改后的文件应如下所示：
 ```
 SIMFILE
-
 FILEBASE /path/to/LastRun
 INPUT /path/to/Run_all.par
 INPUTARCHIVE /path/to/LastRun_all.par
@@ -107,33 +77,20 @@ DATADIR .
 PRODUCT_ID CarSim
 PRODUCT_VER 2020.0
 VEHICLE_CODE i_i
-
 SOFILE /opt/carsim_2020.0/lib64/libcarsim.so.2020.0
 END
 ```
-#### Vehicle sizes
-
-Although CarSim lets you specify the dimensions of the vehicle to use in the simulation, there is currently no correlation between a CarSim vehicle and a CARLA 
-vehicle. This means that the vehicles in both programmes will have different dimensions. The role of the CARLA vehicle is only to act as a placeholder during the simulation.
-
-![carsim vehicle sizes](img/carsim_vehicle_sizes.jpg)
-
+#### 车辆尺寸
+尽管CarSim允许您指定模拟中要使用的车辆尺寸，但目前CarSim车辆与CARLA车辆之间没有相关性。这意味着两个程序中的车辆将具有不同的尺寸。CARLA车辆的作用只是在模拟期间作为占位符。
+![车辆尺寸](img/carsim_vehicle_sizes.jpg)
 !!! Note
-    There is no correlation between vehicle size in CARLA and CarSim. The CARLA vehicle is only a simulation placeholder.
-
-## Run the simulation
-
-All that is needed when running the simulation is to enable CarSim when you spawn a vehicle. This can be done by passing the path to the `.sim` file to the following [method](https://carla.readthedocs.io/en/latest/python_api/#carla.Vehicle.enable_carsim) of the Python API:
-
+    CARLA和CarSim之间的车辆尺寸没有相关性。CARLA车辆只是模拟中的占位符。
+## 运行模拟
+运行模拟时，只需要在生成车辆时启用CarSim。这可以通过将`.sim`文件的路径传递给Python API的以下[方法](https://carla.readthedocs.io/en/latest/python_api/#carla.Vehicle.enable_carsim)来实现：
 ```sh
 vehicle.enable_carsim(<path_to_ue4simfile.sim>)
 ```
-
-All input controls sent to the vehicle will be forwarded to CarSim. CarSim will update the 
-physics and send back the status of the vehicle (the transform) to the CARLA vehicle. 
-
-Once the simulation has finished you can analyze all the data in CarSim as usual. 
-
-![carsim analysis](img/carsim_analysis.jpg)
-
+发送到车辆的所有输入控制都将转发到CarSim。CarSim将更新物理状态，并将车辆的状态（变换）发送回CARLA车辆。
+模拟完成后，您可以在CarSim中像往常一样分析所有数据。
+![CarSim分析](img/carsim_analysis.jpg)
 

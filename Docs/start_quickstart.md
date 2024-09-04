@@ -87,7 +87,7 @@ __2.__ 安装 CARLA 并检查 在`/opt/` 文件夹中的安装:
     sudo apt-get install carla-simulator=0.9.10-1 # In this case, "0.9.10" refers to a CARLA version, and "1" to the Debian revision
 ```
 
-!!! 重要
+!!! Important
     要安装 0.9.10 之前的 CARLA 版本，请使用窗口右下角的面板更改为文档的先前版本，并按照旧说明进行操作.  
 
 ### B. Package 安装

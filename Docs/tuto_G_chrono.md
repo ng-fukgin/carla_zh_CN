@@ -1,75 +1,46 @@
-# Chrono Integration
-
-This guide outlines what Chrono is, how to use it in CARLA, and the limitations involved in the integration.
-
-- [__Project Chrono__](#project-chrono)
-- [__Using Chrono on CARLA__](#using-chrono-on-carla)
-    - [Configuring the server](#configuring-the-server)
-    - [Enabling Chrono physics](#enabling-chrono-physics)
-- [__Limitations__](#limitations)
-
+# Chrono集成
+本指南概述了Chrono是什么，如何在CARLA中使用它，以及集成中涉及的局限性。
+- [__Chrono项目__](#project-chrono)
+- [__在CARLA中使用Chrono__](#using-chrono-on-carla)
+    - [配置服务器](#configuring-the-server)
+    - [启用Chrono物理](#enabling-chrono-physics)
+- [__局限性__](#limitations)
 ---
-
-## Project Chrono
-
-[Project Chrono](https://projectchrono.org/) is an open-source, multi-physics simulation engine that provides highly realistic vehicle dynamics using a template-based approach. The integration in CARLA allows users to utilize Chrono templates to simulate vehicle dynamics while navigating a map.
-
+## Chrono项目
+[Chrono项目](https://projectchrono.org/)是一个开源的多物理模拟引擎，它使用基于模板的方法提供高度真实的车辆动力学。在CARLA中的集成允许用户在导航地图时利用Chrono模板来模拟车辆动力学。
 ---
-
-## Using Chrono on CARLA
-
-To use the Chrono integration, you must first configure the server with a tag on startup and then use the PythonAPI to enable it on a spawned vehicle. Read on for more details.
-
-### Configuring the server
-
-Chrono will only work if the CARLA server is compiled with the Chrono tag.
-
-__In the build from source version of CARLA__, run the following command to start the server:
-
+## 在CARLA中使用Chrono
+要使用Chrono集成，您必须首先在启动时配置带有标签的服务器，然后使用PythonAPI在生成的车辆上启用它。详情请继续阅读。
+### 配置服务器
+只有当CARLA服务器编译时带有Chrono标签，Chrono才能工作。
+__在CARLA的源代码构建版本中__，运行以下命令来启动服务器：
 ```sh
 make launch ARGS="--chrono"
 ```
-
 ---
-
-### Enabling Chrono physics
-
-Chrono physics is enabled using the `enable_chrono_physics` method available through the [Actor](python_api.md#carlaactor) class. As well as values for substeps and substep delta time, it requires three template files and a base path to locate those files:
-
-- __`base_path`:__ Path of the directory which contains the template files. This is necessary to ensure that auxiliary files referenced from the template files have a common base path from which to search.
-- __`vehicle_json`:__ Path of the vehicle template file relative to the `base_path`.
-- __`tire_json`:__ Path of the tire template file relative to the `base_path`.
-- __`powertrain_json`:__ Path of the powertrain template file relative to the `base_path`.
-
+### 启用Chrono物理
+Chrono物理是通过[Actor](python_api.md#carlaactor)类中的`enable_chrono_physics`方法启用的。除了子步骤和子步骤时间增量值外，它还需要三个模板文件和一个用于定位这些文件的基本路径：
+- __`base_path`:__ 包含模板文件的目录路径。这是必要的，以确保模板文件中引用的辅助文件有一个共同的基路径来搜索。
+- __`vehicle_json`:__ 相对于`base_path`的车辆模板文件路径。
+- __`tire_json`:__ 相对于`base_path`的轮胎模板文件路径。
+- __`powertrain_json`:__ 相对于`base_path`的动力系统模板文件路径。
 !!! Important
-    Double-check your paths. Incorrect or missing paths can cause Unreal Engine to crash.
-
-There are a variety of example template files for different vehicles available in `Build/chrono-install/share/chrono/data/vehicle`. Read the Project Chrono [documentation](https://api.projectchrono.org/manual_vehicle.html) to find out more about their vehicle examples and how to create templates.
-
-See below for an example of how to enable Chrono physics:
-
+    请仔细检查您的路径。不正确或缺失的路径可能导致Unreal Engine崩溃。
+在`Build/chrono-install/share/chrono/data/vehicle`中有各种不同车辆的示例模板文件。阅读Project Chrono的[文档](https://api.projectchrono.org/manual_vehicle.html)了解更多关于他们的车辆示例以及如何创建模板。
+以下是如何启用Chrono物理的示例：
 ```python
-    # Spawn your vehicle
+    # 生成您的车辆
     vehicle = world.spawn_actor(bp, spawn_point)
-
-    # Set the base path
+    # 设置基本路径
     base_path = "/path/to/carla/Build/chrono-install/share/chrono/data/vehicle/"
-
-    # Set the template files
-
+    # 设置模板文件
     vehicle_json = "sedan/vehicle/Sedan_Vehicle.json"
     powertrain_json = "sedan/powertrain/Sedan_SimpleMapPowertrain.json"
     tire_json = "sedan/tire/Sedan_TMeasyTire.json"
-
-    # Enable Chrono physics
-
+    # 启用Chrono物理
     vehicle.enable_chrono_physics(5000, 0.002, vehicle_json, powertrain_json, tire_json, base_path)
 ```
-
-You can try the Chrono physics integration using the example script `manual_control_chrono.py` found in `PythonAPI/examples`. After running the script, press `Ctrl + o` to enable Chrono.
-
+您可以使用`PythonAPI/examples`中的示例脚本`manual_control_chrono.py`来尝试Chrono物理集成。运行脚本后，按`Ctrl + o`启用Chrono。
 ---
-
-### Limitations
-
-This integration does not support collisions. __When a collision occurs, the vehicle will revert to CARLA default physics.__
+### 局限性
+此集成不支持碰撞。__当发生碰撞时，车辆将恢复为CARLA默认物理。__

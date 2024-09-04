@@ -1,36 +1,23 @@
-# Import/Package a Large Map
-
-Large maps generated in RoadRunner can be imported into the source build of CARLA and packaged for distribution and usage in a CARLA standalone package. The process is very simlar to that of standard maps with the addition of specific nomenclature for tiles and batch importing.
-
-- [__Files and folders__](#files-and-folders)
-- [__Create the JSON description (Optional)__](#create-the-json-description-optional)
-- [__Making the import__](#making-the-import)
-- [__Package a large map__](#package-a-large-map)
-
+# 导入/打包大型地图
+在RoadRunner中生成的大型地图可以导入到CARLA的源代码构建中，并打包用于分发和在CARLA独立包中使用。这个过程与标准地图的导入非常相似，只是增加了对图块的具体命名规则和批量导入。
+- [__文件和文件夹__](#files-and-folders)
+- [__创建JSON描述（可选）__](#create-the-json-description-optional)
+- [__进行导入__](#making-the-import)
+- [__打包大型地图__](#package-a-large-map)
 ---
-
-## Files and folders
-
-All files to be imported should be placed in the `Import` folder of the root CARLA directory. These files should include:
-
-- The mesh of the map in multiple `.fbx` files representing different tiles of the map.
-- The OpenDRIVE definition in a single `.xodr` file.
-
+## 文件和文件夹
+所有要导入的文件都应该放在CARLA根目录的`Import`文件夹中。这些文件应包括：
+- 地图的网格，以多个`.fbx`文件表示地图的不同图块。
+- OpenDRIVE定义，一个`.xodr`文件。
 !!! Warning
-    You cannot import large maps and standard maps at the same time.
-
-The naming convention of map tiles is very important. Each map tile should be named according to the following convention:
-
+    您不能同时导入大型地图和标准地图。
+地图图块的命名规则非常重要。每个地图图块应根据以下约定命名：
 ```
 <mapName>_Tile_<x-coordinate>_<y-coordinate>.fbx
 ```
-
-Be aware that a more positive __y coordinate__ refers to a tile lower on the y-axis. For example,`Map01_Tile_0_1` would sit just below `Map01_Tile_0_0`. 
-
+请注意，更正的__y坐标__指的是在y轴上更低的图块。例如，`Map01_Tile_0_1`将位于`Map01_Tile_0_0`的正下方。
 >>>>>>>>![map_tiles](../img/map_tiles.png)
-
-A resulting `Import` folder with a package containing a large map made of four tiles should have a structure similar to the one below:
-
+一个包含由四个图块组成的大型地图的包的`Import`文件夹结构应如下所示：
 ```sh
 Import
 │
@@ -41,32 +28,21 @@ Import
   ├── Map01_Tile_1_0.fbx
   ├── Map01_Tile_1_1.fbx
   └── Map01.xodr
-
 ```
-
 !!! Note
-    The `package.json` file is not strictly necessary. If there is no `package.json` file created, the automated import process will create one. Find out more about to structure your own `package.json` in the next section.
-
+    `package.json`文件不是严格必需的。如果没有创建`package.json`文件，自动导入过程将创建一个。有关如何构建自己的`package.json`的更多信息，请参见下一节。
 ---
-
-## Create the JSON description (Optional)
-
-The `.json` description is created automatically during the import process, but there is also the option to create one manually. An existing `.json` description will override any values passed as arguments in the import process.
-
-The `.json` file should be created in the root folder of the package. The file name will be the package distribution name. The content of the file describes a JSON array of __maps__ and __props__ with basic information for each one.
-
-__Maps__ need the following parameters:
-
-- __name:__ Name of the map. This must be the same as the `.fbx` and `.xodr` files.
-- __xodr:__ Path to the `.xodr` file.
-- __use_carla_materials:__ If __True__, the map will use CARLA materials. Otherwise, it will use RoadRunner materials.
-- __tile_size:__ The size of the tiles. Default value is 2000 (2kmx2km).
-- __tiles:__ A list of the `.fbx` tile files that make up the entire map.
-
-__Props__ are not part of this tutorial. Please see [this](tuto_A_add_props.md) tutorial for how to add new props.
-
-The resulting `.json` file should resemble the following:
-
+## 创建JSON描述（可选）
+`.json`描述在导入过程中自动创建，但也可以选择手动创建。现有的`.json`描述将覆盖导入过程中作为参数传递的任何值。
+`.json`文件应在包的根文件夹中创建。文件名将是包分发名称。文件内容描述了每个地图和道具的基本信息的JSON数组。
+__地图__需要以下参数：
+- __name:__ 地图的名称。这必须与`.fbx`和`.xodr`文件相同。
+- __xodr:__ `.xodr`文件的路径。
+- __use_carla_materials:__ 如果为__True__，地图将使用CARLA材质。否则，它将使用RoadRunner材质。
+- __tile_size:__ 图块的大小。默认值是2000（2kmx2km）。
+- __tiles:__ 构成整个地图的`.fbx`图块文件列表。
+__Props__不包含在本教程中。有关如何添加新道具，请参见[这个](tuto_A_add_props.md)教程。
+结果`.json`文件应如下所示：
 ```json
 {
   "maps": [
@@ -88,63 +64,41 @@ The resulting `.json` file should resemble the following:
 ```
 </details>
 <br>
-
 ---
-
-## Making the import
-
-When all files have been placed in the `Import` folder, run the following command in the root CARLA folder:
-
+## 进行导入
+将所有文件放置在`Import`文件夹后，在CARLA根目录下运行以下命令：
 ```sh
 make import
 ```
-
-Depending on your system, Unreal Engine may consume too much memory to be able to import all files at once. You can choose to import the files in batches of MB by running the command:
-
+根据您的系统，Unreal Engine可能消耗太多内存而无法一次性导入所有文件。您可以选择通过运行以下命令以MB为单位分批导入文件：
 ```sh
 make import ARGS="--batch-size=200"
 ```
-
-Two more flags exist for the `make import` command:
-
-- `--package=<package_name>` specifies the name of the package. By default, this is set to `map_package`. Two packages cannot have the same name, so using the default value will lead to errors on a subsequent ingestion. __It is highly recommended to change the name of the package__. Use this flag by running the command:
-
+`make import`命令还有两个标志：
+- `--package=<package_name>`指定包的名称。默认情况下，这设置为`map_package`。两个包不能有相同的名称，因此使用默认值会导致后续导入时出现错误。__强烈建议更改包的名称__。使用此标志，请运行以下命令：
 ```sh
 make import  ARGS="--package=<package_name>"
 ```
-
-- `--no-carla-materials` specifies that you do not want to use the default CARLA materials (road textures etc). You will use the RoadRunner materials instead. This flag is __only required if you are not__ providing your own [`.json` file](tuto_M_manual_map_package.md). Any value in the `.json` file will override this flag. Use this flag by running the command:
-
+- `--no-carla-materials`指定您不希望使用默认的CARLA材质（如道路纹理等）。您将使用RoadRunner材质代替。这个标志__只有在您不提供自己的[`.json`文件](tuto_M_manual_map_package.md)时才需要__。任何`.json文件中的值都将覆盖此标志。使用此标志，请运行以下命令：
 ```sh
-make import  ARGS="--no-carla-materials"
+make import ARGS="--no-carla-materials"
 ```
-
-All files will be imported and prepared to be used in the Unreal Editor. The map package will be created in `Unreal/CarlaUE4/Content`. A base map tile, `<mapName>`, will be created as a streaming level for all the tiles. The base tile will contain the sky, weather, and large map actors and will be ready for use in a simulation.
-
+所有文件都将被导入并准备好在Unreal编辑器中使用。地图包将创建在`Unreal/CarlaUE4/Content`中。将创建一个基础地图图块，`<mapName>`，作为所有图块的流式传输级别。基础图块将包含天空、天气和大型地图演员，并准备好用于模拟。
 !!! Note
-    It is currently not recommended to use the customization tools provided for standard maps in the Unreal Editor, e.g., road painter, procedural buildings, etc.
-
+    目前不推荐在Unreal编辑器中使用为标准地图提供的定制工具，例如道路绘制器、程序化建筑等。
 ---
-
-## Package a large map
-
-To package your large map so it can be used in the CARLA standalone package, run the following command:
-
+## 打包大型地图
+要打包您的大型地图以便在CARLA独立包中使用，请运行以下命令：
 ```sh
 make package ARGS="--packages=<mapPackage>"
 ```
-
-This will create a standalone package compressed in a `.tar.gz` file. The files will be saved in the `Dist` folder on Linux, and `/Build/UE4Carla/` on Windows. They can then be distributed and packaged to use in standalone CARLA packages.
-
+这将创建一个压缩在`.tar.gz`文件中的独立包。文件将保存在Linux上的`Dist`文件夹和Windows上的`/Build/UE4Carla/`中。然后，它们可以被分发并打包以在独立的CARLA包中使用。
 ---
-
-If you have any questions about the large map import and packaging process, then you can ask in the [forum](https://github.com/carla-simulator/carla/discussions).
-
+如果您对大型地图导入和打包过程有任何疑问，可以在[论坛](https://github.com/carla-simulator/carla/discussions)中提问。
 <div class="build-buttons">
 <p>
-<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
+<a href="https://github.com/carla-simulator/carla/discussions" target="_blank" class="btn btn-neutral" title="前往CARLA论坛">
+CARLA论坛</a>
 </p>
 </div>
-
 

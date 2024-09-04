@@ -1,85 +1,57 @@
-# Synchrony and time-step 
-
-This section deals with two fundamental concepts in CARLA. Their configuration defines how does time go by in the simulation, and how does the server make the simulation move forward.  
-
-*   [__Simulation time-step__](#simulation-time-step)
-	*   [Variable time-step](#variable-time-step)
-	*   [Fixed time-step](#fixed-time-step)
-	*   [Tips when recording the simulation](#tips-when-recording-the-simulation)
-	*   [Physics substepping](#physics-substepping)
-*   [__Client-server synchrony__](#client-server-synchrony)
-	*   [Setting synchronous mode](#setting-synchronous-mode)
-	*   [Using synchronous mode](#using-synchronous-mode)
-*   [__Possible configurations__](#possible-configurations)
-* [__Physics determinism__](#physics-determinism)
-
+# 同步和时间步
+本部分讨论CARLA中的两个基本概念。它们的配置定义了仿真中时间是如何流逝的，以及服务器如何使仿真向前推进。
+- [同步和时间步](#同步和时间步)
+	- [仿真时间步长](#仿真时间步长)
+		- [可变时间步长](#可变时间步长)
+		- [固定时间步长](#固定时间步长)
+		- [记录仿真时的提示](#记录仿真时的提示)
+		- [物理细分](#物理细分)
+	- [客户端-服务器同步性](#客户端-服务器同步性)
+		- [设置同步模式](#设置同步模式)
+		- [使用同步模式](#使用同步模式)
+	- [可能的配置](#可能的配置)
+	- [物理确定性](#物理确定性)
+	- [运行这些步骤将确保每次仿真运行都产生相同的结果。](#运行这些步骤将确保每次仿真运行都产生相同的结果)
 ---
-## Simulation time-step
-
-There is a difference between real time, and simulation time. The simulated world has its own clock and time, conducted by the server. Computing two simulation steps takes some real time. However, there is also the time span that went by between those two simulation moments, the time-step.  
-
-To clarify, the server can take a few milliseconds to compute two steps of a simulation. However, the time-step between those two simulation moments can be configured to be, for instance, always a second.  
-
-Time-step can be fixed or variable depending on user preferences.  
-
+## 仿真时间步长
+真实时间和仿真时间之间存在差异。仿真世界有自己的时钟和时间，由服务器控制。计算两个仿真步骤需要一些真实时间。然而，这两个仿真时刻之间的时间跨度，即时间步长，是可以配置的。
+例如，服务器可能需要几毫秒来计算两个仿真步骤。但是，这两个仿真时刻之间的时间跨度可以配置为始终为1秒。
+时间步长可以是固定的或可变的，取决于用户偏好。
 !!! Note
-    Time-step and synchrony are intertwined concepts. Make sure to read both sections to get a full understanding of how does CARLA work.  
-
-### Variable time-step
-
-The default mode in CARLA. The simulation time that goes by between steps will be the time that the server takes to compute these.  
-
+    时间步长和同步性是交织的概念。确保阅读两个部分以全面理解CARLA是如何工作的。
+### 可变时间步长
+CARLA的默认模式。仿真时间步长将根据服务器计算这些步骤所需的时间而变化。
 ```py
 settings = world.get_settings()
-settings.fixed_delta_seconds = None # Set a variable time-step
+settings.fixed_delta_seconds = None # 设置可变时间步长
 world.apply_settings(settings)
 ```
-`PythonAPI/util/config.py` sets the time-step using an argument. Zero equals variable time-step. 
+`PythonAPI/util/config.py`使用一个参数设置时间步长。零等于可变时间步长。
 ```sh
 cd PythonAPI/util && python3 config.py --delta-seconds 0
 ``` 
-
-### Fixed time-step
-
-The elapsed time remains constant between steps. If it is set to 0.5 seconds, there will be two frames per simulated second. Using the same time increment on each step is the best way to gather data from the simulation. Physics and sensor data will correspond to an easy to comprehend moment of the simulation. Also, if the server is fast enough, it makes possible to simulate longer time periods in less real time.  
-
-Fixed delta seconds can be set in the world settings. To run the simulation at a fixed time-step of 0.05 seconds apply the following settings. In this case, the simulator will take twenty steps (1/0.05) to recreate one second of the simulated world.
-
+### 固定时间步长
+步骤之间的时间跨度保持不变。如果设置为0.5秒，则每秒会有两个帧。在每一步使用相同的时间增量是收集仿真数据的最佳方式。物理和传感器数据将与仿真中的一个容易理解的时刻相对应。此外，如果服务器足够快，它将能够在较少的真实时间内模拟更长的时间段。
+可以在世界设置中设置固定的时间步长。要以0.05秒的固定时间步长运行仿真，请应用以下设置。在这种情况下，模拟器将需要20步（1/0.05）来重现仿真世界的1秒。
 ```py
 settings = world.get_settings()
 settings.fixed_delta_seconds = 0.05
 world.apply_settings(settings)
 ```
-This can also be set using the provided script `PythonAPI/util/config.py`.
-
+这也可以通过提供的脚本`PythonAPI/util/config.py`设置。
 ```sh
 cd PythonAPI/util && python3 config.py --delta-seconds 0.05
 ``` 
-
-### Tips when recording the simulation
-
-CARLA has a [recorder feature](adv_recorder.md) that allows a simulation to be recorded and then reenacted. However, when looking for precision, some things need to be taken into account.  
-
-* With a __fixed time-step__, reenacting it will be easy. The server can be set to the same time-step used in the original simulation.  
-
-* With a __variable time-step__, things are a bit more complicated.  
-
-	* If the __server runs with a variable time-step__, the time-steps will be different from the original one, as logic cycles differ from time to time. The information will then be interpolated using the recorded data.  
-
-	* If the __server is forced to reproduce the exact same time-steps__, the steps simulated will be the same, but the real time between them changes. Time-steps should be passed one by one. Those original time-steps were the result of the original simulation running as fast as possible. As the time taken to represent these will mostly be different, the simulation is bound to be reproduced with weird time fluctuations.  
-
-	* There is also a __float-point arithmetic error__ that variable time-step introduces. The simulation is running with a time-step equal to the real one. Real time is a continuous variable, represented in the simulation with a `float` value, which has decimal limitations. The time that is cropped for each step accumulates, and prevents the simulation from a precise repetition of what has happened.  
-
-### Physics substepping
-
-Physics must be computed within very low time steps to be precise. This can be an issue when 
-selecting a delta time for our simulation in which we usually perform multiple computations at 
-each frame, for example with sensor rendering. As this limitation only happens due to the 
-physics simulation, we can apply substeps to only the physical computations. This 
-is enabled by default and is set to have a maximum of 10 physics substeps with a maximum 
-physical delta time of 0.01.
-
-These options can be changed through the API in the world settings as:
+### 记录仿真时的提示
+CARLA有一个[记录器功能](adv_recorder.md)，允许仿真被记录并重新执行。然而，为了精确，需要考虑一些事情。
+* 使用__固定时间步长__时，重新执行将很容易。服务器可以设置为使用原始仿真中使用的时间步长。
+* 使用__可变时间步长__时，情况稍微复杂一些。
+	* 如果__服务器以可变时间步长运行__，时间步长将与原始的一个不同，因为逻辑周期每次都不同。然后，将使用记录的数据进行插值。
+	* 如果__服务器被迫以完全相同的时间步长重现__，步骤将是相同的，但它们之间的真实时间不同。时间步长应逐一传递。这些原始时间步长是原始仿真尽可能快地运行的结果。由于代表这些的时间大部分不同，仿真很可能会以奇怪的时间波动重新执行。
+	* 还有由可变时间步长引入的__浮点数算术误差__。仿真以与真实时间相等的时间步长运行。真实时间是连续变量，在仿真中以`float`值表示，具有小数限制。每一步截断的时间累积，并阻止仿真精确地重复已经发生的事情。
+### 物理细分
+为了精确，物理必须在非常低的时间步长内计算。当选择仿真时间步长时，我们通常在每个帧上执行多个计算，例如传感器渲染，这可能会成为一个问题。由于这个限制仅发生在物理仿真中，我们可以将物理计算应用于子步。这是默认启用，并且设置最多10个物理细分步，最大物理细分时间为0.01。
+这些选项可以通过API在世界设置中更改。
 ```py
 settings = world.get_settings()
 settings.substepping = True
@@ -87,195 +59,133 @@ settings.max_substep_delta_time = 0.01
 settings.max_substeps = 10
 world.apply_settings(settings)
 ```
-
-Be aware that if you have set synchronous mode and the fixed time step then substepping options 
-need to be consistent with the value of the fixed delta seconds. The condition to be fulfilled is:
+请注意，如果启用了同步模式并且设置了固定的时间步长，细分选项需要与固定时间步长的值一致。需要满足的条件是：
 ```py
 fixed_delta_seconds <= max_substep_delta_time * max_substeps
 ```
-
-In order to have an optimal physical simulation, the substep delta time should at least 
-be below `0.01666` and ideally below `0.01`.
-
-To demonstrate the effect of optimal physical sub-stepping, consider the following graphs. The first graph shown below illustrates velocity over time in simulations with different fixed simulation time steps. The physical delta time is constant in all simulations at the default value of `0.01`. We can see that velocity is not affected by the difference in simulation time steps only.
-
->>>>>![velocity with fixed physical delta time](../img/physics_convergence_fixed_pdt.png)
-
-The second graph shows velocity over time in simulations with a fixed simulation time step of `0.04`. We can see that once the physical delta time surpasses `0.01`, deviations start to occur in the constancy of velocity, increasing in severity as physical delta time increases.
-
->>>>>![velocity with varied physical delta time](../img/physics_convergence_fixed_dt.png)
-
-We can demonstrate this deviation again by showing the effect of the same difference in physical delta time with a fixed simulation time step in the measurement of z-acceleration, with convergence occurring only when the physical delta time is `0.01` or less.
-
->>>>>![physics convergence z acceleration](../img/physics_convergence_z_acceleration.png)
-
+为了获得最佳的物理仿真，细分时间步长至少应低于`0.01666`，理想情况下应低于`0.01`。
+为了演示物理细分的效果，考虑以下图形。第一个图形显示了在不同固定仿真时间步长下的速度随时间变化。物理细分时间在所有仿真中都是默认值`0.01`。我们可以看到，速度仅由仿真时间步长的差异决定。
+>>>>>![固定物理细分时间](../img/physics_convergence_fixed_pdt.png)
+第二个图形显示了在固定仿真时间步长为`0.04`下的速度随时间变化。我们可以看到，一旦物理细分时间超过`0.01`，速度的恒定性开始出现偏差，随着物理细分时间的增加，偏差变得更加严重。
+>>>>>![变化的物理细分时间](../img/physics_convergence_fixed_dt.png)
+我们再次通过显示在固定仿真时间步长下物理细分时间对z轴加速度测量的相同差异的影响来演示这一点，只有当物理细分时间为`0.01`或更小时，才会发生收敛。
+>>>>>![物理收敛z加速度](../img/physics_convergence_z_acceleration.png)
 ---
-## Client-server synchrony 
-
-CARLA is built over a client-server architecture. The server runs the simulation. The client retrieves information, and demands for changes in the world. This section deals with communication between client and server.  
-
-By default, CARLA runs in __asynchronous mode__. The server runs the simulation as fast as possible, without waiting for the client. On __synchronous mode__, the server waits for a client tick, a "ready to go" message, before updating to the following simulation step.  
-
+## 客户端-服务器同步性
+CARLA建立在客户端-服务器架构之上。服务器运行仿真。客户端检索信息，并请求对世界的更改。本节讨论客户端与服务器之间的通信。
+默认情况下，CARLA以__异步模式__运行。服务器以尽可能快的速度运行仿真，不等待客户端。在__同步模式__下，服务器在接收客户端的“准备就绪”消息后等待更新到下一个仿真步骤。
 !!! Note
-    In a multiclient architecture, only one client should tick. The server reacts to every tick received as if it came from the same client. Many client ticks will make the create inconsistencies between server and clients. 
-
-### Setting synchronous mode
-
-Changing between synchronous and asynchronous mode is just a matter of a boolean state.  
+    在多客户端架构中，只有一个客户端应该进行滴答。服务器对收到的每个滴答做出反应，好像它来自同一个客户端。多个客户端滴答会使服务器和客户端之间产生不一致。
+### 设置同步模式
+在同步模式和异步模式之间切换只是布尔状态的问题。
 ```py
 settings = world.get_settings()
-settings.synchronous_mode = True # Enables synchronous mode
+settings.synchronous_mode = True # 启用同步模式
 world.apply_settings(settings)
 ```
 !!! Warning
-    If synchronous mode is enabled, and there is a Traffic Manager running, this must be set to sync mode too. Read [this](adv_traffic_manager.md#synchronous-mode) to learn how to do it. 
-
-To disable synchronous mode just set the variable to false or use the script `PythonAPI/util/config.py`. 
+    如果启用了同步模式，并且有运行的Traffic Manager，也必须将其设置为同步模式。阅读[此](adv_traffic_manager.md#同步模式)以了解如何操作。
+要禁用同步模式，只需将变量设置为false或使用脚本`PythonAPI/util/config.py`。
 ```sh
-cd PythonAPI/util && python3 config.py --no-sync # Disables synchronous mode
+cd PythonAPI/util && python3 config.py --no-sync # 禁用同步模式
 ``` 
-Synchronous mode cannot be enabled using the script, only disabled. Enabling the synchronous mode makes the server wait for a client tick. Using this script, the user cannot send ticks when desired. 
-
-### Using synchronous mode
-
-The synchronous mode becomes specially relevant with slow client applications, and when synchrony between different elements, such as sensors, is needed. If the client is too slow and the server does not wait, there will be an overflow of information. The client will not be able to manage everything, and it will be lost or mixed. On a similar tune, with many sensors and asynchrony, it would be impossible to know if all the sensors are using data from the same moment in the simulation.  
-
-The following fragment of code extends the previous one. The client creates a camera sensor, stores the image data of the current step in a queue, and ticks the server after retrieving it from the queue. A more complex example regarding several sensors can be found [here][syncmodelink].
-
+同步模式无法通过脚本启用，只能禁用。启用同步模式会使服务器等待客户端的滴答。使用此脚本，用户无法在需要时发送滴答。
+### 使用同步模式
+同步模式对于慢速客户端应用程序和需要不同元素（如传感器）之间同步性时变得特别重要。如果客户端太慢，服务器不等待，信息将溢出。客户端将无法管理所有信息，并且会丢失或混淆。类似地，对于许多传感器和异步性，将无法知道所有传感器是否使用仿真中的相同时刻的数据。
+以下代码片段扩展了前面的一个。客户端创建了一个相机传感器，将当前步骤的图像数据存储在队列中，并在从队列中获取它后对服务器进行滴答。有关多个传感器的更复杂示例，请参阅[此处][syncmodelink]。
 ```py
 settings = world.get_settings()
 settings.synchronous_mode = True
 world.apply_settings(settings)
-
 camera = world.spawn_actor(blueprint, transform)
 image_queue = queue.Queue()
 camera.listen(image_queue.put)
-
 while True:
     world.tick()
     image = image_queue.get()
 ```
 [syncmodelink]: https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/synchronous_mode.py
-
-
 !!! Important
-    Data coming from GPU-based sensors, mostly cameras, is usually generated with a delay of a couple of frames. Synchrony is essential here. 
-
-
-The world has asynchrony methods to make the client wait for a server tick, or do something when it is received. 
-
+    来自GPU的传感器（主要是相机）的数据显示通常会有几帧的延迟。在这种情况下，同步性至关重要。
+世界具有异步方法，使客户端等待服务器滴答，或在收到滴答时执行某些操作。
 ```py
-# Wait for the next tick and retrieve the snapshot of the tick.
+# 等待下一个滴答并检索滴答的快照。
 world_snapshot = world.wait_for_tick()
-
-# Register a callback to get called every time we receive a new snapshot.
+# 注册一个回调函数，每当收到新的快照时都会被调用。
 world.on_tick(lambda world_snapshot: do_something(world_snapshot))
 ```
-
 ---
-## Possible configurations 
-
-The configuration of time-step and synchrony, leads for different settings. Here is a brief summary on the possibilities.
-
-|                                                                        | **Fixed time-step**                                                    | **Variable time-step**                                                 |
+## 可能的配置
+时间步长和同步性的配置导致不同的设置。这里是对可能性的简要总结。
+|                                                                        | **固定时间步长**                                                    | **可变时间步长**                                                 |
 | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| **Synchronous mode**                                                   | Client is in total control over the simulation and its information.    | Risk of non reliable simulations.                                      |
-| **Asynchronous mode**                                                  | Good time references for information. Server runs as fast as possible. | Non easily repeatable simulations.                                     |
-
+| **同步模式**                                                           | 客户端对仿真及其信息有完全的控制。                                 | 存在不可靠的仿真风险。                                              |
+| **异步模式**                                                           | 信息具有良好的时间参考。服务器尽可能快地运行。                     | 难以复现的仿真。                                                     |
 <br>
-
-
-* __Synchronous mode + variable time-step.__ This is almost for sure a non-desirable state. Physics cannot run properly when the time-step is bigger than 0.1s and. If the server has to wait for the client to compute the steps, this is likely to happen. Simulation time and physics will not be in synchrony. The simulation will not be reliable.  
-
-* __Asynchronous mode + variable time-step.__ This is the default CARLA state. Client and server are asynchronous. The simulation time flows according to the real time. Reenacting the simulation needs to take into account float-arithmetic error, and possible differences in time steps between servers.  
-
-* __Asynchronous mode + fixed time-step.__ The server will run as fast as possible. The information retrieved will be easily related with an exact moment in the simulation. This configuration makes possible to simulate long periods of time in much less real time, if the server is fast enough. 
-
-* __Synchronous mode + fixed time-step.__ The client will rule the simulation. The time step will be fixed. The server will not compute the following step until the client sends a tick. This is the best mode when synchrony and precision is relevant. Especially when dealing with slow clients or different elements retrieving information. 
-
-!!! Warning 
-    __In synchronous mode, always use a fixed time-step__. If the server has to wait for the user, and it is using a variable time-step, time-steps will be too big. Physics will not be reliable. This issue is better explained in the __time-step limitations__ section. 
-
+* __同步模式 + 可变时间步长__。这种状态几乎肯定是不受欢迎的。当时间步长大于0.1秒时，物理无法正确运行。如果服务器必须等待客户端计算步骤，这很可能会发生。仿真时间和物理将不会同步。仿真将不可靠。  
+* __异步模式 + 可变时间步长__。这是CARLA的默认状态。客户端和服务器是异步的。仿真时间根据真实时间流动。重新执行仿真需要考虑浮点数算术误差和可能的服务器之间的时间步长差异。  
+* __异步模式 + 固定时间步长__。服务器将尽可能快地运行。检索的信息将与仿真中的确切时刻相关。这种配置使仿真能够在较少的真实时间内模拟更长的时间段，如果服务器足够快的话。  
+* __同步模式 + 固定时间步长__。客户端将控制仿真。时间步长将是固定的。服务器在客户端发送滴答之前不会计算下一个步骤。当需要同步性和精确性时，这是最好的模式。特别是在处理慢速客户端或不同元素检索信息时。
+!!! Warning
+    在同步模式下，始终使用固定的时间步长。如果服务器必须等待用户，并且它使用可变的时间步长，时间步长将会太大。物理将不可靠。这个问题在时间步长限制部分有更好的解释。
 ---
-
-## Physics determinism
-
-CARLA supports physics and collision determinism under specific circumstances:
-
-- __Synchronous mode and fixed delta seconds must be enabled:__ Determinism requires the client to be in perfect sync with the server to ensure that commands are applied correctly and to produce accurate and reproducible results. A constant time step must be enforced by setting `fixed_delta_seconds`. If this is not set, the time step will be automatically computed at each step depending on the simulation performance.
-- __Synchronous mode must be enabled before loading or reloading the world:__ Differing timestamps can arise if the world is not in synchronous mode from the very beginning. This can generate small differences in physics simulation and in the life cycle of objects such as traffics lights.
-- __The world must be reloaded for each new repetition:__ Reload the world each time you want to reproduce a simulation.
-- __Commands should be batched instead of issued one at a time:__ Although rare, in a busy simulation or overloaded server, single issued commands can become lost. If commands are batched in a [`apply_batch_sync`](python_api.md/#carla.Client.apply_batch_sync) command, the command is guaranteed to be executed or return a failure response.
-
-Here is an example of the steps mentioned above:
-
+## 物理确定性
+CARLA在特定情况下支持物理和碰撞确定性：
+- __同步模式和固定的时间步长必须启用：__ 确定性要求客户端与服务器完美同步，以确保命令正确应用并产生准确可重复的结果。必须通过设置`fixed_delta_seconds`来强制执行恒定的时间步长。如果没有设置，时间步长将在每一步根据仿真性能自动计算。
+- __在加载或重新加载世界之前必须启用同步模式：__ 如果世界不是从一开始就处于同步模式，可能会出现不同的时间戳。这可能会在物理仿真和对象的生命周期（如交通灯）中产生小的差异。
+- __每次新重复之前必须重新加载世界：__ 每次你想重复仿真时，都要重新加载世界。
+- __命令应以批处理方式而不是逐个发出：__ 尽管不常见，但在繁忙的仿真或过载的服务器上，逐个发出的命令可能会丢失。如果命令以[`apply_batch_sync`](python_api.md/#carla.Client.apply_batch_sync)命令批量发出，命令将被执行或返回失败响应。
+以下是一个执行上述步骤的示例：
 ```py
-client = carla.Client(HOST, PORT) # connect to the server
+client = carla.Client(HOST, PORT) # 连接到服务器
 client.set_timeout(10.0)
 world = client.get_world()
-
-# Load the desired map
+# 加载所需地图
 client.load_world("Town10HD_Opt")
-
-# Set synchronous mode settings
+# 设置同步模式设置
 new_settings = world.get_settings()
 new_settings.synchronous_mode = True
 new_settings.fixed_delta_seconds = 0.05
 world.apply_settings(new_settings) 
-
-client.reload_world(False) # reload map keeping the world settings
-
-# Set up the traffic manager
+client.reload_world(False) # 重新加载地图，保持世界设置
+# 设置交通管理器
 traffic_manager = client.get_trafficmanager(TM_PORT)
 traffic_manager.set_synchronous_mode(True)
-traffic_manager.set_random_device_seed(SEED) # define TM seed for determinism
-
-# Spawn your vehicles, pedestrians, etc.
-
-# Simulation loop
+traffic_manager.set_random_device_seed(SEED) # 定义TM种子以实现确定性
+# 生成你的车辆、行人等
+# 仿真循环
 while True:
-	# Your code
-	world.tick()
+    # 你的代码
+    world.tick()
 ```
-
-And a particular example for the playback feature:
-
+对于播放功能的一个特定示例：
 ```py
-client = carla.Client(HOST, PORT) # connect to the server
+client = carla.Client(HOST, PORT) # 连接到服务器
 client.set_timeout(10.0)
 world = client.get_world()
-
-# Load the desired map
+# 加载所需地图
 client.load_world("Town10HD_Opt")
-
-# Set synchronous mode settings
+# 设置同步模式设置
 new_settings = world.get_settings()
 new_settings.synchronous_mode = True
 new_settings.fixed_delta_seconds = 0.05
 world.apply_settings(new_settings) 
-
-client.reload_world(False) # reload map keeping the world settings
-
 client.replay_file(FILE_TO_PLAY, 0, 0, 0, False)
-world.tick() # a tick is necessary for the server to process the replay_file command
-
-# Simulation loop
+world.tick() # 服务器需要处理replay_file命令的滴答
+# 仿真循环
 while True:
-	# Your code
-	world.tick()
+    # 你的代码
+    world.tick()
 ```
-
-Running these steps will ensure the same outcome for every simulation run.
-
+运行这些步骤将确保每次仿真运行都产生相同的结果。
 ---
-
-That is all there is to know about the roles of simulation time and client-server synchrony in CARLA.  
-
-Open CARLA and mess around for a while. Any suggestions or doubts are welcome in the forum. 
-
+这就是关于CARLA中仿真时间和客户端-服务器同步性的所有内容。
+打开CARLA并玩一会儿。任何建议或疑问都欢迎在论坛上提出。
 <div class="build-buttons">
 <p>
-<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="Go to the CARLA forum">
-CARLA forum</a>
+<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="前往CARLA论坛">
+CARLA论坛</a>
 </p>
 </div>
+
+

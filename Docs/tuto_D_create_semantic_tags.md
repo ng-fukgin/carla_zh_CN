@@ -1,87 +1,55 @@
-# Create semantic tags
 
-Learn how to define customized tags for semantic segmentation. These can additionally be added to [carla.CityObjectLabel](python_api.md#carla.CityObjectLabel) to filter the bounding boxes that [carla.World](python_api.md#carla.World) retrieves.  
-
-*   [__Create a new semantic tag__](#create-a-new-semantic-tag)  
-	*   [1. Create the tag ID](#1-create-the-tag-id)  
-	*   [2. Create the UE folder for assets](#2-create-the-ue-folder-for-assets)  
-	*   [3. Create two-way correspondence between UE and the code tag](#3-create-two-way-correspondence-between-ue-and-the-code-tag)  
-	*   [4. Define a color code](#4-define-a-color-code)  
-	*   [5. Add the tagged elements](#5-add-the-tagged-elements)  
-*   [__Add a tag to carla.CityObjectLabel__](#add-a-tag-to-carlacityobjectlabel)  
-
+# 创建语义标签
+学习如何定义用于语义分割的自定义标签。这些标签还可以添加到 [carla.CityObjectLabel](python_api.md#carla.CityObjectLabel) 中，以过滤 [carla.World](python_api.md#carla.World) 获取的边界框。
+- [创建语义标签](#创建语义标签)
+	- [创建一个新的语义标签](#创建一个新的语义标签)
+		- [1. 创建标签ID](#1-创建标签id)
+		- [2. 为资产创建UE文件夹](#2-为资产创建ue文件夹)
+		- [3. 在UE和代码标签之间建立双向对应关系](#3-在ue和代码标签之间建立双向对应关系)
+		- [4. 定义颜色代码](#4-定义颜色代码)
+		- [5. 添加标记网格](#5-添加标记网格)
+	- [新的语义标签已准备好使用。只有存储在标签UE文件夹中的网格才会被标记为相应标签。移动或导入相应的网格到新文件夹，以便正确标记。](#新的语义标签已准备好使用只有存储在标签ue文件夹中的网格才会被标记为相应标签移动或导入相应的网格到新文件夹以便正确标记)
+	- [将标签添加到 carla.CityObjectLabel](#将标签添加到-carlacityobjectlabel)
+	- [](#)
 ---
-
-## Create a new semantic tag
-
-### 1. Create the tag ID
-
-__Open `ObjectLabel.h`__ in `LibCarla/source/carla/rpc`. Add your new tag by the end of the enum using the same formatting as the rest.  
-
+## 创建一个新的语义标签
+### 1. 创建标签ID
+__打开 `LibCarla/source/carla/rpc` 中的 `ObjectLabel.h` 文件。__ 在枚举的末尾添加您的标签，使用与其他标签相同的格式。
 ![object_label_h](img/tuto_D_create_semantic_tags/01_objectlabel_tag.jpg)
-
 !!! Note
-    Tags do not have to appear in order. However, it is good practice to list them in order. 
-
-### 2. Create the UE folder for assets
-
-__Open the Unreal Engine Editor__ and go to `Carla/Static`. Create a new folder named as your tag. 
-
+    标签不需要按顺序排列。但是，按顺序列出它们是一种好习惯。
+### 2. 为资产创建UE文件夹
+__打开Unreal Engine编辑器__，转到 `Carla/Static`。创建一个与您的标签同名的文件夹。
 ![ue_folder](img/tuto_D_create_semantic_tags/02_ue_folder.jpg)
-
 !!! Note
-    The UE folder and the tag do not necessarily have to be named the same. However, it is good practice to do so.  
-
-### 3. Create two-way correspondence between UE and the code tag
-
-__3.1. Open `Tagger.cpp`__ in `Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Game`. Go to __`GetLabelByFolderName`__ Add the your tag by the end of the list. The string being compared is the name of the UE folder used in [__2.__](#2-create-the-ue-folder-for-assets), so use the exact same name here.  
-
+    UE文件夹和标签不必同名。但是，这样做是一种好习惯。
+### 3. 在UE和代码标签之间建立双向对应关系
+__3.1. 打开 `Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Game` 中的 `Tagger.cpp` 文件。__ 转到 __`GetLabelByFolderName`__ 在列表末尾添加您的标签。这里比较的字符串是 [__2.__](#2-为资产创建UE文件夹) 中使用的UE文件夹的名称，因此在这里使用完全相同的名称。
 ![tagger_cpp](img/tuto_D_create_semantic_tags/03_tagger_cpp.jpg)
-
-__3.2. Go to `GetTagAsString`__ in the same `Tagger.cpp`. Add the new tag by the end of the switch.  
-
+__3.2. 在同一个 `Tagger.cpp` 文件中转到 `GetTagAsString`。__ 在switch语句的末尾添加新标签。
 ![tagger_cpp_02](img/tuto_D_create_semantic_tags/04_tagger_cpp_02.jpg)
-
-### 4. Define a color code
-
-__Open `CityScapesPalette.h`__ in `LibCarla/source/carla/image`. Add the color code of your new tag by the end of the array. 
-
+### 4. 定义颜色代码
+__打开 `LibCarla/source/carla/image` 中的 `CityScapesPalette.h` 文件。__ 在数组的末尾添加您新标签的颜色代码。
 ![city_scapes_palette_h](img/tuto_D_create_semantic_tags/05_city_scapes_palette_h.jpg)
-
 !!! Warning
-    The position in the array must correspond with the tag ID, in this case, `23u`. 
-
-### 5. Add the tagged meshes
-
-The new semantic tag is ready to be used. Only the meshes stored inside the UE folder of a tag are tagged as such. Move or import the corresponding meshes to the new folder, in order for the to be tagged properly. 
-
+    数组中的位置必须与标签ID相对应，在这种情况下是 `23u`。
+### 5. 添加标记网格
+新的语义标签已准备好使用。只有存储在标签UE文件夹中的网格才会被标记为相应标签。移动或导入相应的网格到新文件夹，以便正确标记。
 ---
-
-## Add a tag to [carla.CityObjectLabel](python_api.md#carla.CityObjectLabel)
-
-This step is not directly related with semantic segmentation. However, these tags can be used to filter the bounding box query in [carla.World](python_api.md#carla.World). In order to do this, the tag must be added to the [carla.CityObjectLabel](python_api.md#carla.CityObjectLabel) enum in the PythonAPI.  
-
-__Open `World.cpp`__ in `carla/PythonAPI/carla/source/libcarla` and add the new tag by the end of the enum.  
-
+## 将标签添加到 [carla.CityObjectLabel](python_api.md#carla.CityObjectLabel)
+这一步与语义分割没有直接关系。然而，这些标签可以用于在 [carla.World](python_api.md#carla.World) 中过滤边界框查询。为此，必须将标签添加到 PythonAPI 中的 [carla.CityObjectLabel](python_api.md#carla.CityObjectLabel) 枚举。
+__打开 `carla/PythonAPI/carla/source/libcarla` 中的 `World.cpp` 文件，__ 在枚举的末尾添加新标签。
 ![city_object_label](img/tuto_D_create_semantic_tags/06_city_object_label.jpg)
-
-
 ---
-
-Read the **[F.A.Q.](build_faq.md)** page or post in the [CARLA forum](https://github.com/carla-simulator/carla/discussions) for any issues, doubts or suggestions.  
-
-<p style="font-size: 20px">What's next?</p>
-
+阅读 **[常见问题解答](build_faq.md)** 页面或在 [CARLA论坛](https://github.com/carla-simulator/carla/discussions) 上发帖，以解决任何问题、疑问或建议。
+<p style="font-size: 20px">接下来是什么？</p>
 <div class="build-buttons">
-
 <p>
-<a href="../ref_sensors" target="_blank" class="btn btn-neutral" title="Learn all about sensors in CARLA">
-Sensors reference</a>
+<a href="../ref_sensors" target="_blank" class="btn btn-neutral" title="了解CARLA中传感器的所有信息">
+传感器参考</a>
 </p>
-
 <p>
-<a href="../tuto_A_add_props" target="_blank" class="btn btn-neutral" title="Learn how to import your custom into CARLA">
-Add new props</a>
+<a href="../tuto_A_add_props" target="_blank" class="btn btn-neutral" title="了解如何将您的自定义内容导入CARLA">
+添加新道具</a>
 </p>
-
 </div>

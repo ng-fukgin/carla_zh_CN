@@ -38,30 +38,30 @@ CARLA Simulator
   - [x] '2nd-  Actors and blueprints': 'core_actors.md'：@ng-fukgin
   - [x] '3rd-  Maps and navigation': 'core_map.md'：@ng-fukgin
   - [x] '4th-  Sensors and data': 'core_sensors.md'：@ng-fukgin
-- [ ] Advanced concepts:
+- [x] Advanced concepts:
   - [x] 'OpenDRIVE standalone mode': 'adv_opendrive.md'：@ng-fukgin
   - [x] 'PTV-Vissim co-simulation': 'adv_ptv.md'：@ng-fukgin
-  - [ ] 'Recorder': 'adv_recorder.md'：@ng-fukgin
-  - [ ] 'Rendering options': 'adv_rendering_options.md'：@ng-fukgin
-  - [ ] 'RSS': 'adv_rss.md'：@ng-fukgin
-  - [ ] 'Synchrony and time-step': 'adv_synchrony_timestep.md'：@ng-fukgin
-  - [ ] 'Benchmarking Performance': 'adv_benchmarking.md'：@ng-fukgin
-  - [ ] 'CARLA Agents': 'adv_agents.md'：@ng-fukgin
-- [ ] Traffic Simulation:
-  - [ ] 'Traffic Simulation Overview': 'ts_traffic_simulation_overview.md'：名字
-  - [ ] 'Traffic Manager': 'adv_traffic_manager.md'：名字
-  - [ ] 'SUMO co-simulation': 'adv_sumo.md'：名字
-  - [ ] 'Scenic': 'tuto_G_scenic.md'：名字
+  - [x] 'Recorder': 'adv_recorder.md'：@ng-fukgin
+  - [x] 'Rendering options': 'adv_rendering_options.md'：@ng-fukgin
+  - [x] 'RSS': 'adv_rss.md'：@ng-fukgin
+  - [x] 'Synchrony and time-step': 'adv_synchrony_timestep.md'：@ng-fukgin
+  - [x] 'Benchmarking Performance': 'adv_benchmarking.md'：@ng-fukgin
+  - [x] 'CARLA Agents': 'adv_agents.md'：@ng-fukgin
+- [x] Traffic Simulation:
+  - [x] 'Traffic Simulation Overview': 'ts_traffic_simulation_overview.md'：@ng-fukgin
+  - [x] 'Traffic Manager': 'adv_traffic_manager.md'：@ng-fukgin
+  - [x] 'SUMO co-simulation': 'adv_sumo.md'：@ng-fukgin
+  - [x] 'Scenic': 'tuto_G_scenic.md'：@ng-fukgin
 - [ ] References:
   - [ ] 'Python API reference': 'python_api.md'：名字
   - [ ] 'Blueprint Library': 'bp_library.md'：名字
   - [ ] 'C++ reference' : 'ref_cpp.md'：名字
   - [ ] 'Recorder binary file format': 'ref_recorder_binary_file_format.md'：名字
   - [ ] "Sensors reference": 'ref_sensors.md'：名字  
-- [ ] Plugins:
-  - [ ] 'carlaviz — web visualizer': 'plugins_carlaviz.md'：名字
-- [ ] ROS bridge:
-  - [ ] 'ROS bridge documentation': 'ros_documentation.md'：名字
+- [x] Plugins:
+  - [x] 'carlaviz — web visualizer': 'plugins_carlaviz.md'：@ng-fukgin
+- [x] ROS bridge:
+  - [x] 'ROS bridge documentation': 'ros_documentation.md'：@ng-fukgin
 - [ ] Custom Maps:
   - [x] 'Overview of custom maps in CARLA': 'tuto_M_custom_map_overview.md'：@lancelot-Yagami
   - [x] 'Create a map in RoadRunner': 'tuto_M_generate_map.md'：@lancelot-Yagami
@@ -75,32 +75,32 @@ CARLA Simulator
   - [ ] 'Customizing maps: Procedural Buildings': 'tuto_M_custom_buildings.md'：@lancelot-Yagami
   - [ ] 'Customizing maps: Weather and landscape': 'tuto_M_custom_weather_landscape.md'：@lancelot-Yagami
   - [ ] 'Generate pedestrian navigation': 'tuto_M_generate_pedestrian_navigation.md'：@lancelot-Yagami
-- [ ] Large Maps:
-  - [ ] 'Large maps overview': 'large_map_overview.md'：名字
-  - [ ] 'Create a large map in RoadRunner': 'large_map_roadrunner.md'：名字
-  - [ ] 'Import/Package a large map': 'large_map_import.md'：名字
-- [ ] Tutorials (general):
-  - [ ] 'Add friction triggers': "tuto_G_add_friction_triggers.md"
-  - [ ] 'Control vehicle physics': "tuto_G_control_vehicle_physics.md"
-  - [ ] 'Control walker skeletons': "tuto_G_control_walker_skeletons.md"
-  - [ ] 'Generate maps with OpenStreetMap': 'tuto_G_openstreetmap.md'：名字
-  - [ ] 'Retrieve simulation data': "tuto_G_retrieve_data.md"
-  - [ ] 'CarSim Integration': "tuto_G_carsim_integration.md"
-  - [ ] 'RLlib Integration': "tuto_G_rllib_integration.md"
-  - [ ] 'Chrono Integration': 'tuto_G_chrono.md'：名字
-  - [ ] 'Build Unreal and CARLA in Docker': 'build_docker_unreal.md'：名字
-- [ ] Tutorials (assets):
-  - [ ] 'Add a new vehicle': 'tuto_A_add_vehicle.md'：名字
-  - [ ] 'Add new props': 'tuto_A_add_props.md'：名字
-  - [ ] 'Create standalone packages': 'tuto_A_create_standalone.md'：名字
-  - [ ] "Material customization": 'tuto_A_material_customization.md'：名字
-- [ ] Tutorials (developers):
+- [x] Large Maps:
+  - [x] 'Large maps overview': 'large_map_overview.md'：@ng-fukgin
+  - [x] 'Create a large map in RoadRunner': 'large_map_roadrunner.md'：@ng-fukgin
+  - [x] 'Import/Package a large map': 'large_map_import.md'：@ng-fukgin
+- [x] Tutorials (general):
+  - [x] 'Add friction triggers': "tuto_G_add_friction_triggers.md":@ng-fukgin
+  - [x] 'Control vehicle physics': "tuto_G_control_vehicle_physics.md" :@ng-fukgin
+  - [x] 'Control walker skeletons': "tuto_G_control_walker_skeletons.md" :@ng-fukgin
+  - [x] 'Generate maps with OpenStreetMap': 'tuto_G_openstreetmap.md'：@ng-fukgin
+  - [ ] 'Retrieve simulation data': "tuto_G_retrieve_data.md" :@ng-fukgin
+  - [x] 'CarSim Integration': "tuto_G_carsim_integration.md" :@ng-fukgin
+  - [x] 'RLlib Integration': "tuto_G_rllib_integration.md" :@ng-fukgin
+  - [x] 'Chrono Integration': 'tuto_G_chrono.md'：@ng-fukgin
+  - [x] 'Build Unreal and CARLA in Docker': 'build_docker_unreal.md'：@ng-fukgin
+- [x] Tutorials (assets):
+  - [x] 'Add a new vehicle': 'tuto_A_add_vehicle.md'：@ng-fukgin
+  - [x] 'Add new props': 'tuto_A_add_props.md'：@ng-fukgin
+  - [x] 'Create standalone packages': 'tuto_A_create_standalone.md'：@ng-fukgin
+  - [x] "Material customization": 'tuto_A_material_customization.md'：@ng-fukgin
+- [x] Tutorials (developers):
   - [x] 'How to upgrade content': 'tuto_D_contribute_assets.md'：@ng-fukgin
   - [ ] 'Create a sensor': 'tuto_D_create_sensor.md'：@ng-fukgin
-  - [ ] 'Create semantic tags': 'tuto_D_create_semantic_tags.md'：@ng-fukgin
-  - [ ] 'Customize vehicle suspension': 'tuto_D_customize_vehicle_suspension.md'：@ng-fukgin
-  - [ ] 'Generate detailed colliders': 'tuto_D_generate_colliders.md'：@ng-fukgin
-  - [ ] 'Make a release': 'tuto_D_make_release.md'：@ng-fukgin
+  - [x] 'Create semantic tags': 'tuto_D_create_semantic_tags.md'：@ng-fukgin
+  - [x] 'Customize vehicle suspension': 'tuto_D_customize_vehicle_suspension.md'：@ng-fukgin
+  - [x] 'Generate detailed colliders': 'tuto_D_generate_colliders.md'：@ng-fukgin
+  - [x] 'Make a release': 'tuto_D_make_release.md'：@ng-fukgin
 - [x] CARLA Ecosystem:
   - [x] 'Ansys Real Time Radar Model': 'ecosys_ansys.md'：@ng-fukgin
 - [x] Contributing:
