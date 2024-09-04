@@ -79,7 +79,7 @@ CARLA Simulator
   - [x] 'Large maps overview': 'large_map_overview.md'：@ng-fukgin
   - [x] 'Create a large map in RoadRunner': 'large_map_roadrunner.md'：@ng-fukgin
   - [x] 'Import/Package a large map': 'large_map_import.md'：@ng-fukgin
-- [x] Tutorials (general):
+- [ ] Tutorials (general):
   - [x] 'Add friction triggers': "tuto_G_add_friction_triggers.md":@ng-fukgin
   - [x] 'Control vehicle physics': "tuto_G_control_vehicle_physics.md" :@ng-fukgin
   - [x] 'Control walker skeletons': "tuto_G_control_walker_skeletons.md" :@ng-fukgin
@@ -94,7 +94,7 @@ CARLA Simulator
   - [x] 'Add new props': 'tuto_A_add_props.md'：@ng-fukgin
   - [x] 'Create standalone packages': 'tuto_A_create_standalone.md'：@ng-fukgin
   - [x] "Material customization": 'tuto_A_material_customization.md'：@ng-fukgin
-- [x] Tutorials (developers):
+- [ ] Tutorials (developers):
   - [x] 'How to upgrade content': 'tuto_D_contribute_assets.md'：@ng-fukgin
   - [ ] 'Create a sensor': 'tuto_D_create_sensor.md'：@ng-fukgin
   - [x] 'Create semantic tags': 'tuto_D_create_semantic_tags.md'：@ng-fukgin
