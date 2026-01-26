@@ -1,171 +1,99 @@
-# Alternative methods to import maps
+# 导入地图的其他方法
 
-This guide describes alternative methods to import maps into CARLA. These methods involve more manual steps than the processes described in the [package](tuto_M_add_map_package.md) and [source](tuto_M_add_map_source.md) import guides. First we will describe the RoadRuner plugin and then the manual import method.
+本指南介绍了将地图导入 CARLA 的其他方法。与 [软件包](tuto_M_add_map_package.md) 和 [源码](tuto_M_add_map_source.md) 导入指南中描述的过程相比，这些方法涉及更多手动步骤。首先我们将介绍 RoadRunner 插件，然后是手动导入方法。
 
-- [__RoadRunner plugin import__](#roadrunner-plugin-import)
-- [__Manual import__](#manual-import)
+- [__使用 RoadRunner 插件导入__](#roadrunner-plugin-import)
+- [__手动导入__](#manual-import)
 
 ---
 
-## RoadRunner plugin import
+## 使用 RoadRunner 插件导入
 
-The RoadRunner software from MathWorks provides plugins for Unreal Engine to help ease the import process of maps into CARLA. 
+MathWorks 的 RoadRunner 软件为虚幻引擎提供了插件，以帮助简化将地图导入 CARLA 的过程。 
 
-#### Plugin installation
+#### 插件安装
 
-__1.__ The plugins are available for download from the [MathWorks website](https://www.mathworks.com/help/roadrunner/ug/Downloading-Plugins.html). MathWorks also has a [full tutorial](https://www.mathworks.com/help/roadrunner/ug/Exporting-to-CARLA.html), similar to this one, on how to import maps to CARLA using the plugins.
+__1.__ 插件可从 [MathWorks 网站](https://www.mathworks.com/help/roadrunner/ug/Downloading-Plugins.html) 下载。MathWorks 还有一个 [完整教程](https://www.mathworks.com/help/roadrunner/ug/Exporting-to-CARLA.html)，与本教程类似，介绍如何使用插件将地图导入 CARLA。
 
-__2.__ Extract the contents of the downloaded folder and move the folders `RoadRunnerImporter`, `RoadRunnerCarlaIntegration` and `RoadRunnerMaterials` to `<carla>/Unreal/CarlaUE4/Plugins/`.
+__2.__ 解压下载文件夹的内容，并将文件夹 `RoadRunnerImporter`、`RoadRunnerCarlaIntegration` 和 `RoadRunnerMaterials` 移动到 `<carla>/Unreal/CarlaUE4/Plugins/`。
 
-__3.__ Rebuild the plugin following the instructions below:  
+__3.__ 按照以下说明重新构建插件：  
 
-*   __On Windows.__  
-	* Right-click the `.uproject` file in `<carla>/Unreal/CarlaUE4` and select `Generate Visual Studio project files`.  
-	* In the root folder of CARLA, run the command:
+*   __在 Windows 上__  
+	* 右键单击 `<carla>/Unreal/CarlaUE4` 中的 `.uproject` 文件，并选择 `Generate Visual Studio project files`。  
+	* 在 CARLA 的根文件夹中运行命令：
 
 ```sh
 make launch
 ```
 
-*   __On Linux.__  
-	* Run the following command:  
+*   __在 Linux 上__  
+	* 运行以下命令：  
 ```sh
 UE4_ROOT/GenerateProjectFiles.sh -project="carla/Unreal/CarlaUE4/CarlaUE4.uproject" -game -engine
 ```
 
-__4.__ In the Unreal Engine window, make sure the checkbox is selected for both plugins `Edit > Plugins`. 
+__4.__ 在虚幻引擎窗口中，确保通过 `Edit > Plugins` 选中了这两个插件的复选框。 
 
 ![rr_ue_plugins](../img/rr-ue4_plugins.jpg)
 
-### Import map
+### 导入地图
 
-__1.__ Import the `<mapName>.fbx` file to a new folder under `/Content/Carla/Maps` with the `Import` button.  
+__1.__ 使用 `Import` 按钮将 `<mapName>.fbx` 文件导入到 `/Content/Carla/Maps` 下的一个新文件夹中。  
 
 ![ue_import](../img/ue_import_mapname.jpg)
 
-__2.__ Set `Scene > Hierarchy Type` to _Create One Blueprint Asset_ (selected by default).  
-__3.__ Set `Static Meshes > Normal Import Method` to _Import Normals_.  
+__2.__ 将 `Scene > Hierarchy Type` 设置为 _Create One Blueprint Asset_（默认已选中）。  
+__3.__ 将 `Static Meshes > Normal Import Method` 设置为 _Import Normals_。  
 
 ![ue_import_options](../img/ue_import_options.jpg)
 
-__4.__ Click `Import`.  
-__5.__ Save the current level `File` -> `Save Current As...` -> `<mapname>`.  
+__4.__ 将 `<mapName>.xodr` 文件复制到虚幻引擎 Content Browser 窗口中的同一文件夹中。
 
-The new map should now appear next to the others in the Unreal Engine _Content Browser_.
+!!! 注意
+    如果您使用的是 0.9.10 之前的 CARLA 版本，则此步骤不同。请通过窗口右下角的面板更改文档版本并遵循旧说明。
 
-![ue_level_content](../img/ue_level_content.jpg)
-</details>
+__5.__ 打开 RoadRunner 导入生成的蓝图，在 `组件` 面板中选择 `Open Drive Actor`。在 `属性` 面板中，选中 `针对此地图创建网络` 的框，然后在 Content Browser 中点击您想要用于该地图的 `.xodr` 文件。 
 
-!!! Note
-    The tags for semantic segmentation will be assigned according to the name of the asset. The asset will be moved to the corresponding folder in `Content/Carla/PackageName/Static`. To change these, move them manually after importing. 
+![ue_odactor](../img/ue_odactor.jpg)
 
 ---
 
-## Manual import 
+## 手动导入
 
-This method of importing maps can be used with generic `.fbx` and `.xodr` files. If you are using RoadRunner, you should use the export method `Firebox (.fbx)`, `OpenDRIVE (.xodr)` or `Unreal (.fbx + .xml)`. Do not use the `Carla Exporter` option because you will run into compatibility issues with the `.fbx` file. 
+此方法描述了手动导入地图和手动设置其所有组件的过程。
 
-To import a map manually to Unreal Engine:
+#### 地图摄入
 
-__1.__ In your system's file explorer, copy the `.xodr` file to `<carla-root>/Unreal/CarlaUE4/Content/Carla/Maps/OpenDrive`.
+__1.__ 在 `Unreal/CarlaUE4/Content/Carla/Maps` 下创建新文件夹，并将其命名为 `<mapName>`。 
 
-__2.__ Open the Unreal Engine editor by running `make launch` in the carla root directory. In the _Content Browser_ of the editor, navigate to `Content/Carla/Maps/BaseMap` and duplicate the `BaseMap`. This will provide a blank map with the default sky and lighting objects.
+__2.__ 将 `<mapName>.fbx` 和 `<mapName>.xodr` 移动到该文件夹。 
 
->>![ue_duplicate_basemap](../img/ue_duplicate_basemap.png)
+__3.__ 打开虚幻引擎编辑器并导入 `<mapName>.fbx`。在弹出的 `FBX 导入选项` 窗口中执行以下操作： 
+- 确保 `Mesh > Combine Meshes` 已选中。 
+- 将 `Scene > Hierarchy Type` 设置为 _Create One Blueprint Asset_。 
+- 将 `Static Meshes > Normal Import Method` 设置为 _Import Normals_。 
 
-__3.__ Create a new folder with the name of your map package in the `Content/Carla/Maps` directory and save the duplicated map there with the same name as your `.fbx` and `.xodr` files.
+__4.__ 导入后，将生成的蓝图拖动到世界中。
 
-__4.__ In the _Content Browser_ of the Unreal Engine editor, navigate back to `Content/Carla/Maps`. Right click in the grey area and select `Import to /Game/Carla/Maps...` under the heading _Import Asset_.
+#### OpenDRIVE 设置
 
->>![ue_import_asset](../img/ue_import_asset.png)
+__1.__ 在 Content Browser 中右键点击并选择 `Blueprint Class`。
+__2.__ 在 `All Classes` 搜索栏中输入 `OpenDriveActor`。 
+__3.__ 为蓝图命名并将其拖动到场景中。 
+__4.__ 在 `组件` 窗口中选择 `OpenDriveActor`。
+__5.__ 在 `属性` 窗口中，确保 `Add Spawners` 已选中，然后在 `Open Drive Data` 下点击 `File` 并选择您的 `<mapName>.xodr` 文件。 
 
-__5.__ In the configuration window that pops up, make sure:
-
->- These options are unchecked:
-    *   Auto Generate Collision  
-    *   Combine Meshes  
-    *   Force Front xAxis
-- In the following drop downs, the corresponding options are selected:
-    *   Normal Import Method - _Import Normals_  
-    *   Material Import Method - _Create New Materials_
-- These options are checked:
-    *   Convert Scene Unit
-    *   Import Textures
-
->>![ue_import_file](../img/ue_import_file.jpg)
-
-__6.__ Click `Import`.
-
-__7.__ The meshes will appear in the _Content Browser_. Select the meshes and drag them into the scene.
-
->>![ue_meshes](../img/ue_drag_meshes.jpg)
-
-__8.__ Center the meshes at 0,0,0.
-
->>![Transform_Map](../img/transform.jpg)
-
-__9.__ In the _Content Browser_, select all the meshes that need to have colliders. This refers to any meshes that will interact with pedestrians or vehicles. The colliders prevent them from falling into the abyss. Right-click the selected meshes and select `Asset Actions > Bulk Edit via Property Matrix...`.
-
->>![ue_selectmesh_collision](../img/ue_selectmesh_collision.jpg)
-
-__10.__ Search for _collision_ in the search box.
-
-__11.__ Change `Collision Complexity` from `Project Default` to `Use Complex Collision As Simple` and close the window.
-
->>![ue_collision_complexity](../img/ue_collision_complexity.jpg)
-
-__12.__ Confirm the collision setting has been applied correctly by pressing `Alt + c`. You will see a black web over the meshes.
-
-__13.__ To create the ground truth for the semantic segmentation sensor, move the static meshes to the corresponding `Carla/Static/<segment>` folder following the structure below:
-
-        Content
-        └── Carla
-            ├── Blueprints
-            ├── Config
-            ├── Exported Maps
-            ├── HDMaps
-            ├── Maps
-            └── Static
-                ├── Terrain
-                │   └── mapname
-                │       └── Static Meshes
-                │
-                ├── Road
-                │   └── mapname
-                │       └── Static Meshes
-                │
-                ├── RoadLines  
-                |   └── mapname
-                |       └── Static Meshes
-                └── Sidewalks  
-                    └── mapname
-                        └── Static Meshes
-
-__14.__ In the _Modes_ panel, search for the __Open Drive Actor__ and drag it into the scene.
-
->>![ue_opendrive_actor](../img/ue_opendrive_actor.jpg)
-
-__15.__ In the _Details_ panel, check `Add Spawners` and then click on the box beside `Generate Routes`. This will find the `.xodr` file with the same map name in the `<carla-root>/Unreal/CarlaUE4/Content/Carla/Maps/OpenDrive` directory and use it to generate a series of _RoutePlanner_ and _VehicleSpawnPoint_ actors.
-
->>![ue_generate_routes](../img/ue_generate_routes.png)
+!!! 重要
+    如果您使用的是 CARLA 的软件包版本，请确保您的地图位于 `Content/Carla/Maps`。
 
 ---
 
-## Next steps
+如果您对上述内容有任何疑问，请随时在[论坛](https://github.com/carla-simulator/carla/discussions)中反馈。
 
-You will now be able to open your map in the Unreal Editor and run simulations. From here, you will be able to customize the map and generate the pedestrian navigation data. We recommend generating the pedestrian navigation after all customization has finished, so there is no chance of obstacles blocking the pedestrian paths.
-
-CARLA provides several tools and guides to help with the customization of your maps:
-
-- [Implement sub-levels in your map.](tuto_M_custom_layers.md)
-- [Add and configure traffic lights and signs.](tuto_M_custom_add_tl.md)
-- [Add buildings with the procedural building tool.](tuto_M_custom_buildings.md)
-- [Customize the road with the road painter tool.](tuto_M_custom_road_painter.md)
-- [Customize the weather](tuto_M_custom_weather_landscape.md#weather-customization)
-- [Customize the landscape with serial meshes.](tuto_M_custom_weather_landscape.md#add-serial-meshes)
-
-Once you have finished with the customization, you can [generate the pedestrian navigation information](tuto_M_generate_pedestrian_navigation.md).
-
----
-
-It is recommended to use the automated processes for importing maps detailed in the guides for [CARLA packages](tuto_M_add_map_package.md) and [CARLA source build](tuto_M_add_map_source.md), however the methods listed in this section can be used if required. If you encounter any issues with the alternative methods, feel free to post in the [forum](https://github.com/carla-simulator/carla/discussions).
+<div class="build-buttons">
+<p>
+<a href="https://github.com/carla-simulator/carla/discussions/" target="_blank" class="btn btn-neutral" title="前往 CARLA 论坛">
+CARLA 论坛</a>
+</p>
+</div>

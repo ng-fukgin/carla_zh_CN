@@ -24,109 +24,111 @@ CARLA forum</a>
 ---
 
 
-## Getting started
+## 入门指南
 
-[__Introduction__](start_introduction.md) — What to expect from CARLA.  
-[__Quick start package installation__](start_quickstart.md) — Get the CARLA releases.  
-
-
-## Building CARLA
-
-[__Linux build__](build_linux.md) — Make the build on Linux.  
-[__Windows build__](build_windows.md) — Make the build on Windows.  
-[__Update CARLA__](build_update.md) — Get up to date with the latest content.  
-[__Build system__](build_system.md) — Learn about the build and how it is made.  
-[__CARLA in Docker__](build_docker.md) — Run CARLA using a container solution.  
-[__F.A.Q.__](build_faq.md) — Some of the most frequent installation issues.  
+[__介绍__](start_introduction.md) — 对 CARLA 的预期。
+[__快速入门软件包安装__](start_quickstart.md) — 获取 CARLA 发行版。
 
 
-## First steps
-[__Core concepts__](core_concepts.md) — Overview of the basic concepts in CARLA.  
-[__1st. World and client__](core_world.md) — Manage and access the simulation.  
-[__2nd. Actors and blueprints__](core_actors.md) — Learn about actors and how to handle them.  
-[__3rd. Maps and navigation__](core_map.md) — Discover the different maps and how do vehicles move around.  
-[__4th. Sensors and data__](core_sensors.md) — Retrieve simulation data using sensors.  
+## 构建 CARLA
 
-## Advanced concepts
-[__OpenDRIVE standalone mode__](adv_opendrive.md) — Use any OpenDRIVE file as a CARLA map.  
-[__PTV-Vissim co-simulation__](adv_ptv.md) — Run a synchronous simulation between CARLA and PTV-Vissim.  
-[__Recorder__](adv_recorder.md) — Register the events in a simulation and play it again.  
-[__Rendering options__](adv_rendering_options.md) — From quality settings to no-render or off-screen modes.  
-[__RSS__](adv_rss.md) — An implementation of RSS in the CARLA client library.  
-[__Synchrony and time-step__](adv_synchrony_timestep.md) — Client-server communication and simulation time.  
-[__Benchmarking Performance__](adv_benchmarking.md) — Perform benchmarking using our prepared script.  
-[__CARLA Agents__](adv_agents.md) — Agents scripts allow single vehicles to roam the map or drive to a set destination.  
+[__Linux 构建__](build_linux.md) — 在 Linux 上进行构建。
+[__Windows 构建__](build_windows.md) — 在 Windows 上进行构建。
+[__更新 CARLA__](build_update.md) — 获取最新内容。
+[__构建系统__](build_system.md) — 了解构建及其制作过程。
+[__Docker 中的 CARLA__](build_docker.md) — 使用容器解决方案运行 CARLA。
+[__常见问题解答__](build_faq.md) — 一些最常见的安装问题。
 
-## Traffic Simulation
 
-[__ Traffic Simulation Overview__](ts_traffic_simulation_overview.md) — An overview of the different options available to populate your scenes with traffic  
-[__Traffic Manager__](adv_traffic_manager.md) — Simulate urban traffic by setting vehicles to autopilot mode.  
-[__SUMO co-simulation__](adv_sumo.md) — Run a synchronous simulation between CARLA and SUMO.  
-[__Scenic__](tuto_G_scenic.md) — Follow an example of defining different scenarios using the Scenic library.  
+## 第一步
+[__核心概念__](core_concepts.md) — CARLA 基本概念概述。
+[__第一步：世界和客户端__](core_world.md) — 管理和访问模拟。
+[__第二步：角色和蓝图__](core_actors.md) — 了解角色及其处理方法。
+[__第三步：地图和导航__](core_map.md) — 发现不同的地图以及车辆如何移动。
+[__第四步：传感器和数据__](core_sensors.md) — 使用传感器检索模拟数据。
 
-## References
-[__Python API reference__](python_api.md) — Classes and methods in the Python API.  
-[__Blueprint library__](bp_library.md) — Blueprints provided to spawn actors.  
-[__C++ reference__](ref_cpp.md) — Classes and methods in CARLA C++.  
-[__Recorder binary file format__](ref_recorder_binary_file_format.md) — Detailed explanation of the recorder file format.  
-[__Sensors reference__](ref_sensors.md) — Everything about sensors and the data they retrieve.  
+## 高级概念
+[__OpenDRIVE 独立模式__](adv_opendrive.md) — 使用任何 OpenDRIVE 文件作为 CARLA 地图。
+[__PTV-Vissim 协同仿真__](adv_ptv.md) — 在 CARLA 和 PTV-Vissim 之间运行同步模拟。
+[__录制器__](adv_recorder.md) — 注册模拟中的事件并再次播放。
+[__渲染选项__](adv_rendering_options.md) — 从质量设置到无渲染或离屏模式。
+[__RSS__](adv_rss.md) — CARLA 客户端库中 RSS 的实现。
+[__同步和时间步长__](adv_synchrony_timestep.md) — 客户端-服务器通信和模拟时间。
+[__性能基准测试__](adv_benchmarking.md) — 使用我们准备的脚本执行基准测试。
+[__CARLA 代理__](adv_agents.md) — 代理脚本允许单个车辆在地图上漫游或驾驶到设定目的地。
 
-## Plugins
-[__carlaviz — web visualizer__](plugins_carlaviz.md) — Plugin that listens the simulation and shows the scene and some simulation data in a web browser.  
+## 交通模拟
 
-## ROS bridge
-[__ROS bridge documentation__](ros_documentation.md) — Brief overview of the ROS bridge and a link to the full documentation  
+[__交通模拟概述__](ts_traffic_simulation_overview.md) — 为场景填充交通的不同可用选项概述。
+[__交通管理器__](adv_traffic_manager.md) — 通过将车辆设置为自动驾驶模式来模拟城市交通。
+[__SUMO 协同仿真__](adv_sumo.md) — 在 CARLA 和 SUMO 之间运行同步模拟。
+[__Scenic__](tuto_G_scenic.md) — 按照使用 Scenic 库定义不同场景的示例。
 
-## Custom Maps
+## 参考资料
+[__Python API 参考__](python_api.md) — Python API 中的类和方法。
+[__蓝图库__](bp_library.md) — 用于生成角色的蓝图。
+[__C++ 参考__](ref_cpp.md) — CARLA C++ 中的类和方法。
+[__录制器二进制文件格式__](ref_recorder_binary_file_format.md) — 录制器文件格式的详细说明。
+[__传感器参考__](ref_sensors.md) — 关于传感器及其检索数据的一切。
 
-[__Overview of custom maps in CARLA__](tuto_M_custom_map_overview.md) — An overview of the process and options involved in adding a custom, standard sized map  
-[__Create a map in RoadRunner__](tuto_M_generate_map.md) — How to generate a customs, standard sized map in RoadRunner  
-[__ Import map in CARLA package__](tuto_M_add_map_package.md) How to import a map in a CARLA package  
-[__Import map in CARLA source build__](tuto_M_add_map_source.md) — How to import a map in CARLA built from source  
-[__Alternative ways to import maps__](tuto_M_add_map_alternative.md) — Alternative methods to import maps  
-[__ Manually prepare map package__](tuto_M_manual_map_package.md) — How to prepare a map for manual import  
-[__Customizing maps: Layered maps__](tuto_M_custom_layers.md) — How to create sub-layers in your custom map  
-[__ Customizing maps: Traffic lights and signs__](tuto_M_custom_add_tl.md) — How to add traffic lights and signs to your custom map  
-[__ Customizing maps: Road painter__](tuto_M_custom_road_painter.md) — How to use the road painter tool to change the apearance of the road  
-[__Customizing Maps: Procedural Buildings__](tuto_M_custom_buildings.md) — Populate your custom map with buildings  
-[__ Customizing maps: Weather and landscape__](tuto_M_custom_weather_landscape.md) — Create the weather profile for your custom map and populate the landscape  
-[__Generate pedestrian navigation__](tuto_M_generate_pedestrian_navigation.md) — Obtain the information needed for walkers to move around.  
+## 插件
+[__carlaviz — 网页可视化工具__](plugins_carlaviz.md) — 监听模拟并在网页浏览器中显示场景和模拟数据的插件。
 
-## Large Maps
+## ROS 桥接
+[__ROS 桥接文档__](ros_documentation.md) — ROS 桥接的简要概述以及完整文档的链接。
 
-[__Large maps overview__](large_map_overview.md) — An explanation of how large maps work in CARLA  
-[__Create a Large Map in RoadRunner__](large_map_roadrunner.md) — How to create a large map in RoadRunner  
-[__Import/Package a Large Map__](large_map_import.md) — How to import a large map  
-## Tutorials — General
-[__Add friction triggers__](tuto_G_add_friction_triggers.md) — Define dynamic box triggers for wheels.  
-[__Control vehicle physics__](tuto_G_control_vehicle_physics.md) — Set runtime changes on a vehicle physics.  
-[__Control walker skeletons__](tuto_G_control_walker_skeletons.md) — Animate walkers using skeletons.  
-[__Generate maps with OpenStreetMap__](tuto_G_openstreetmap.md) — Use OpenStreetMap to generate maps for use in simulations.  
-[__Retrieve simulation data__](tuto_G_retrieve_data.md) — A step by step guide to properly gather data using the recorder.  
-[__CarSim Integration__](tuto_G_carsim_integration.md) — Tutorial on how to run a simulation using the CarSim vehicle dynamics engine.  
-[__RLlib Integration__](tuto_G_rllib_integration.md) — Find out how to run your own experiment using the RLlib library.  
-[__Chrono Integration__](tuto_G_chrono.md) — Use the Chrono integration to simulation physics  
-[__Build Unreal Engine and CARLA in Docker__](build_docker_unreal.md) — Build Unreal Engine and CARLA in Docker  
+## 自定义地图
 
-## Tutorials — Assets
-[__Add a new vehicle__](tuto_A_add_vehicle.md) — Prepare a vehicle to be used in CARLA.  
-[__Add new props__](tuto_A_add_props.md) — Import additional props into CARLA.  
-[__Create standalone packages__](tuto_A_create_standalone.md) — Generate and handle standalone packages for assets.  
-[__Material customization__](tuto_A_material_customization.md) — Edit vehicle and building materials.  
+[__CARLA 自定义地图概述__](tuto_M_custom_map_overview.md) — 添加自定义标准尺寸地图涉及的过程和选项概述。
+[__在 RoadRunner 中创建地图__](tuto_M_generate_map.md) — 如何在 RoadRunner 中生成自定义标准尺寸地图。
+[__导入地图至 CARLA 软件包__](tuto_M_add_map_package.md) — 如何将地图导入 CARLA 软件包。
+[__导入地图至 CARLA 源码构建__](tuto_M_add_map_source.md) — 如何将地图导入从源码构建的 CARLA。
+[__其他导入地图方法__](tuto_M_add_map_alternative.md) — 导入地图的其他方法。
+[__手动准备地图包__](tuto_M_manual_map_package.md) — 如何准备用于手动导入的地图。
+[__自定义地图：分层地图__](tuto_M_custom_layers.md) — 如何在自定义地图中创建子图层。
+[__自定义地图：红绿灯和标志__](tuto_M_custom_add_tl.md) — 如何在自定义地图中添加红绿灯和标志。
+[__自定义地图：道路绘制器__](tuto_M_custom_road_painter.md) — 如何使用道路绘制器工具更改道路外观。
+[__自定义地图：程序化建筑物__](tuto_M_custom_buildings.md) — 为您的自定义地图填充建筑物。
+[__自定义地图：天气和景观__](tuto_M_custom_weather_landscape.md) — 为您的自定义地图创建天气配置文件并填充景观。
+[__生成行人导航__](tuto_M_generate_pedestrian_navigation.md) — 获取行人在周围移动所需的信息。
 
-## Tutorials — Developers
-[__How to upgrade content__](tuto_D_contribute_assets.md) — Add new content to CARLA.  
-[__Create a sensor__](tuto_D_create_sensor.md) — Develop a new sensor to be used in CARLA.  
-[__Create semantic tags__](tuto_D_create_semantic_tags.md) — Define customized tags for semantic segmentation.  
-[__Customize vehicle suspension__](tuto_D_customize_vehicle_suspension.md) — Modify the suspension system of a vehicle.  
-[__Generate detailed colliders__](tuto_D_generate_colliders.md) — Create detailed colliders for vehicles.  
-[__Make a release__](tuto_D_make_release.md) — How to make a release of CARLA  
+## 大型地图
 
-## CARLA Ecosystem
+[__大型地图概述__](large_map_overview.md) — CARLA 中大型地图工作原理的说明。
+[__在 RoadRunner 中创建大型地图__](large_map_roadrunner.md) — 如何在 RoadRunner 中创建大型地图。
+[__导入/打包大型地图__](large_map_import.md) — 如何导入大型地图。
 
-[__Ansys Real Time Radar Model__](ecosys_ansys.md) — Details about the Ansys RTR Webinair  
-## Contributing
-[__Contribution guidelines__](cont_contribution_guidelines.md) — The different ways to contribute to CARLA.  
-[__Code of conduct__](cont_code_of_conduct.md) — Standard rights and duties for contributors.  
-[__Coding standard__](cont_coding_standard.md) — Guidelines to write proper code.  
-[__Documentation standard__](cont_doc_standard.md) — Guidelines to write proper documentation.  
+## 教程 — 通用
+[__添加摩擦力触发器__](tuto_G_add_friction_triggers.md) — 为车轮定义动态框触发器。
+[__控制车辆物理特性__](tuto_G_control_vehicle_physics.md) — 对车辆物理特性进行运行时更改。
+[__控制行人骨骼__](tuto_G_control_walker_skeletons.md) — 使用骨骼为行人制作动画。
+[__使用 OpenStreetMap 生成地图__](tuto_G_openstreetmap.md) — 使用 OpenStreetMap 生成用于模拟的地图。
+[__检索模拟数据__](tuto_G_retrieve_data.md) — 正确收集录制器数据的逐步指南。
+[__CarSim 集成__](tuto_G_carsim_integration.md) — 关于如何使用 CarSim 车辆动力学引擎运行模拟的教程。
+[__RLlib 集成__](tuto_G_rllib_integration.md) — 了解如何使用 RLlib 库运行您自己的实验。
+[__Chrono 集成__](tuto_G_chrono.md) — 使用 Chrono 集成来模拟物理。
+[__在 Docker 中构建 Unreal Engine 和 CARLA__](build_docker_unreal.md) — 在 Docker 中构建 Unreal Engine 和 CARLA。
+
+## 教程 — 资产
+[__添加新车辆__](tuto_A_add_vehicle.md) — 准备在 CARLA 中使用的车辆。
+[__添加新道具__](tuto_A_add_props.md) — 向 CARLA 导入额外道具。
+[__创建独立软件包__](tuto_A_create_standalone.md) — 生成并处理资产的独立软件包。
+[__材质自定义__](tuto_A_material_customization.md) — 编辑车辆和建筑材质。
+
+## 教程 — 开发者
+[__如何升级内容__](tuto_D_contribute_assets.md) — 向 CARLA 添加新内容。
+[__创建传感器__](tuto_D_create_sensor.md) — 开发在 CARLA 中使用的新传感器。
+[__创建语义标签__](tuto_D_create_semantic_tags.md) — 为语义分割定义自定义标签。
+[__自定义车辆悬挂__](tuto_D_customize_vehicle_suspension.md) — 修改车辆的悬挂系统。
+[__生成详细碰撞体__](tuto_D_generate_colliders.md) — 为车辆创建详细碰撞体。
+[__发布版本__](tuto_D_make_release.md) — 如何发布 CARLA 版本。
+
+## CARLA 生态系统
+
+[__Ansys 实时雷达模型__](ecosys_ansys.md) — 关于 Ansys RTR 研讨会的详细信息。
+
+## 贡献
+[__贡献指南__](cont_contribution_guidelines.md) — 贡献 CARLA 的不同方式。
+[__行为准则__](cont_code_of_conduct.md) — 贡献者的标准权利和义务。
+[__编码规范__](cont_coding_standard.md) — 编写正确代码的指南。
+[__文档规范__](cont_doc_standard.md) — 编写正确文档的指南。
