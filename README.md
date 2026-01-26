@@ -54,27 +54,27 @@ CARLA Simulator
   - [x] 'Scenic': 'tuto_G_scenic.md'：@ng-fukgin
 - [ ] References:
   - [ ] 'Python API reference': 'python_api.md'：名字
-  - [ ] 'Blueprint Library': 'bp_library.md'：名字
-  - [ ] 'C++ reference' : 'ref_cpp.md'：名字
-  - [ ] 'Recorder binary file format': 'ref_recorder_binary_file_format.md'：名字
-  - [ ] "Sensors reference": 'ref_sensors.md'：名字  
+  - [x] 'Blueprint Library': 'bp_library.md'：名字
+  - [x] 'C++ reference' : 'ref_cpp.md'：名字
+  - [x] 'Recorder binary file format': 'ref_recorder_binary_file_format.md'：名字
+  - [x] "Sensors reference": 'ref_sensors.md'：名字  
 - [x] Plugins:
   - [x] 'carlaviz — web visualizer': 'plugins_carlaviz.md'：@ng-fukgin
 - [x] ROS bridge:
   - [x] 'ROS bridge documentation': 'ros_documentation.md'：@ng-fukgin
-- [ ] Custom Maps:
+- [x] Custom Maps:
   - [x] 'Overview of custom maps in CARLA': 'tuto_M_custom_map_overview.md'：@lancelot-Yagami
   - [x] 'Create a map in RoadRunner': 'tuto_M_generate_map.md'：@lancelot-Yagami
   - [x] 'Import map in CARLA package': 'tuto_M_add_map_package.md'：@lancelot-Yagami
-  - [ ] 'Import map in CARLA source build': 'tuto_M_add_map_source.md'：@lancelot-Yagami
-  - [ ] 'Alternative ways to import maps': 'tuto_M_add_map_alternative.md'：@lancelot-Yagami
-  - [ ] 'Manually prepare map package': 'tuto_M_manual_map_package.md'：@lancelot-Yagami
-  - [ ] 'Customizing maps: Layered maps': 'tuto_M_custom_layers.md'：@lancelot-Yagami
-  - [ ] 'Customizing maps: Traffic lights and signs': 'tuto_M_custom_add_tl.md'：@lancelot-Yagami
-  - [ ] 'Customizing maps: Road painter': 'tuto_M_custom_road_painter.md'：@lancelot-Yagami
-  - [ ] 'Customizing maps: Procedural Buildings': 'tuto_M_custom_buildings.md'：@lancelot-Yagami
-  - [ ] 'Customizing maps: Weather and landscape': 'tuto_M_custom_weather_landscape.md'：@lancelot-Yagami
-  - [ ] 'Generate pedestrian navigation': 'tuto_M_generate_pedestrian_navigation.md'：@lancelot-Yagami
+  - [x] 'Import map in CARLA source build': 'tuto_M_add_map_source.md'：@lancelot-Yagami
+  - [x] 'Alternative ways to import maps': 'tuto_M_add_map_alternative.md'：@lancelot-Yagami
+  - [x] 'Manually prepare map package': 'tuto_M_manual_map_package.md'：@lancelot-Yagami
+  - [x] 'Customizing maps: Layered maps': 'tuto_M_custom_layers.md'：@lancelot-Yagami
+  - [x] 'Customizing maps: Traffic lights and signs': 'tuto_M_custom_add_tl.md'：@lancelot-Yagami
+  - [x] 'Customizing maps: Road painter': 'tuto_M_custom_road_painter.md'：@lancelot-Yagami
+  - [x] 'Customizing maps: Procedural Buildings': 'tuto_M_custom_buildings.md'：@lancelot-Yagami
+  - [x] 'Customizing maps: Weather and landscape': 'tuto_M_custom_weather_landscape.md'：@lancelot-Yagami
+  - [x] 'Generate pedestrian navigation': 'tuto_M_generate_pedestrian_navigation.md'：@lancelot-Yagami
 - [x] Large Maps:
   - [x] 'Large maps overview': 'large_map_overview.md'：@ng-fukgin
   - [x] 'Create a large map in RoadRunner': 'large_map_roadrunner.md'：@ng-fukgin
@@ -96,7 +96,7 @@ CARLA Simulator
   - [x] "Material customization": 'tuto_A_material_customization.md'：@ng-fukgin
 - [ ] Tutorials (developers):
   - [x] 'How to upgrade content': 'tuto_D_contribute_assets.md'：@ng-fukgin
-  - [ ] 'Create a sensor': 'tuto_D_create_sensor.md'：@ng-fukgin
+  - [x] 'Create a sensor': 'tuto_D_create_sensor.md'：@ng-fukgin
   - [x] 'Create semantic tags': 'tuto_D_create_semantic_tags.md'：@ng-fukgin
   - [x] 'Customize vehicle suspension': 'tuto_D_customize_vehicle_suspension.md'：@ng-fukgin
   - [x] 'Generate detailed colliders': 'tuto_D_generate_colliders.md'：@ng-fukgin

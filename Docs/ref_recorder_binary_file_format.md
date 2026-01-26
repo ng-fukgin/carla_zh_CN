@@ -1,233 +1,196 @@
-# Recorder Binary File Format
+# 录制器二进制文件格式
 
-The recorder system saves all the info needed to replay the simulation in a binary file,
-using little endian byte order for the multibyte values.
+录制系统将回放模拟所需的所有信息保存在二进制文件中，多字节值使用小端（little endian）字节序。
 
-*   [__1- Strings in binary__](#1-strings-in-binary)  
-*   [__2- Info header__](#2-info-header)  
-*   [__3- Packets__](#3-packets)  
-	*   [Packet 0 - Frame Start](#packet-0-frame-start)  
-	*   [Packet 1 - Frame End](#packet-1-frame-end)  
-	*   [Packet 2 - Event Add](#packet-2-event-add)  
-	*   [Packet 3 - Event Del](#packet-3-event-del)  
-	*   [Packet 4 - Event Parent](#packet-4-event-parent)  
-	*   [Packet 5 - Event Collision](#packet-5-event-collision)  
-	*   [Packet 6 - Position](#packet-6-position)  
-	*   [Packet 7 - TrafficLight](#packet-7-trafficlight)  
-	*   [Packet 8 - Vehicle Animation](#packet-8-vehicle-animation)  
-	*   [Packet 9 - Walker Animation](#packet-9-walker-animation)  
-*   [__4- Frame Layout__](#4-frame-layout)  
-*   [__5- File Layout__](#5-file-layout)  
+*   [__1- 二进制中的字符串__](#1-strings-in-binary)  
+*   [__2- 信息头__](#2-info-header)  
+*   [__3- 数据包__](#3-packets)  
+    *   [数据包 0 - 帧开始](#packet-0-frame-start)  
+    *   [数据包 1 - 帧结束](#packet-1-frame-end)  
+    *   [数据包 2 - 事件添加](#packet-2-event-add)  
+    *   [数据包 3 - 事件删除](#packet-3-event-del)  
+    *   [数据包 4 - 事件父级](#packet-4-event-parent)  
+    *   [数据包 5 - 事件碰撞](#packet-5-event-collision)  
+    *   [数据包 6 - 位置](#packet-6-position)  
+    *   [数据包 7 - 交通灯](#packet-7-trafficlight)  
+    *   [数据包 8 - 车辆动画](#packet-8-vehicle-animation)  
+    *   [数据包 9 - 行人动画](#packet-9-walker-animation)  
+*   [__4- 帧布局__](#4-frame-layout)  
+*   [__5- 文件布局__](#5-file-layout)  
 
-In the next image representing the file format, we can get a quick view of all the detailed
-information. Each part that is visualized in the image will be explained in the following sections:
+在下面代表文件格式的图像中，我们可以快速查看所有详细信息。图像中可视化的每个部分都将在以下章节中解释：
 
 ![file format 1](img/RecorderFileFormat1.jpg)
 
-In summary, the file format has a small header with general info
-(version, magic string, date and the map used) and a collection of packets of different types
-(currently we use 10 types, but that will continue growing up in the future).
+总而言之，该文件格式有一个包含一般信息（版本、魔术字符串、日期和所使用的地图）的小文件头，以及不同类型的数据包集合（目前我们使用 10 种类型，但将来会继续增加）。
 
 ![global file format](img/RecorderFileFormat3.jpg)
 
 ---
-## 1- Strings in binary
+## 1- 二进制中的字符串
 
-Strings are encoded first with the length of it, followed by its characters without null
-character ending. For example, the string 'Town06' will be saved
-as hex values: 06 00 54 6f 77 6e 30 36
+字符串编码时首先是其长度，然后是其字符，不带空字符结尾。例如，字符串 'Town06' 将保存为十六进制值：06 00 54 6f 77 6e 30 36
 
 ![binary dynamic string](img/RecorderString.jpg)
 
 ---
-## 2- Info header
+## 2- 信息头
 
-The info header has general information about the recorded file. Basically, it contains the version
-and a magic string to identify the file as a recorder file. If the header changes then the version
-will change also. Furthermore, it contains a date timestamp, with the number of seconds from the
-Epoch 1900, and also it contains a string with the name of the map that has been used for recording.
+信息头包含关于录制文件的通用信息。基本上，它包含版本和用于将文件标识为录制文件的魔术字符串。如果文件头发生变化，则版本也会发生变化。此外，它还包含一个日期时间戳（从 1900 年纪元开始的秒数），以及一个包含用于录制的地图名称的字符串。
 
 ![info header](img/RecorderInfoHeader.jpg)
 
-A sample info header is:
+信息头示例如下：
 
 ![info header sample](img/RecorderHeader.jpg)
 
 ---
-## 3- Packets
+## 3- 数据包
 
-Each packet starts with a little header of two fields (5 bytes):
+每个数据包都以一个包含两个字段（5 字节）的小包头开始：
 
 ![packet header](img/RecorderPacketHeader.jpg)
 
-* **id**: The packet type
-* **size**: Size of packet data
+* **id**: 数据包类型
+* **size**: 数据包数据的大小
 
-Header information is then followed by the **data**.
-The **data** is optional, a **size** of 0 means there is no **data** in the packet.
-If the **size** is greater than 0 it means that the packet has **data** bytes. Therefore,
-the **data** needs to be reinterpreted depending on the type of the packet.
+包头信息后面跟着 **数据**。
+**数据** 是可选的，**size** 为 0 表示数据包中没有 **数据**。
+如果 **size** 大于 0，则表示数据包包含 **数据** 字节。因此，需要根据数据包的类型重新解释 **数据**。
 
-The header of the packet is useful because we can just ignore those packets we are not interested
-in when doing playback. We only need to read the header (first 5 bytes) of the packet and jump to
-the next packet just skipping the data of the packet:
+数据包的包头非常有用，因为我们在回放时可以忽略那些不感兴趣的数据包。我们只需要读取数据包的包头（前 5 个字节）并跳过数据包的数据即可跳转到下一个数据包：
 
 ![packets size](img/RecorderPackets.jpg)
 
-The types of packets are:
+数据包的类型有：
 
 ![packets type list](img/RecorderPacketsList.jpg)
 
-We suggest to use **id** over 100 for user custom packets, because this list will keep growing in
-the future.
+我们建议用户自定义数据包使用 100 以上的 **id**，因为此列表在将来会继续增加。
 
-### Packet 0 - Frame Start
+### 数据包 0 - 帧开始
 
-This packet marks the start of a new frame, and it will be the first one to start each frame.
-All packets need to be placed between a **Frame Start** and a **Frame End**.
+该数据包标志着新帧的开始，它是每一帧开始的第一个数据包。
+所有数据包都需要放置在 **帧开始** 和 **帧结束** 之间。
 
 ![frame start](img/RecorderFrameStart.jpg)
 
-So, elapsed + durationThis = elapsed time for next frame
+所以，elapsed + durationThis = 下一帧的经过时间
 
-### Packet 1 - Frame End
+### 数据包 1 - 帧结束
 
-This frame has no data and it only marks the end of the current frame. That helps the replayer
-to know the end of each frame just before the new one starts.
-Usually, the next frame should be a Frame Start packet to start a new frame.
+此帧没有数据，它仅标志当前帧的结束。这有助于回放器在下一帧开始之前知道每一帧的结束。
+通常，下一帧应该是帧开始数据包。
 
 ![frame end](img/RecorderFrameEnd.jpg)
 
-### Packet 2 - Event Add
+### 数据包 2 - 事件添加
 
-This packet says how many actors we need to create at current frame.
+该数据包说明我们在当前帧需要创建多少个角色。
 
 ![event add](img/RecorderEventAdd.jpg)
 
-The field **total** says how many records follow. Each record starts with the **id** field,
-that is the id the actor has when it was recorded (on playback that id could change internally,
-but we need to use this id ). The **type** of actor can have these possible values:
+**total** 字段说明后面有多少条记录。每条记录以 **id** 字段开始，这是录制时角色的 ID（在回放时该 ID 可能会在内部更改，但我们需要使用此 ID）。角色的 **type** 可以具有以下可能的值：
 
-  * 0 = Other
-  * 1 = Vehicle
-  * 2 = Walker
-  * 3 = TrafficLight
-  * 4 = INVALID
+  * 0 = 其他 (Other)
+  * 1 = 车辆 (Vehicle)
+  * 2 = 行人 (Walker)
+  * 3 = 交通灯 (TrafficLight)
+  * 4 = 无效 (INVALID)
 
-After that, the **location** and the **rotation** where we want to create the actor is proceeded.
+之后，是我们要创建角色的 **location** (位置) 和 **rotation** (旋转)。
 
-Right after we have the **description** of the actor. The description **uid** is the numeric id of
-the description and the **id** is the textual id, like 'vehicle.seat.leon'.
+紧接着是角色的 **description** (描述)。描述 **uid** 是描述的数字 ID，**id** 是文本 ID，例如 'vehicle.seat.leon'。
 
-Then comes a collection of its **attributes** like color, number of wheels, role, etc.
-The number of attributes is variable and should look similar to this:
+然后是其 **attributes** (属性) 集合，如颜色、轮数、角色等。属性的数量是可变的，看起来应该类似于：
 
 * number_of_wheels = 4
 * sticky_control = true
 * color = 79,33,85
 * role_name = autopilot
 
-### Packet 3 - Event Del
+### 数据包 3 - 事件删除
 
-This packet says how many actors need to be destroyed this frame.
+该数据包说明本帧需要销毁多少个角色。
 
 ![event del](img/RecorderEventDel.jpg)
 
-It has the **total** of records, and each record has the **id** of the actor to remove.
+它具有记录的 **total** (总数)，每条记录都有要删除角色的 **id**。
 
-For example, this packet could be like this:
+例如，此数据包可能如下所示：
 
 ![event del](img/RecorderPacketSampleEventDel.jpg)
 
-The number 3 identifies the packet as (Event Del). The number 16 is the size of the data of
-the packet (4 fields of 4 bytes each). So if we don't want to process this packet, we could skip
-the next 16 bytes and will be directly to the start of the next packet.
-The next 3 says the total records that follows, and each record is the id of the actor to remove.
-So, we need to remove at this frame the actors 100, 101 and 120.
+数字 3 将数据包标识为（事件删除）。数字 16 是数据包数据的大小（4 个字段，每个字段 4 字节）。因此，如果我们不想处理此数据包，我们可以跳过接下来的 16 个字节，直接到达下一个数据包的开始。
+接下来的 3 说明后面跟随的总记录数，每条记录是要删除角色的 ID。
+因此，我们需要在本帧删除角色 100、101 和 120。
 
-### Packet 4 - Event Parent
+### 数据包 4 - 事件父级
 
-This packet says which actor is the child of another (the parent).
+该数据包说明哪个角色是另一个角色（父级）的子级。
 
 ![event parent](img/RecorderEventParent.jpg)
 
-The first id is the child actor, and the second one will be the parent actor.
+第一个 ID 是子角色，第二个 ID 将是父角色。
 
-### Packet 5 - Event Collision
+### 数据包 5 - 事件碰撞
 
-If a collision happens between two actors, it will be registered in this packet. Currently only
-actors with a collision sensor will report collisions, so currently only hero vehicles have that
-sensor attached automatically.
+如果两个角色之间发生碰撞，它将记录在此数据包中。目前只有带有碰撞传感器的角色才会报告碰撞，因此目前只有英雄车辆会自动附加该传感器。
 
 ![event collision](img/RecorderCollision.jpg)
 
-The **id** is just a sequence to identify each collision internally.
-Several collisions between the same pair of actors can happen in the same frame, because physics
-frame rate is fixed and usually there are several physics substeps in the same rendered frame.
+**id** 只是用于在内部标识每次碰撞的序列。
+同一对角色之间在同一帧内可能会发生多次碰撞，因为物理帧速率是固定的，通常在同一个渲染帧中有多个物理子步。
 
-### Packet 6 - Position
+### 数据包 6 - 位置
 
-This packet records the position and orientation of all actors of type **vehicle** and
-**walker** that exist in the scene.
+该数据包记录场景中存在的所有 **车辆 (vehicle)** 和 **行人 (walker)** 类型角色的位置和朝向。
 
 ![position](img/RecorderPosition.jpg)
 
-### Packet 7 - TrafficLight
+### 数据包 7 - 交通灯
 
-This packet records the state of all **traffic lights** in the scene. Which means that it
-stores the state (red, orange or green) and the time it is waiting to change to a new state.
+该数据包记录场景中所有 **交通灯 (traffic lights)** 的状态。这意味着它存储了状态（红、橙或绿）以及等待切换到新状态的时间。
 
 ![state](img/RecorderTrafficLight.png)
 
-### Packet 8 - Vehicle animation
+### 数据包 8 - 车辆动画
 
-This packet records the animation of the vehicles, bikes and cycles. This packet stores the
-**throttle**, **sterring**, **brake**, **handbrake** and **gear** inputs, and then set them at playback.
+该数据包记录车辆、自行车和摩托车的动画。此数据包存储 **throttle** (油门), **steering** (转向), **brake** (刹车), **handbrake** (手刹) 和 **gear** (档位) 输入，然后在回放时设置它们。
 
 ![state](img/RecorderVehicle.jpg)
 
-### Packet 9 - Walker animation
+### 数据包 9 - 行人动画
 
-This packet records the animation of the walker. It just saves the **speed** of the walker
-that is used in the animation.
+该数据包记录行人的动画。它只保存动画中使用的行人 **speed** (速度)。
 
 ![state](img/RecorderWalker.jpg)
 
 ---
-## 4- Frame Layout
+## 4- 帧布局
 
-A frame consists of several packets, where all of them are optional, except the ones that
-have the **start** and **end** in that frame, that must be there always.
+一帧由几个数据包组成，其中所有数据包都是可选的，除了在该帧中具有 **开始** 和 **结束** 的数据包，它们必须始终存在。
 
 ![layout](img/RecorderFrameLayout.jpg)
 
-**Event** packets exist only in the frame where they happen.
+**事件 (Event)** 数据包仅存在于它们发生的帧中。
 
-**Position** and **traffic light** packets should exist in all frames, because they are
-required to move all actors and set the traffic lights to its state.
-They are optional but if they are not present then the replayer will not be able to move
-or set the state of traffic lights.
+**位置 (Position)** 和 **交通灯 (traffic light)** 数据包应该存在于所有帧中，因为移动所有角色和设置交通灯状态需要它们。它们是可选的，但如果它们不存在，则回放器将无法移动角色或设置交通灯的状态。
 
-The **animation** packets are also optional, but by default they are recorded. That way the walkers
-are animated and also the vehicle wheels follow the direction of the vehicles.
+**动画 (animation)** 数据包也是可选的，但默认情况下会记录它们。这样行人就有动画，车辆轮子也会跟随车辆的方向。
 
 ---
-## 5- File Layout
+## 5- 文件布局
 
-The layout of the file starts with the **info header** and then follows a collection of packets in
-groups. The first in each group is the **Frame Start** packet, and the last in the group is
-the **Frame End** packet. In between, we can find the rest of packets as well.
+文件的布局以 **信息头 (info header)** 开始，然后是一组一组的数据包集合。每组中的第一个是 **帧开始 (Frame Start)** 数据包，每组中的最后一个是 **帧结束 (Frame End)** 数据包。在两者之间，我们也可以找到其余的数据包。
 
 ![layout](img/RecorderLayout.jpg)
 
-Usually, it is a good idea to have all packets regarding events first, and then the packets
-regarding position and state later.
+通常，首先放置所有关于事件的数据包，然后再放置关于位置和状态的数据包是一个好主意。
 
-The event packets are optional, since they appear when they happen, so we could have a layout
-like this one:
+事件数据包是可选的，因为它们在发生时出现，所以我们可以有一个像这样的布局：
 
 ![layout](img/RecorderLayoutSample.jpg)
 
-In **frame 1** some actors are created and reparented, so we can observe its events in the image.
-In **frame 2** there are no events. In **frame 3** some actors have collided so the collision event
-appears with that info. In **frame 4** the actors are destroyed.
+在 **第 1 帧** 中创建了一些角色并重新指定了父级，因此我们可以在图像中观察到其事件。
+在 **第 2 帧** 中没有事件。在 **第 3 帧** 中一些角色发生了碰撞，因此出现了带有该信息的碰撞事件。在 **第 4 帧** 中角色被销毁。

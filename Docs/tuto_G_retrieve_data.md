@@ -1,61 +1,61 @@
-# Retrieve simulation data
+# 检索模拟数据
 
-Learning an efficient way to retrieve simulation data is essential in CARLA. This holistic tutorial is advised for both, newcomers and more experienced users. It starts from the very beginning, and gradually dives into the many options available in CARLA.  
+学习有效检索模拟数据的方法在 CARLA 中至关重要。本综合教程建议初学者和有经验的用户都阅读。它从最基础的部分开始，逐步深入到 CARLA 中可用的许多选项。
 
-First, the simulation is initialized with custom settings and traffic. An ego vehicle is set to roam around the city, optionally with some basic sensors. The simulation is recorded, so that later it can be queried to find the highlights. After that, the original simulation is played back, and exploited to the limit. New sensors can be added to retrieve consistent data. The weather conditions can be changed. The recorder can even be used to test specific scenarios with different outputs.  
+首先，使用自定义设置和交通流初始化模拟。主车（ego vehicle）被设置为在城市中漫游，可以选择带有一些基础传感器。模拟过程会被录制，以便稍后可以进行查询以查找亮点。之后，回放原始模拟，并挖掘其极限。可以添加新传感器来检索一致的数据。可以改变天气条件。录制器甚至可以用来测试具有不同输出的特定场景。
 
-*   [__Overview__](#overview)  
-*   [__Set the simulation__](#set-the-simulation)  
-	*   [Map setting](#map-setting)  
-	*   [Weather setting](#weather-setting)  
-*   [__Set traffic__](#set-traffic)  
-	*   [CARLA traffic and pedestrians](#carla-traffic-and-pedestrians)  
-	*   [SUMO co-simulation traffic](#sumo-co-simulation-traffic)  
-*   [__Set the ego vehicle__](#set-the-ego-vehicle)  
-	*   [Spawn the ego vehicle](#spawn-the-ego-vehicle)  
-	*   [Place the spectator](#place-the-spectator)  
-*   [__Set basic sensors__](#set-basic-sensors)  
-	*   [RGB camera](#rgb-camera)  
-	*   [Detectors](#detectors)  
-	*   [Other sensors](#other-sensors)  
-*   [__Set advanced sensors__](#set-advanced-sensors)  
-	*   [Depth camera](#depth-camera)  
-	*   [Semantic segmentation camera](#semantic-segmentation-camera)  
-	*   [LIDAR raycast sensor](#lidar-raycast-sensor)  
-	*   [Radar sensor](#radar-sensor)  
-*   [__No-rendering-mode__](#no-rendering-mode)  
-	*   [Simulate at a fast pace](#simulate-at-a-fast-pace)  
-	*   [Manual control without rendering](#manual-control-without-rendering)  
-*   [__Record and retrieve data__](#record-and-retrieve-data)  
-	*   [Start recording](#start-recording)  
-	*   [Capture and record](#capture-and-record)  
-	*   [Stop recording](#stop-recording)  
-*   [__Exploit the recording__](#exploit-the-recording)  
-	*   [Query the events](#query-the-events)  
-	*   [Choose a fragment](#choose-a-fragment)  
-	*   [Retrieve more data](#retrieve-more-data)  
-	*   [Change the weather](#change-the-weather)  
-	*   [Try new outcomes](#try-new-outcomes)  
-*   [__Tutorial scripts__](#tutorial-scripts)  
+*   [__概述__](#overview)  
+*   [__设置模拟__](#set-the-simulation)  
+    *   [地图设置](#map-setting)  
+    *   [天气设置](#weather-setting)  
+*   [__设置交通__](#set-traffic)  
+    *   [CARLA 交通和行人](#carla-traffic-and-pedestrians)  
+    *   [SUMO 协同仿真交通](#sumo-co-simulation-traffic)  
+*   [__设置主车__](#set-the-ego-vehicle)  
+    *   [生成主车](#spawn-the-ego-vehicle)  
+    *   [放置观察者](#place-the-spectator)  
+*   [__设置基础传感器__](#set-basic-sensors)  
+    *   [RGB 相机](#rgb-camera)  
+    *   [检测器](#detectors)  
+    *   [其他传感器](#other-sensors)  
+*   [__设置高级传感器__](#set-advanced-sensors)  
+    *   [深度相机](#depth-camera)  
+    *   [语义分割相机](#semantic-segmentation-camera)  
+    *   [激光雷达射线投射传感器](#lidar-raycast-sensor)  
+    *   [雷达传感器](#radar-sensor)  
+*   [__无渲染模式__](#no-rendering-mode)  
+    *   [以较快速度模拟](#simulate-at-a-fast-pace)  
+    *   [无渲染的手动控制](#manual-control-without-rendering)  
+*   [__记录和检索数据__](#record-and-retrieve-data)  
+    *   [开始记录](#start-recording)  
+    *   [捕获并记录](#capture-and-record)  
+    *   [停止记录](#stop-recording)  
+*   [__挖掘记录__](#exploit-the-recording)  
+    *   [查询事件](#query-the-events)  
+    *   [选择片段](#choose-a-fragment)  
+    *   [检索更多数据](#retrieve-more-data)  
+    *   [改变天气](#change-the-weather)  
+    *   [尝试新结果](#try-new-outcomes)  
+*   [__教程脚本__](#tutorial-scripts)  
 
 ---
-## Overview
+## 概述
 
-There are some common mistakes in the process of retrieving simulation data. Flooding the simulator with sensors, storing useless data, or struggling to find a specific event are some examples. However, some outlines to this process can be provided. The goal is to ensure that data can be retrieved and replicated, and the simulation can be examined and altered at will.  
+在检索模拟数据的过程中存在一些常见错误。例如，让模拟器充斥着传感器、存储无用的数据或费力地寻找特定事件。但是，可以提供此过程的一些大纲。目标是确保数据可以被检索和复制，并且可以随意检查和更改模拟。
 
-!!! Note
-    This tutorial uses the [__CARLA 0.9.8 deb package__](start_quickstart.md). There may be minor changes depending on your CARLA version and installation, specially regarding paths.
+!!! 注意 (Note)
+    本教程使用 [__CARLA 0.9.8 deb 软件包__](start_quickstart.md)。根据您的 CARLA 版本和安装方式，可能会有一些微小的变化，特别是关于路径。
 
-The tutorial presents a wide set of options for the differents steps. All along, different scripts will be mentioned. Not all of them will be used, it depends on the specific use cases. Most of them are already provided in CARLA for generic purposes.  
+本教程为不同步骤提供了广泛的选项。在此过程中，将提到不同的脚本。并非所有脚本都会被使用，这取决于具体的用例。其中大多数已在 CARLA 中提供用于通用目的。
 
 * __config.py__ changes the simulation settings. Map, rendering options, set a fixed time-step...  
-	* `carla/PythonAPI/util/config.py`
+    * `carla/PythonAPI/util/config.py`
 * __dynamic_weather.py__ creates interesting weather conditions.  
-	* `carla/PythonAPI/examples/dynamic_weather.py`
+    * `carla/PythonAPI/examples/dynamic_weather.py`
 * __spawn_npc.py__ spawns some AI controlled vehicles and walkers.  
-	* `carla/PythonAPI/examples/spawn_npc.py`
+    * `carla/PythonAPI/examples/spawn_npc.py`
 * __manual_control.py__ spawns an ego vehicle, and provides control over it.  
-	* `carla/PythonAPI/examples/manual_control.py`
+    * `carla/PythonAPI/examples/manual_control.py`
 
 However, there are two scripts mentioned along the tutorial that cannot be found in CARLA. They contain the fragments of code cited. This serves a twofold purpose. First of all, to encourage users to build their own scripts. It is important to have full understanding of what the code is doing. In addition to this, the tutorial is only an outline that may, and should, vary a lot depending on user preferences. These two scripts are just an example.  
 
@@ -68,7 +68,7 @@ The full code can be found in the last section of the tutorial. Remember these a
     This tutorial requires some knowledge of Python.
 
 ---
-## Set the simulation
+## 设置模拟
 
 The first thing to do is set the simulation ready to a desired environment.  
 
@@ -79,7 +79,7 @@ cd /opt/carla/bin
 ./CarlaUE.sh
 ```
 
-### Map setting
+### 地图设置
 
 Choose a map for the simulation to run. Take a look at the [map documentation](core_map.md#carla-maps) to learn more about their specific attributes. For the sake of this tutorial, __Town07__ is chosen. 
 
@@ -124,7 +124,7 @@ This script can enable different settings. Some of them will be mentioned during
 ![tuto_map](img/tuto_map.jpg)
 <div style="text-align: right"><i>Aerial view of Town07</i></div>
 
-### Weather setting
+### 天气设置
 
 Each town is loaded with a specific weather that fits it, however this can be set at will. There are two scripts that offer different approaches to the matter. The first one sets a dynamic weather that changes conditions over time. The other sets custom weather conditions. It is also possible to code weather conditions. This will be covered later when [changing weather conditions](#change-the-weather).  
 
@@ -170,11 +170,11 @@ python3 environment.py --clouds 100 --rain 80 --wetness 100 --puddles 60 --wind 
 <div style="text-align: right"><i>Weather changes applied</i></div>
 
 ---
-## Set traffic
+## 设置交通
 
 Simulating traffic is one of the best ways to bring the map to life. It is also necessary to retrieve data for urban environments. There are different options to do so in CARLA.  
 
-### CARLA traffic and pedestrians
+### CARLA 交通和行人
 
 The CARLA traffic is managed by the [Traffic Manager](adv_traffic_manager.md) module. As for pedestrians, each of them has their own [carla.WalkerAIController](python_api.md#carla.WalkerAIController). 
 
@@ -206,7 +206,7 @@ python3 spawn_npc.py -n 50 -w 50 --safe
 ![tuto_spawning](img/tuto_spawning.jpg)
 <div style="text-align: right"><i>Vehicles spawned to simulate traffic.</i></div>
 
-### SUMO co-simulation traffic
+### SUMO 协同仿真交通
 
 CARLA can run a co-simulation with SUMO. This allows for creating traffic in SUMO that will be propagated to CARLA. This co-simulation is bidirectional. Spawning vehicles in CARLA will do so in SUMO. Specific docs on this feature can be found [here](adv_sumo.md).  
 
@@ -244,11 +244,11 @@ The traffic generated by this script is an example created by the CARLA team. By
     Right now, SUMO co-simulation is a beta feature. Vehicles do not have physics nor take into account CARLA traffic lights. 
 
 ---
-## Set the ego vehicle
+## 设置主车
 
 From now up to the moment the recorder is stopped, there will be some fragments of code belonging to __tutorial_ego.py__. This script spawns the ego vehicle, optionally some sensors, and records the simulation until the user finishes the script. 
 
-### Spawn the ego vehicle
+### 生成主车
 
 Vehicles controlled by the user are commonly differenciated in CARLA by setting the attribute `role_name` to `ego`. Other attributes can be set, some with recommended values.  
 
@@ -277,7 +277,7 @@ else:
     logging.warning('Could not found any spawn points')
 ```
 
-### Place the spectator
+### 放置观察者
 
 The spectator actor controls the simulation view. Moving it via script is optional, but it may facilitate finding the ego vehicle. 
 
@@ -291,7 +291,7 @@ spectator.set_transform(ego_vehicle.get_transform())
 ```
 
 ---
-## Set basic sensors
+## 设置基础传感器
 
 The process to spawn any sensor is quite similar.  
 
@@ -302,7 +302,7 @@ __4.__ Add a `listen()` method. This is the key element. A [__lambda__](https://
 
 Having this basic guideline in mind, let's set some basic sensors for the ego vehicle. 
 
-### RGB camera
+### RGB 相机
 
 The [RGB camera](ref_sensors.md#rgb-camera) generates realistic pictures of the scene. It is the sensor with more settable attributes of them all, but it is also a fundamental one. It should be understood as a real camera, with attributtes such as `focal_distance`, `shutter_speed` or `gamma` to determine how it would work internally. There is also a specific set of attributtes to define the lens distorsion, and lots of advanced attributes. For example, the `lens_circle_multiplier` can be used to achieve an effect similar to an eyefish lens. Learn more about them in the [documentation](ref_sensors.md#rgb-camera). 
 
@@ -333,7 +333,7 @@ ego_cam.listen(lambda image: image.save_to_disk('tutorial/output/%.6d.jpg' % ima
 ![tuto_rgb](img/tuto_rgb.jpg)
 <div style="text-align: right"><i>RGB camera output</i></div>
 
-### Detectors
+### 检测器
 
 These sensors retrieve data when the object they are attached to registers a specific event. There are three type of detector sensors, each one describing one type of event.  
 
@@ -395,7 +395,7 @@ ego_obs.listen(lambda obs: obs_callback(obs))
 ![tuto_detectors](img/tuto_detectors.jpg)
 <div style="text-align: right"><i>Output for detector sensors</i></div>
 
-### Other sensors
+### 其他传感器
 
 Only two sensors of this category will be considered for the time being.  
 
@@ -442,11 +442,11 @@ ego_imu.listen(lambda imu: imu_callback(imu))
 <div style="text-align: right"><i>GNSS and IMU sensors output</i></div>
 
 ---
-## Set advanced sensors
+## 设置高级传感器
 
 The script __tutorial_replay.py__, among other things, contains definitions for more sensors. They work in the same way as the basic ones, but their comprehension may be a bit harder.
 
-### Depth camera
+### 深度相机
 
 The [depth camera](ref_sensors.md#depth-camera) generates pictures of the scene that map every pixel in a grayscale depth map. However, the output is not straightforward. The depth buffer of the camera is mapped using a RGB color space. This has to be translated to grayscale to be comprehensible.  
 
@@ -474,7 +474,7 @@ depth_cam.listen(lambda image: image.save_to_disk('tutorial/new_depth_output/%.6
 ![tuto_depths](img/tuto_depths.jpg)
 <div style="text-align: right"><i>Depth camera output. Simple conversion on the left, logarithmic on the right.</i></div>
 
-### Semantic segmentation camera
+### 语义分割相机
 
 The [semantic segmentation camera](ref_sensors.md#semantic-segmentation-camera) renders elements in scene with a different color depending on how these have been tagged. The tags are created by the simulator depending on the path of the asset used for spawning. For example, meshes tagged as `Pedestrians` are spawned with content stored in `Unreal/CarlaUE4/Content/Static/Pedestrians`.  
 
@@ -502,7 +502,7 @@ sem_cam.listen(lambda image: image.save_to_disk('tutorial/new_sem_output/%.6d.jp
 ![tuto_sem](img/tuto_sem.jpg)
 <div style="text-align: right"><i>Semantic segmentation camera output</i></div>
 
-### LIDAR raycast sensor
+### 激光雷达射线投射传感器
 
 The [LIDAR sensor](ref_sensors.md#lidar-raycast-sensor) simulates a rotating LIDAR. It creates a cloud of points that maps the scene in 3D. The LIDAR contains a set of lasers that rotate at a certain frequency. The lasers raycast the distance to impact, and store every shot as one single point.  
 
@@ -552,7 +552,7 @@ __3.__ Open one of the _.ply_ files. `File > Import mesh...`
 ![tuto_lidar](img/tuto_lidar.jpg)
 <div style="text-align: right"><i>LIDAR output after being processed in Meshlab.</i></div>
 
-### Radar sensor
+### 雷达传感器
 
 The [radar sensor](ref_sensors.md#radar-sensor) is similar to de LIDAR. It creates a conic view, and shoots lasers inside to raycast their impacts. The output is a [carla.RadarMeasurement](python_api.md#carlaradarmeasurement). It contains a list of the [carla.RadarDetection](python_api.md#carlaradardetection) retrieved by the lasers. These are not points in space, but detections with data regarding the sensor: `azimuth`, `altitude`, `sensor` and `velocity`. 
 
@@ -624,7 +624,7 @@ rad_ego.listen(lambda radar_data: rad_callback(radar_data))
 
 The [no-rendering mode](adv_rendering_options.md) can be useful to run an initial simulation that will be later played again to retrieve data. Especially if this simulation has some extreme conditions, such as dense traffic.  
 
-### Simulate at a fast pace 
+### 以较快速度模拟 
 
 Disabling the rendering will save up a lot of work to the simulation. As the GPU is not used, the server can work at full speed. This could be useful to simulate complex conditions at a fast pace. The best way to do so would be by setting a fixed time-step. Running an asynchronous server with a fixed time-step and no rendering, the only limitation for the simulation would be the inner logic of the server.  
 
@@ -638,7 +638,7 @@ python3 config.py --no-rendering --delta-seconds 0.05 # Never greater than 0.1s
 !!! Warning
     Read the [documentation](adv_synchrony_timestep.md) before messing around with with synchrony and time-step.
 
-### Manual control without rendering
+### 无渲染的手动控制
 
 The script `PythonAPI/examples/no_rendering_mode.py` provides an overview of the simulation. It creates a minimalistic aerial view with Pygame, that will follow the ego vehicle. This could be used along with __manual_control.py__ to generate a route with barely no cost, record it, and then play it back and exploit it to gather data. 
 
@@ -678,9 +678,9 @@ python3 no_rendering_mode.py --no-rendering
     In this mode, GPU-based sensors will retrieve empty data. Cameras are useless, but other sensors such as detectors will work properly. 
 
 ---
-## Record and retrieve data
+## 记录和检索数据
 
-### Start recording
+### 开始记录
 
 The [__recorder__](adv_recorder.md) can be started at anytime. The script does it at the very beginning, in order to capture everything, including the spawning of the first actors. If no path is detailed, the log will be saved into `CarlaUE4/Saved`. 
 
@@ -691,7 +691,7 @@ The [__recorder__](adv_recorder.md) can be started at anytime. The script does i
 client.start_recorder('~/tutorial/recorder/recording01.log')
 ```
 
-### Capture and record
+### 捕获并记录
 
 There are many different ways to do this. Mostly it goes down as either let it roam around or control it manually. The data for the sensors spawned will be retrieved on the fly. Make sure to check it while recording, to make sure everything is set properly.  
 
@@ -718,7 +718,7 @@ python3 manual_control.py
 !!! Note
     To avoid rendering and save up computational cost, enable [__no rendering mode__](adv_rendering_options.md#no-rendering-mode). The script `/PythonAPI/examples/no_rendering_mode.py` does this while creating a simple aerial view.  
 
-### Stop recording 
+### 停止记录 
 
 The stop call is even simpler than the start call was. When the recorder is done, the recording will be saved in the path stated previously. 
 
@@ -730,7 +730,7 @@ client.stop_recorder()
 ```
 
 ---
-## Exploit the recording
+## 挖掘记录
 
 So far, a simulation has been recorded. Now, it is time to examine the recording, find the most remarkable moments, and work with them. These steps are gathered in the script, __tutorial_replay.py__.  The outline is structured in different segments of code commented.  
 
@@ -745,7 +745,7 @@ To reenact the simulation, [choose a fragment](#choose-a-fragment) and run the s
 python3 tuto_replay.py
 ```
 
-### Query the events
+### 查询事件
 
 The different queries are detailed in the [__recorder documentation__](adv_recorder.md). In summary, they retrieve data for specific events or frames. Use the queries to study the recording. Find the spotlight moments, and trace what can be of interest.  
 
@@ -776,7 +776,7 @@ print(client.show_recorder_collisions("~/tutorial/recorder/recording01.log",'v',
 !!! Note
     Getting detailed file info for every frame can be overwhelming. Use it after other queries to know where to look at. 
 
-### Choose a fragment
+### 选择片段
 
 After the queries, it may be a good idea play some moments of the simulation back, before messing around. It is very simple to do so, and it could be really helpful. Know more about the simulation. It is the best way to save time later.  
 
@@ -798,7 +798,7 @@ Here is a list of possible things to do now.
 !!! Note
     When the recording stops, the simulation doesn't. Walkers will stand still, and vehicles will continue roaming around. This may happen either if the log ends, or the playback gets to the ending point stated. 
 
-### Retrieve more data
+### 检索更多数据
 
 The recorder will recreate in this simulation, the exact same conditions as the original. That ensures consistent data within different playbacks.  
 
@@ -806,7 +806,7 @@ Gather a list of the important moments, actors and events. Add sensors whenever 
 
 Add as many sensors as needed, wherever they are needed. Play the simulation back as many times as desired and retrieve as much data as desired.  
 
-### Change the weather
+### 改变天气
 
 The recording will recreate the original weather conditions. However, these can be altered at will. This may be interesting to compare how does it affect sensors, while mantaining the rest of events the same.  
 
@@ -823,7 +823,7 @@ weather.fog_distance = 10
 world.set_weather(weather)
 ```
 
-### Try new outcomes
+### 尝试新结果
 
 The new simulation is not strictly linked to the recording. It can be modified anytime, and even when the recorder stops, the simulation goes on. 
 
@@ -832,7 +832,7 @@ This can be profitable for the user. For instance, collisions can be forced or a
 Change the conditions and mess with the simulation. There is nothing to lose, as the recorder grants that the initial simulation can always be reenacted. This is the key to exploit the full potential of CARLA. 
 
 ---
-## Tutorial scripts
+## 教程脚本
 
 Hereunder are the two scripts gathering the fragments of code for this tutorial. Most of the code is commented, as it is meant to be modified to fit specific purposes.
 

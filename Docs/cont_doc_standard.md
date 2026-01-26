@@ -7,7 +7,7 @@
 *   [__例外__](#exceptions)  
 
 ---
-## Docs structure
+## 文档结构 (Docs structure)
 
 我们使用 Markdown 和 HTML 标签的组合来自定义文档以及 [`extra.css`](https://github.com/carla -simulator/carla/tree/master/Docs/extra.css) 文件.
 要更新 Python API 文档，而不是直接修改 Markdown，您需要在 [`carla/PythonAPI/docs/`][fileslink] 中编辑相应的 YAML 文件并运行 [`doc_gen.py`][scriptlink] 或 `make PythonAPI .docs`.
@@ -18,7 +18,7 @@
 [scriptlink]: https://github.com/carla-simulator/carla/blob/master/PythonAPI/docs/doc_gen.py
 
 ---
-## Rules
+## 规则 (Rules)
 
 * 在章节之间和文档末尾始终留空行。
 * 写作不应超过 100 列，HTML 相关内容、markdown 表、代码片段和引用链接除外。
@@ -28,7 +28,7 @@
 * 使用 `-----` 为标题或层次结构加下划线来制作标题并将它们显示在导航栏中。
 
 ---
-## Exceptions
+## 例外 (Exceptions)
 
  * 通过 Python API 参考等 Python 脚本生成的文档
 
